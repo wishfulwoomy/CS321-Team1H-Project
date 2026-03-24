@@ -1,4 +1,4 @@
-import java.util.ArrayList<User>;
+import java.util.ArrayList;
 
 public class UserDB {
     private ArrayList<User> userList;
