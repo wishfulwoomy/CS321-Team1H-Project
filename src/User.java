@@ -1,36 +1,62 @@
+import java.util.ArrayList;
+
 public class User {
     private String name;
     private int userID;
     private String password;
-    //ArrayList<Wishlist> AllWishlists
+    ArrayList<Wishlist> AllWishlists;
 
     User(String username, int id, String pass){
         name = username;
         userID = id;
         password = pass;
-        //AllWishlists = new ArrayList<>();
+        AllWishlists = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName(){
         return name;
     }
 
+    /**
+     *
+     * @param newName
+     */
     public void setName(String newName){
         name = newName;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getID(){
         return userID;
     }
 
+    /**
+     *
+     * @param newID
+     */
     public void setID(int newID){
         userID = newID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword(){
         return password;
     }
 
+    /**
+     *
+     * @param newPass
+     */
     public void setPassword(String newPass){
         password = newPass;
     }
