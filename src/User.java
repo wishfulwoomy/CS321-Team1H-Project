@@ -6,7 +6,13 @@ public class User {
     private String password;
     ArrayList<Wishlist> AllWishlists;
 
-    User(String username, int id, String pass){
+    /**
+     * Class constructor to initialize user attributes
+     * @param username user's username
+     * @param id user's ID
+     * @param pass user's password
+     */
+    public User(String username, int id, String pass){
         name = username;
         userID = id;
         password = pass;
