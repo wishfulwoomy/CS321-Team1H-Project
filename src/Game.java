@@ -34,6 +34,8 @@ public class Game
         this.reviews = new ArrayList<Review>();
      }
 
+
+
      /** method to add a review 
       * @param r the review to be added
       * Also update the average rating.
@@ -47,12 +49,20 @@ public class Game
 
      /** This method removes a review and updates the average rating.
       * @param r the review to be removed
-      * @return void
+      * @return boolean indicating whether the review was successfully removed
       */
-     public void removeReview(Review r)
+     public boolean removeReview(Review r)
      {
-        this.reviews.remove(r);
-        calculateAverageRating();
+        boolean removedItem = this.reviews.remove(r);
+        if (removedItem)
+        {
+            calculateAverageRating();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
      }
 
      /** Calculate the average rating
@@ -70,5 +80,69 @@ public class Game
         }
         this.avgRating = reviews.size() > 0 ? totalRating / reviews.size() : 0.0;
         return this.avgRating;
+     }
+
+     /** geth the game id
+      * @return the game id
+      */
+     public String getGameID()
+     {
+         return this.gameID;
+     }
+
+     /** get the title of the game
+      * @return the title
+      */
+     public String getTitle()
+     {
+         return this.title;
+     }
+
+     /** get the description of the game
+      * @return description
+      */
+     public String getDescription()
+     {
+         return this.description;
+     }
+
+     /** get the minimum number of players
+      * @return the minimum number of players
+      */
+     public int getMinPlayers()
+     {
+         return this.minPlayers;
+     }
+
+     /** get the maximum number of players
+      * @return in with the max number of players
+      */
+     public int getMaxPlayers()
+     {
+         return this.maxPlayers;
+     }
+
+     /** gives us the estimated play time in minutes 
+      * @return int with the estimated play time.
+      * */ 
+     public int getPlayTimeMinutes()
+     {
+         return this.playTimeMinutes;
+     }
+
+     /** get the average rating of the game
+      * @return double with the average rating
+      */
+     public double getAvgRating()
+     {
+         return this.avgRating;
+     }
+
+     /** get the list of reviews for the game
+      * @return list of reviews
+      */
+     public List<Review> getReviews()
+     {
+         return this.reviews;
      }
 }
