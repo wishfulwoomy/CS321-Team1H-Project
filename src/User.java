@@ -14,77 +14,67 @@ public class User {
     }
 
     /**
-     *
-     * @return
+     * Returns the user's username
+     * @return the user's username
      */
     public String getName(){
         return name;
     }
 
     /**
-     *
-     * @param newName
+     * Change the user's username
+     * @param newName the new username
      */
     public void setName(String newName){
         name = newName;
     }
 
     /**
-     *
-     * @return
+     * Return the user's ID
+     * @return the user account's ID
      */
     public int getID(){
         return userID;
     }
 
-    /**
-     *
-     * @param newID
-     */
-    public void setID(int newID){
-        userID = newID;
-    }
 
     /**
-     *
-     * @return
+     * Return the user's current password
+     * @return the user's password
      */
     public String getPassword(){
         return password;
     }
 
     /**
-     *
-     * @param newPass
+     * Change the user's password
+     * @param newPass the new password
      */
     public void setPassword(String newPass){
         password = newPass;
     }
 
-    /*
-    public bool isCorrect(){
-
-    }
-    */
-    /*I'm assuming that this is checking to see if the pass the user types in is the same as the pass the user set.
-    If so, this might be a class that we need to put in  LoginView or something. */
-
-    /*
+    /**
+     * Creates a new instance of a wishlist and appends it to the list of all wishlists
+     */
     public void createWishlist(){
-        Wishlist list = new Wishlist(<parameters>);
-        AllWishLists.add(list);
+        Wishlist list = new Wishlist(name);
+        AllWishlists.add(list);
     }
-    */
 
-    /*
+    /**
+     *
+     * @return the list of all the user's wishlists
+     */
     public ArrayList<Wishlist> getWishlists(){
-        return AllWishLists;
+        return AllWishlists;
     }
-    */
 
-    /*
+    /**
+     * Deletes a wishlist
+     * @param listName the name of the wishlist the user will delete
+     */
     public void deleteWishlist(Wishlist listName){
-        AllWishLists.remove(listName)
+        AllWishlists.remove(listName);
     }
-    */
 }
