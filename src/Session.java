@@ -5,6 +5,7 @@ public class Session {
      */
     public Session() {
         loggedIn = false;
+        // Add in default text size and contrast
     }
 
     /**

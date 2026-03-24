@@ -21,10 +21,11 @@ public class Wishlist {
 
     /**
      *
-     * @param index
+     * @param removeGame
      */
-    public void remove(int index) {
-
+    public void remove(Game removeGame) {
+        games.remove(removeGame);
+        size -= 1;
     }
 
     /**
@@ -32,7 +33,7 @@ public class Wishlist {
      * @return
      */
     public int getSize() {
-
+        return size;
     }
 
     /**
@@ -56,7 +57,10 @@ public class Wishlist {
      * @return
      */
     public boolean isEmpty() {
-
+        if (size == 0) {
+            return true;
+        }
+        else return false;
     }
 
     private int size;
