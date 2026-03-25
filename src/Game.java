@@ -165,4 +165,13 @@ public class Game
         {
             this.gameID = id;
         }
+
+        /** sets the description of the game
+         * @param desc the description
+         * @return void
+         */
+        public void setDescription(String desc)
+        {
+            this.description = desc;
+        }
 }
