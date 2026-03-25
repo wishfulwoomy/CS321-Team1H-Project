@@ -11,9 +11,10 @@ import java.util.List;
 
 public class GameParser 
 {
+
     /**
      * Parses an XML file containing board game data into a List of Game objects.
-     * * @param inputStream The input stream of the XML file (e.g., from resources)
+     * @param inputStream The input stream of the XML file
      * @return A list of Game objects parsed from the XML
      */
     public static List<Game> parseGames(InputStream inputStream) 
@@ -22,18 +23,14 @@ public class GameParser
 
         try 
         {
-            // Set up the standard Java XML Document Builder
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(inputStream);
             
-            // Normalize the XML structure (good practice for standardizing text formatting)
             document.getDocumentElement().normalize();
 
-            // Get all <item> tags from the XML
             NodeList nodeList = document.getElementsByTagName("item");
 
-            // Loop through every <item> found
             for (int i = 0; i < nodeList.getLength(); i++) 
             {
                 Node node = nodeList.item(i);
@@ -42,10 +39,10 @@ public class GameParser
                 {
                     Element element = (Element) node;
 
-                    // 1. Extract the ID from the <item id="..."> attribute
+                    // 1. Extract the ID 
                     String gameId = element.getAttribute("id");
 
-                    // 2. Extract the Title from the <name value="..."> tag
+                    // 2. Extract the Title 
                     String title = "Unknown Title";
                     NodeList nameList = element.getElementsByTagName("name");
                     if (nameList.getLength() > 0) 
@@ -54,14 +51,48 @@ public class GameParser
                         title = nameElement.getAttribute("value");
                     }
 
-                    // 3. Create the Game object. 
-                    // NOTE: Passing 0 for min/max/time because the XML doesn't provide them yet.
-                    Game game = new Game(title, 0, 0, 0);
-                    
-                    // NOTE: Your Game class currently lacks a setGameID() method, 
-                    // so we cannot assign the gameId we just extracted.
-                    // game.setGameID(gameId); // Uncomment this once the setter is added to Game.java
+                    // 3. Extract Min Players
+                    int minPlayers = 0;
+                    NodeList minList = element.getElementsByTagName("minplayers");
+                    if (minList.getLength() > 0) 
+                    {
+                        Element minElement = (Element) minList.item(0);
+                        String minString = minElement.getAttribute("value");
+                        if (!minString.isEmpty()) 
+                        {
+                            minPlayers = Integer.parseInt(minString);
+                        }
+                    }
 
+                    // 4. Extract Max Players
+                    int maxPlayers = 0;
+                    NodeList maxList = element.getElementsByTagName("maxplayers");
+                    if (maxList.getLength() > 0) 
+                    {
+                        Element maxElement = (Element) maxList.item(0);
+                        String maxString = maxElement.getAttribute("value");
+                        if (!maxString.isEmpty()) 
+                        {
+                            maxPlayers = Integer.parseInt(maxString);
+                        }
+                    }
+
+                    // 5. Extract Play Time
+                    int playTime = 0;
+                    NodeList timeList = element.getElementsByTagName("playingtime");
+                    if (timeList.getLength() > 0) 
+                    {
+                        Element timeElement = (Element) timeList.item(0);
+                        String timeString = timeElement.getAttribute("value");
+                        if (!timeString.isEmpty()) 
+                        {
+                            playTime = Integer.parseInt(timeString);
+                        }
+                    }
+
+                    // 6. Create the Game object using the real data!
+                    Game game = new Game(title, minPlayers, maxPlayers, playTime);
+                    
                     gamesList.add(game);
                 }
             }
