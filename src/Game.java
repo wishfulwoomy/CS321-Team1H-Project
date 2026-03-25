@@ -34,7 +34,18 @@ public class Game
         this.reviews = new ArrayList<Review>();
      }
 
-
+     /** overloaded constructor for the Game class
+      * @param t The title of the game
+      */
+     public Game (String t)
+     {
+        this.title = t;
+        this.minPlayers = 0;
+        this.maxPlayers = 0;
+        this.playTimeMinutes = 0;
+        this.avgRating = 0.0;
+        this.reviews = new ArrayList<Review>();
+     }
 
      /** method to add a review 
       * @param r the review to be added
@@ -145,4 +156,13 @@ public class Game
      {
          return this.reviews;
      }
+
+     /** seth the game ID
+      * @param id the game ID to be set
+      * @return void 
+      */
+        public void setGameID(String id)
+        {
+            this.gameID = id;
+        }
 }
