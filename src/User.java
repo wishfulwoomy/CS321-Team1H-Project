@@ -16,7 +16,7 @@ public class User {
         name = username;
         userID = id;
         password = pass;
-        AllWishlists = new ArrayList<>();
+        AllWishlists = new ArrayList<Wishlist>();
     }
 
     /**
@@ -62,8 +62,9 @@ public class User {
 
     /**
      * Creates a new instance of a wishlist and appends it to the list of all wishlists
+     * @param name The name of the new wishlist
      */
-    public void createWishlist(){
+    public void createWishlist(String name){
         Wishlist list = new Wishlist(name);
         AllWishlists.add(list);
     }

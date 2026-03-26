@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class UserDB {
     private ArrayList<User> userList;
@@ -10,13 +11,45 @@ public class UserDB {
         userList = new ArrayList();
     }
 
-    //INCOMLPETE
+    /**
+     * Adds a user account to the database
+     * @param newUser new account object
+     */
+    public void addUser(User newUser){
+        userList.add(newUser);
+    }
+
+    //INCOMPLETE
     private void loadUsers(String inputPath){
 
     }
 
-    //INCOMPLETE
-    public User searchUsers(String username, String password){
-        return null;
+    /**
+     * If the user exists in the list, return the user
+     * @param searchUser The user being searched for
+     * @return The user
+     */
+    public User searchUsers(User searchUser){
+
+        if(userFound(searchUser)){
+
+            for (int i = 0; i < userList.size(); i++){
+                if(searchUser.equals(userList.get(i))){
+                    return userList.get(i);
+                }
+            }
+        }
+        else{
+            throw new NoSuchElementException("This user does not exist.");
+        }
+    }
+
+    /**
+     * Check if a user object exists in the database
+     * @param object A User account
+     * @return True/false if the user is found/not found
+     */
+    public boolean userFound(User object){
+        return userList.contains(object);
     }
 }
