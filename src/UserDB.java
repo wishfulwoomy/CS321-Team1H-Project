@@ -29,6 +29,7 @@ public class UserDB {
      * @param searchUser The user being searched for
      * @return The user
      */
+    /*
     public User searchUsers(User searchUser){
 
         if(userFound(searchUser)){
@@ -43,6 +44,7 @@ public class UserDB {
             throw new NoSuchElementException("This user does not exist.");
         }
     }
+     */
 
     /**
      * Check if a user object exists in the database
