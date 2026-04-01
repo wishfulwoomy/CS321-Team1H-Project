@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UserDB>
+    <User>
+        <name>PlayerOne</name>
+        <userID>1001</userID>
+        <password>SuperSecret123!</password>
+        <AllWishlists>
+            <Wishlist>
+                <name>Holiday Sale Targets</name>
+            </Wishlist>
+            <Wishlist>
+                <name>Multiplayer Games</name>
+            </Wishlist>
+        </AllWishlists>
+    </User>
+
+    <User>
+        <name>GamerGirl99</name>
+        <userID>1002</userID>
+        <password>P@ssw0rd2024</password>
+        <AllWishlists>
+            <Wishlist>
+                <name>Cozy Farming Sims</name>
+            </Wishlist>
+        </AllWishlists>
+    </User>
+
+    <User>
+        <name>CasualSteve</name>
+        <userID>1003</userID>
+        <password>stevepass</password>
+        <AllWishlists>
+            </AllWishlists>
+    </User>
+</UserDB>
