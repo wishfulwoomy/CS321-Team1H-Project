@@ -1,27 +1,14 @@
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
-public class UserDB {
+public class UserSearch {
     private ArrayList<User> userList;
 
     /**
-     *  Creates an array to store all user accounts
+     * Initializes the search class with the parsed user list
+     * @param userList The database of users to search
      */
-    public UserDB(){
-        userList = new ArrayList();
-    }
-
-    /**
-     * Adds a user account to the database
-     * @param newUser new account object
-     */
-    public void addUser(User newUser){
-        userList.add(newUser);
-    }
-
-    //INCOMPLETE
-    private void loadUsers(String inputPath){
-
+    public UserSearch(ArrayList<User> userList) {
+        this.userList = userList;
     }
 
     /**
