@@ -26,25 +26,25 @@ public class UserDB {
 
     /**
      * If the user exists in the list, return the user
-     * @param searchUser The user being searched for
+     * @param username The username being searched for
+     * @param pass The password being searched for
      * @return The user
      */
-    /*
-    public User searchUsers(User searchUser){
-
-        if(userFound(searchUser)){
-
-            for (int i = 0; i < userList.size(); i++){
-                if(searchUser.equals(userList.get(i))){
-                    return userList.get(i);
-                }
+    
+    public User searchUser (String username, String pass)
+    {
+        for (User user : userList)
+        {
+            if (user.getName().equals(username) && user.getPassword().equals(pass))
+            {
+                return user;
             }
         }
-        else{
-            throw new NoSuchElementException("This user does not exist.");
-        }
+        System.out.println("User not found. Please try a different username or password.");
+        return null; 
+
     }
-     */
+     
 
     /**
      * Check if a user object exists in the database
