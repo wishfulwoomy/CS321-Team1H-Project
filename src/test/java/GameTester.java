@@ -1,4 +1,9 @@
-public class GameTester 
+package test.java;
+
+import main.java.org.example.model.Game;
+import main.java.org.example.model.Review;
+
+public class GameTester
 {
     public static void main(String[] args)
     {
@@ -12,7 +17,7 @@ public class GameTester
         game1.addReview(review1);
         game1.addReview(review2);
 
-        System.out.println("Game: " + game1.getTitle());
+        System.out.println("main.java.org.example.model.Game: " + game1.getTitle());
         System.out.println("Description: " + game1.getDescription());
         System.out.println("Min Players: " + game1.getMinPlayers());
         System.out.println("Max Players: " + game1.getMaxPlayers());

@@ -1,7 +1,9 @@
+package main.java.org.example.model;
+
 import java.util.ArrayList;
 
 /**
- * This class stores a personal game database for the User
+ * This class stores a personal game database for the main.java.org.example.model.User
  */
 public class Wishlist {
 

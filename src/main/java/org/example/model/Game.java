@@ -1,4 +1,4 @@
-/** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
+package main.java.org.example.model; /** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
  * @version 1.0
  * @since 03/23/2026
  * This class represents a game, with its title, description, and various other attributes.
@@ -17,7 +17,7 @@ public class Game
     private double avgRating;
     private List<Review> reviews;
 
-     /** Constuctor for the Game class
+     /** Constuctor for the main.java.org.example.model.Game class
       * @param t The title of the game
       * @param min The minimum players needed.
       * @param max The maximum players allowed.
@@ -34,7 +34,7 @@ public class Game
         this.reviews = new ArrayList<Review>();
      }
 
-     /** overloaded constructor for the Game class
+     /** overloaded constructor for the main.java.org.example.model.Game class
       * @param t The title of the game
       */
      public Game (String t)

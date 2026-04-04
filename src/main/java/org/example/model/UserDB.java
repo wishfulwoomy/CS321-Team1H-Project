@@ -1,5 +1,6 @@
+package main.java.org.example.model;
+
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class UserDB {
     private ArrayList<User> userList;
@@ -30,7 +31,7 @@ public class UserDB {
      * @return The user
      */
     /*
-    public User searchUsers(User searchUser){
+    public main.java.org.example.model.User searchUsers(main.java.org.example.model.User searchUser){
 
         if(userFound(searchUser)){
 
@@ -48,7 +49,7 @@ public class UserDB {
 
     /**
      * Check if a user object exists in the database
-     * @param object A User account
+     * @param object A main.java.org.example.model.User account
      * @return True/false if the user is found/not found
      */
     public boolean userFound(User object){

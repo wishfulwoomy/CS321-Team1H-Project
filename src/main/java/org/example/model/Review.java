@@ -1,4 +1,4 @@
-/** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
+package main.java.org.example.model; /** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
  * @version 1.0
  * @since 03/23/2026 
  * This class is designed to store game reviews*/
