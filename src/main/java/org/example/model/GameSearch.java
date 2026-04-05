@@ -1,3 +1,5 @@
+package main.java.org.example.model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +14,12 @@ public class GameSearch {
      */
     public List<Game> searchGames(ArrayList<Game> games, String query) {
         SearchResults.clear();
-        for (int i=0; i<games.size(); i++) {
+        for (Game game : games) {
             if (query != null) {
-                if (!matchQuery(games.get(i), query))
+                if (!matchQuery(game, query))
                     continue;
             }
-            SearchResults.add(games.get(i)); // if game matches query, add to list
+            SearchResults.add(game); // if game matches query, add to list
         }
         return SearchResults;
     }
@@ -29,7 +31,7 @@ public class GameSearch {
      * @return A boolean true/false. True if the game matches the query, false otherwise.
      */
     public boolean matchQuery(Game game, String query) {
-        return game.toString().toLowerCase().contains(query.toLowerCase());
+        return game.getTitle().toLowerCase().contains(query.toLowerCase());
     }
 
     public boolean matchFilter(Game game) {
