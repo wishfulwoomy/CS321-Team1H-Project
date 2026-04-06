@@ -1,3 +1,7 @@
+package test.java;
+
+import main.java.org.example.model.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 

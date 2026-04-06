@@ -1,3 +1,5 @@
+package main.java.org.example.model;
+
 import java.util.ArrayList;
 
 public class UserParser {

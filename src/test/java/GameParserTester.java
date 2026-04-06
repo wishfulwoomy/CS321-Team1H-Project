@@ -1,3 +1,8 @@
+package test.java;
+
+import main.java.org.example.model.Game;
+import main.java.org.example.model.GameParser;
+
 import java.io.InputStream;
 import java.util.List;
 

@@ -1,3 +1,5 @@
+package main.java.org.example.model;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
  * @since 03/23/2026
  * This class represents a game, with its title, description, and various other attributes.
  */
+
 public class Game 
 {
     /** Attributes of a game */
@@ -19,14 +22,14 @@ public class Game
     private double avgRating;
     private List<Review> reviews;
 
-    /** * Constructor for the Game class
-     * @param t The title of the game
-     * @param min The minimum players needed.
-     * @param max The maximum players allowed.
-     * @param time How long the game could take
-     */
-    public Game(String t, int min, int max, int time)
-    {
+     /** Constructor for the Game class
+      * @param t The title of the game
+      * @param min The minimum players needed.
+      * @param max The maximum players allowed.
+      * @param time How long the game could take
+      */
+     public Game(String t, int min, int max, int time)
+     {
         this.title = t;
         this.minPlayers = min;
         this.maxPlayers = max;
@@ -71,7 +74,7 @@ public class Game
      */
     private void calculateAverageRating()
     {
-        if (reviews.isEmpty()) 
+        if (reviews.isEmpty())
         {
             this.avgRating = 0.0;
             return;
@@ -82,7 +85,7 @@ public class Game
         {
             totalRating += r.getRating();
         }
-        
+
         this.avgRating = totalRating / reviews.size();
     }
 
@@ -126,9 +129,9 @@ public class Game
         return this.maxPlayers;
     }
 
-    /** * Gets the estimated play time in minutes 
+    /** * Gets the estimated play time in minutes
      * @return the estimated play time
-     */ 
+     */
     public int getPlayTimeMinutes()
     {
         return this.playTimeMinutes;

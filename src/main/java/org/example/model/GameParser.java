@@ -1,3 +1,5 @@
+package main.java.org.example.model;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,9 +15,9 @@ public class GameParser
 {
 
     /**
-     * Parses an XML file containing board game data into a List of Game objects.
+     * Parses an XML file containing board game data into a List of main.java.org.example.model.Game objects.
      * @param inputStream The input stream of the XML file
-     * @return A list of Game objects parsed from the XML
+     * @return A list of main.java.org.example.model.Game objects parsed from the XML
      */
     public static List<Game> parseGames(InputStream inputStream) 
     {
@@ -90,7 +92,7 @@ public class GameParser
                         }
                     }
 
-                    // 6. Create the Game object using the real data!
+                    // 6. Create the main.java.org.example.model.Game object using the real data!
                     Game game = new Game(title, minPlayers, maxPlayers, playTime);
                     
                     gamesList.add(game);

@@ -1,5 +1,7 @@
+package main.java.org.example.model;
+
 /**
- * This class keeps track of the current User and whether the User is logged in
+ * This class keeps track of the current main.java.org.example.model.User and whether the main.java.org.example.model.User is logged in
  */
 public class Session {
 
