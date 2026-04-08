@@ -29,18 +29,7 @@ public class UserSearch {
                 return user;
             }
         }
-        System.out.println("User not found. Please try a different username or password.");
         return null; 
 
-    }
-     
-
-    /**
-     * Check if a user object exists in the database
-     * @param object A User account
-     * @return True/false if the user is found/not found
-     */
-    public boolean userFound(User object){
-        return userList.contains(object);
     }
 }
