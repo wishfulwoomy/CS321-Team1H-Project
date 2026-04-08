@@ -17,11 +17,6 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/org.openjfx/styles.css").toExternalForm());
 
-        Group root = new Group();
-        Scene scene = new Scene(root,1280, 720);
-
-        stage.setFullScreen(true);
-
         stage.setScene(scene);
 
         stage.setTitle("Board main.java.org.example.model.Game App");
