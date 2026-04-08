@@ -1,7 +1,10 @@
 package main.java.org.example.views;
 
 import main.java.org.example.model.Game;
-import javax.swing.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class MainView {
     private String search;
