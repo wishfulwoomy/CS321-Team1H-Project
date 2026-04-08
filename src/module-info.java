@@ -3,6 +3,7 @@ module main.java.org.example {
     // Require JavaFX modules
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
     // Export your main package (so JavaFX can access it)
     exports main.java.org.example;
