@@ -6,8 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.layout.StackPane;
 
 public class Main extends Application {
     @Override

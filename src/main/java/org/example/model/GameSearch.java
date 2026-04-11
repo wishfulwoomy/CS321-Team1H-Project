@@ -34,8 +34,24 @@ public class GameSearch {
         return game.getTitle().toLowerCase().contains(query.toLowerCase());
     }
 
-    public boolean matchFilter(Game game) {
-    // NOT FINISHED; still figuring out how to do the enum filter
-    return true; //temp
+    public boolean matchPlayers(Game game, int min, int max) {
+        if (min >= game.getMinPlayers()) {
+            return (max <= game.getMaxPlayers());
+        }
+        return false;
+    }
+
+    public boolean matchPlaytime(Game game, int min, int max) {
+        if (game.getPlayTimeMinutes() >= min) {
+            return (game.getPlayTimeMinutes() <= max);
+        }
+        return false;
+    }
+
+    public boolean matchRating(Game game, float min, float max) {
+        if (game.getAvgRating() >= min) {
+            return (game.getAvgRating() <= max);
+        }
+        return false;
     }
 }
