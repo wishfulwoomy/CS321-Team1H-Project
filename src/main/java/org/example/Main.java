@@ -14,12 +14,10 @@ import javafx.scene.layout.StackPane;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/loginView.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/org.openjfx/styles.css").toExternalForm());
-
-        stage.setScene(scene);
 
         stage.setTitle("Board main.java.org.example.model.Game App");
         stage.setScene(scene);
