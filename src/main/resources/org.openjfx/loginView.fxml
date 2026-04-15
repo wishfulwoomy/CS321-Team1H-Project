@@ -4,9 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
    <center>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="344.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="279.0" prefWidth="344.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -23,7 +25,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Region prefHeight="200.0" prefWidth="200.0" />
-                  <TextField prefWidth="250.0" promptText="Username" />
+                  <TextField prefWidth="250.0" promptText="Username" accessibleText="Username input" />
                   <Region prefHeight="200.0" prefWidth="200.0" />
                </children>
             </HBox>
@@ -31,7 +33,8 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Region prefHeight="200.0" prefWidth="200.0" />
-                  <PasswordField prefWidth="250.0" promptText="Password" />
+                  <PasswordField prefWidth="250.0" promptText="Password"
+                     accessibleText="Password input" />
                   <Region prefHeight="200.0" prefWidth="200.0" />
                </children>
             </HBox>
@@ -42,7 +45,8 @@
                   <Label prefHeight="24.0" prefWidth="220.0" text="No account?" />
                   <Hyperlink prefHeight="15.0" prefWidth="200.0" text="Sign up" />
                   <Label prefHeight="24.0" prefWidth="165.0" text="or" />
-                  <Hyperlink fx:id="loginAsGuest" onMouseClicked="#guestLogin" prefWidth="250.0" text="Log in as a guest" />
+                  <Hyperlink fx:id="loginAsGuest" onAction="#guestLogin" prefWidth="250.0"
+                     text="Log in as a guest" />
                   <Region prefHeight="200.0" prefWidth="200.0" />
                </children>
             </HBox>
@@ -59,22 +63,7 @@
       </VBox>
    </center>
    <top>
-      <MenuButton mnemonicParsing="false" prefWidth="100.0" text="Settings" BorderPane.alignment="CENTER">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Text Size" />
-            <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Text Size">
-               <content>
-                  <Slider />
-               </content>
-            </CustomMenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="High Contrast" />
-            <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Unspecified Action">
-              <content>
-                <CheckBox />
-              </content>
-            </CustomMenuItem>
-         </items>
-      </MenuButton>
+      <Button mnemonicParsing="false" prefWidth="100.0" text="Settings" onAction="#openSettings"
+         BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>
