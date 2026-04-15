@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.org.example.model.User;
 import main.java.org.example.model.UserParser;
 import java.util.ArrayList;

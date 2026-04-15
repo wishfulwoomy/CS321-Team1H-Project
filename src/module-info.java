@@ -8,4 +8,6 @@ module main.java.org.example {
     // Export your main package (so JavaFX can access it)
     exports main.java.org.example;
     exports main.java.org.example.views;
+
+    opens main.java.org.example.views to javafx.fxml;
 }
