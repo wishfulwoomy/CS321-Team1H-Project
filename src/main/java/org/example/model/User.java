@@ -1,10 +1,11 @@
 package main.java.org.example.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User {
     private String name;
-    private int userID;
+    private final int userID;
     private String password;
     ArrayList<Wishlist> allWishlists;
 
@@ -76,6 +77,7 @@ public class User {
      * @return the list of all the user's wishlists
      */
     public ArrayList<Wishlist> getWishlists(){
+        allWishlists = (ArrayList<Wishlist>) Collections.unmodifiableList(allWishlists);
         return allWishlists;
     }
 

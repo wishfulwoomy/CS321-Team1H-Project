@@ -1,12 +1,14 @@
 package test.java;
 
 import main.java.org.example.model.User;
+import main.java.org.example.model.Wishlist;
+
 
 public class UserTester {
 
-    public static void main(){
+    public static void main(String[] args){
 
-        User user1 = new User("Tater Tot", 001, "skatertot123");
+        User user1 = new User("Tater Tot", 1, "skatertot123");
 
         System.out.println("New main.java.org.example.model.User Created");
 
