@@ -65,11 +65,14 @@ public class User {
 
     /**
      * Creates a new instance of a wishlist and appends it to the list of all wishlists
+     *
      * @param name The name of the new wishlist
+     * @return
      */
-    public void createWishlist(String name){
+    public Wishlist createWishlist(String name){
         Wishlist list = new Wishlist(name);
         allWishlists.add(list);
+        return list;
     }
 
     /**
