@@ -1,15 +1,21 @@
 package main.java.org.example.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import main.java.org.example.model.Game;
 
 public class MainView implements Initializable {
@@ -45,9 +51,20 @@ public class MainView implements Initializable {
         filterBar.setVisible(isSelected);
         filterBar.setManaged(isSelected);
     }
-    public void openWishlists() {
+
+    @FXML
+    private void openWishlists() {
 
     }
+
+    @FXML
+    private void openWishlistView(ActionEvent action) throws IOException {
+        Stage stage = (Stage)((Node)action.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/wishlistView.fxml"));
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
+
     public void openGameView(Game game) {
 
     }
