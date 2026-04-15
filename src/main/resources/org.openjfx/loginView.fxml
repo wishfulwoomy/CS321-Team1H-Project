@@ -42,7 +42,7 @@
                   <Label prefHeight="24.0" prefWidth="220.0" text="No account?" />
                   <Hyperlink prefHeight="15.0" prefWidth="200.0" text="Sign up" />
                   <Label prefHeight="24.0" prefWidth="165.0" text="or" />
-                  <Hyperlink prefWidth="250.0" text="Log in as a guest" />
+                  <Hyperlink fx:id="loginAsGuest" prefWidth="250.0" text="Log in as a guest" />
                   <Region prefHeight="200.0" prefWidth="200.0" />
                </children>
             </HBox>
