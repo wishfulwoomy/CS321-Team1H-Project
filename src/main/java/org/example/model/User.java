@@ -6,7 +6,7 @@ public class User {
     private String name;
     private int userID;
     private String password;
-    ArrayList<Wishlist> AllWishlists;
+    ArrayList<Wishlist> allWishlists;
 
     /**
      * Class constructor to initialize user attributes
@@ -18,7 +18,7 @@ public class User {
         name = username;
         userID = id;
         password = pass;
-        AllWishlists = new ArrayList<Wishlist>();
+        allWishlists = new ArrayList<Wishlist>();
     }
 
     /**
@@ -68,7 +68,7 @@ public class User {
      */
     public void createWishlist(String name){
         Wishlist list = new Wishlist(name);
-        AllWishlists.add(list);
+        allWishlists.add(list);
     }
 
     /**
@@ -76,14 +76,14 @@ public class User {
      * @return the list of all the user's wishlists
      */
     public ArrayList<Wishlist> getWishlists(){
-        return AllWishlists;
+        return allWishlists;
     }
 
     /**
      * Deletes a wishlist
-     * @param listName the name of the wishlist the user will delete
+     * @param listToDelete the name of the wishlist the user will delete
      */
-    public void deleteWishlist(Wishlist listName){
-        AllWishlists.remove(listName);
+    public void deleteWishlist(Wishlist listToDelete){
+        allWishlists.remove(listToDelete);
     }
 }
