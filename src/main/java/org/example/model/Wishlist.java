@@ -71,4 +71,9 @@ public class Wishlist
     {
         return games.isEmpty();
     }
+
+    public ArrayList<Game>getGames()
+    {
+        return games;
+    }
 }
