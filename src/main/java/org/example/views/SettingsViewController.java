@@ -25,13 +25,13 @@ public class SettingsViewController
 
         sizeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             Session.getInstance().setTextSize(newValue.intValue());
-            Session.getInstance().applyTextSize(sizeSlider.getScene());
+            Session.getInstance().applyTextSize(sizeSlider.getScene().getRoot());
 
             Stage settingsStage = (Stage) sizeSlider.getScene().getWindow();
             Stage mainStage = (Stage) settingsStage.getOwner();
             if (mainStage != null && mainStage.getScene() != null)
             {
-                Session.getInstance().applyTextSize(mainStage.getScene());
+                Session.getInstance().applyTextSize(mainStage.getScene().getRoot());
             }
         });
     }
