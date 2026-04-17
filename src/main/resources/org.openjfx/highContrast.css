@@ -1,0 +1,32 @@
+/* highContrast.css */
+.root {
+    -fx-background-color: #000000;
+}
+
+.label,
+.text,
+.check-box {
+    -fx-text-fill: #FFFF00;
+    /* Bright Yellow */
+    -fx-font-weight: bold;
+}
+
+.button,
+.text-field,
+.password-field {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+}
+
+.button:hover,
+.button:focused {
+    -fx-background-color: #FFFF00;
+    -fx-text-fill: #000000;
+}
+
+.hyperlink {
+    -fx-text-fill: #00FFFF;
+    /* Cyan */
+}

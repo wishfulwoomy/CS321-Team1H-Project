@@ -36,6 +36,7 @@ public class LoginView {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
 
         Stage settingsStage = new Stage();
+        settingsStage.initOwner(((Node)event.getSource()).getScene().getWindow());
         settingsStage.initModality(Modality.APPLICATION_MODAL);
         settingsStage.setTitle("Settings");
 

@@ -6,14 +6,17 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.SettingsViewController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="main.java.org.example.views.SettingsViewController">
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
     </padding>
 
     <Slider accessibleText="Adjust Text Size" />
 
-    <CheckBox mnemonicParsing="false" text="Enable High Contrast" accessibleText="Enable High Contrast" />
+    <CheckBox fx:id="highContrastBox" mnemonicParsing="false" onAction="#toggleHighContrast"
+        text="Enable High Contrast" accessibleText="Enable High Contrast" />
 
     <Button mnemonicParsing="false" onAction="#closeSettings" text="Close Settings" />
 </VBox>
