@@ -13,6 +13,7 @@ import javafx.scene.input.KeyCode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import main.java.org.example.model.Session;
 
 public class LoginView {
     @FXML
@@ -28,6 +29,7 @@ public class LoginView {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
         stage.getScene().setRoot(root);
+        Session.getInstance().applyTheme(stage.getScene());
         stage.show();
     }
 
