@@ -18,10 +18,60 @@ import main.java.org.example.model.Session;
 public class LoginView {
     @FXML
     private Hyperlink loginAsGuest;
+    @FXML
+    private javafx.scene.control.TextField usernameField;
+    @FXML
+    private javafx.scene.control.PasswordField passwordField;
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         // Put anything not done in scene builder here
+    }
+
+@FXML
+    private void handleLogin(ActionEvent event) throws IOException 
+    {
+        String enteredUsername = usernameField.getText();
+        String enteredPassword = passwordField.getText();
+
+        //Initialize parser and load the test users
+        main.java.org.example.model.UserParser parser = new main.java.org.example.model.UserParser();
+        parser.loadUsers("src/main/resources/SampleUser.xml"); 
+
+        boolean loginSuccessful = false;
+
+        //Check credentials against the parsed list
+        for (main.java.org.example.model.User user : parser.getUserList()) 
+        {
+            if (user.getName().equals(enteredUsername) && user.getPassword().equals(enteredPassword)) 
+            {
+                //Store the user in the global session
+                Session.getInstance().logIn(user);
+                loginSuccessful = true;
+                break;
+            }
+        }
+
+        if (loginSuccessful) 
+        {
+            System.out.println("Login Successful for: " + enteredUsername);
+            
+            // Transition to the main screen
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
+            stage.getScene().setRoot(root);
+            
+            Session.getInstance().applyGlobalSettings(stage.getScene());
+            stage.show();
+        } 
+        else 
+        {
+            //Provide terminal feedback and reset the form
+            System.out.println("Login Failed: Incorrect username or password.");
+            
+            passwordField.clear();
+            usernameField.requestFocus();
+        }
     }
 
     @FXML
@@ -29,7 +79,7 @@ public class LoginView {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
         stage.getScene().setRoot(root);
-        Session.getInstance().applyTheme(stage.getScene());
+        Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
     }
 
@@ -51,7 +101,7 @@ public class LoginView {
         });
 
         settingsStage.setScene(scene);
-        Session.getInstance().applyTheme(scene);
+        Session.getInstance().applyGlobalSettings(scene);
         settingsStage.showAndWait();
     }
 
