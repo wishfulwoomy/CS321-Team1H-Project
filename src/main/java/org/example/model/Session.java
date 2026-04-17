@@ -2,6 +2,8 @@ package main.java.org.example.model;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -15,6 +17,7 @@ public class Session {
     private boolean highContrast;
     private int textSize;
     private boolean loggedIn;
+    private ArrayList<Wishlist> currentWishlists;
 
     /**
      * Private constructor prevents other classes from making duplicate sessions.
@@ -24,6 +27,9 @@ public class Session {
         loggedIn = false;
         textSize = 12;
         highContrast = false;
+        // currentWishlists = new ArrayList<Wishlist>();
+        // myWishlist = new Wishlist(myWishlist);
+        // currentWishlists.add(m)
     }
 
     /**
