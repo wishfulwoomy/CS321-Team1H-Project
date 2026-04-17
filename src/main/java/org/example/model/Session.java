@@ -103,16 +103,21 @@ public class Session {
         }
     }
 
-    /** 
-     * Applies the dynamic text size CSS to a given scene's root.
-     * @param scene The scene to apply the sizing to.
+   /**
+     * Applies the dynamic font size to any loaded FXML root.
+     * @param root The root node of the screen
      */
-    public void applyTextSize(Scene scene)
-    {
-        if (scene == null || scene.getRoot() == null)
-        {
+    public void applyTextSize(Scene scene) {
+        if (scene == null || scene.getRoot() == null) {
             return;
         }
+        // Apply the size directly to the newly loaded root
         scene.getRoot().setStyle("-fx-font-size: " + textSize + "px;");
+    }
+
+    public void applyGlobalSettings(Scene scene)
+    {
+        applyTheme(scene);
+        applyTextSize(scene);
     }
 }

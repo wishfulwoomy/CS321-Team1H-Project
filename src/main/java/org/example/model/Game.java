@@ -13,6 +13,7 @@ import java.util.List;
 public class Game 
 {
     /** Attributes of a game */
+    private String imageURL;
     private String gameID;
     private String title;
     private String description;
@@ -168,5 +169,15 @@ public class Game
     public void setDescription(String desc)
     {
         this.description = desc;
+    }
+
+    public String getImageUrl()
+    {
+        return this.imageURL;
+    }
+
+    public void setImageUrl(String url)
+    {
+        this.imageURL = url;
     }
 }
