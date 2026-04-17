@@ -51,6 +51,7 @@ public class LoginView {
         });
 
         settingsStage.setScene(scene);
+        Session.getInstance().applyTheme(scene);
         settingsStage.showAndWait();
     }
 
