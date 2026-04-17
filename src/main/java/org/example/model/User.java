@@ -79,10 +79,7 @@ public class User {
      *
      * @return the list of all the user's wishlists
      */
-    public ArrayList<Wishlist> getWishlists(){
-        allWishlists = (ArrayList<Wishlist>) Collections.unmodifiableList(allWishlists);
-        return allWishlists;
-    }
+    public ArrayList<Wishlist> getWishlists() {return allWishlists;}
 
     /**
      * Deletes a wishlist
@@ -90,5 +87,20 @@ public class User {
      */
     public void deleteWishlist(Wishlist listToDelete){
         allWishlists.remove(listToDelete);
+    }
+
+    /**
+     * Returns a string of the names of all the wishlists the user has created
+     * @return a string of the wishlist names
+     */
+    @Override
+    public String toString(){
+        StringBuilder wishlistNames = new StringBuilder();
+
+        for (Wishlist allWishlist : allWishlists) {
+            String currentWishlist = allWishlist.getName();
+            wishlistNames.append(currentWishlist).append("\n");
+        }
+        return wishlistNames.toString();
     }
 }
