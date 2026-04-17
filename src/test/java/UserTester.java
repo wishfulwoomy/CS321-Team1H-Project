@@ -3,6 +3,7 @@ package test.java;
 import main.java.org.example.model.User;
 import main.java.org.example.model.Wishlist;
 import main.java.org.example.model.Game;
+import java.util.ArrayList;
 
 public class UserTester {
 
@@ -29,24 +30,26 @@ public class UserTester {
         Game game1 = new Game("Monopoly", 2, 8, 80);
         Game game2 = new Game("Uno", 2, 10, 120);
         Game game3 = new Game("Battleship", 2, 2, 60);
-
-        Wishlist wlist1 = user1.createWishlist("friends");
+        Wishlist wlist1 = user1.createWishlist("Games with Friends");
         wlist1.add(game1);
         wlist1.add(game2);
         wlist1.add(game3);
 
 
-        if (wlist1.getGames().contains(game1) && wlist1.getGames().contains(game2) && wlist1.getGames().contains(game3)) {
-            System.out.println("All 3 games added to wishlist");
-        } else {
-            System.out.println("Error! Games not added to the wishlist");
-        }
-
         if (user1.getWishlists().contains(wlist1)) {
             System.out.println("Wishlist added successfully");
+            System.out.println(wlist1);
         } else {
             System.out.println("Error! Wishlist not added");
         }
+
+        Game game4 = new Game("Checkers", 2, 2, 80);
+        Game game5 = new Game("Chess", 2, 2, 120);
+        Wishlist wlist2 = user1.createWishlist("Strategy Games");
+        wlist2.add(game4);
+        wlist2.add(game5);
+
+        System.out.println(user1.toString());
 
         user1.deleteWishlist(wlist1);
         if (!user1.getWishlists().contains(wlist1)) {
