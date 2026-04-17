@@ -92,8 +92,19 @@ public class GameParser
                         }
                     }
 
+                    // 5.5 Extract Image URL
+                    String imageURL = "";
+                    NodeList imageList = element.getElementsByTagName("image");
+                    if (imageList.getLength() > 0)
+                    {
+                        Element imageElement = (Element) imageList.item(0);
+                        imageURL = imageElement.getTextContent();
+                    }
+
                     // 6. Create the main.java.org.example.model.Game object using the real data!
                     Game game = new Game(title, minPlayers, maxPlayers, playTime);
+
+                    game.setImageUrl(imageURL);
                     
                     gamesList.add(game);
                 }
