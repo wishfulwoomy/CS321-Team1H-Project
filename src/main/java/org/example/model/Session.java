@@ -19,7 +19,8 @@ public class Session {
     /**
      * Private constructor prevents other classes from making duplicate sessions.
      */
-    private Session() {
+    private Session() 
+    {
         loggedIn = false;
         textSize = 12;
         highContrast = false;
@@ -30,37 +31,44 @@ public class Session {
      * 
      * @return The single Session instance
      */
-    public static Session getInstance() {
+    public static Session getInstance() 
+    {
         if (instance == null) {
             instance = new Session();
         }
         return instance;
     }
 
-    public int getTextSize() {
+    public int getTextSize() 
+    {
         return textSize;
     }
 
-    public boolean getContrast() {
+    public boolean getContrast() 
+    {
         return highContrast;
     }
 
-    public void setTextSize(int textSize) {
+    public void setTextSize(int textSize) 
+    {
         this.textSize = textSize;
     }
 
-    public void setContrast(boolean highContrast) {
+    public void setContrast(boolean highContrast) 
+    {
         this.highContrast = highContrast;
     }
 
-    public void logIn(User user) {
+    public void logIn(User user) 
+    {
         currentUser = user;
         loggedIn = true;
         // If guest, keep settings from log in page
         // If user, change settings to saved
     }
 
-    public void logOut() {
+    public void logOut() 
+    {
         loggedIn = false;
         currentUser = null;
     }
@@ -70,7 +78,8 @@ public class Session {
      * 
      * @param scene The scene to apply the styling to
      */
-    public void applyTheme(Scene scene) {
+    public void applyTheme(Scene scene) 
+    {
         if (scene == null || scene.getRoot() == null) {
             return;
         }
@@ -86,5 +95,18 @@ public class Session {
         if (highContrast) {
             root.getStylesheets().add(cssUrl);
         }
+    }
+
+    /** 
+     * Applies the dynamic text size CSS to a given scene's root.
+     * @param scene The scene to apply the sizing to.
+     */
+    public void applyTextSize(Scene scene)
+    {
+        if (scene == null || scene.getRoot() == null)
+        {
+            return;
+        }
+        scene.getRoot().setStyle("-fx-font-size: " + textSize + "px;");
     }
 }

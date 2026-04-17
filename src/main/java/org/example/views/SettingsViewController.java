@@ -13,10 +13,27 @@ public class SettingsViewController
     private CheckBox highContrastBox;
 
     @FXML
+    private javafx.scene.control.Slider sizeSlider;
+
+    @FXML
     public void initialize() 
     {
         // When the settings menu opens, make sure the checkbox matches the current session state
         highContrastBox.setSelected(Session.getInstance().getContrast());
+
+        sizeSlider.setValue(Session.getInstance().getTextSize());
+
+        sizeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Session.getInstance().setTextSize(newValue.intValue());
+            Session.getInstance().applyTextSize(sizeSlider.getScene());
+
+            Stage settingsStage = (Stage) sizeSlider.getScene().getWindow();
+            Stage mainStage = (Stage) settingsStage.getOwner();
+            if (mainStage != null && mainStage.getScene() != null)
+            {
+                Session.getInstance().applyTextSize(mainStage.getScene());
+            }
+        });
     }
 
     @FXML

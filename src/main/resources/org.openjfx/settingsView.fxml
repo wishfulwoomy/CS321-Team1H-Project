@@ -13,7 +13,7 @@
     </padding>
    <Label text="Text Size:" />
 
-    <Slider accessibleText="Adjust Text Size" blockIncrement="1.0" majorTickUnit="12.0" max="72.0" min="12.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="12.0" />
+    <Slider fx:id="sizeSlider" accessibleText="Adjust Text Size" blockIncrement="1.0" majorTickUnit="12.0" max="72.0" min="12.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="12.0" />
 
     <CheckBox fx:id="highContrastBox" accessibleText="Enable High Contrast" mnemonicParsing="false" onAction="#toggleHighContrast" text="Enable High Contrast" />
 
