@@ -22,8 +22,11 @@ public class WishlistView implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String[] testWishlists = {"Favorites", "Two-Player", "Card Games", "Party Games"};
+        listNames.getItems().addAll(testWishlists);
+
         String[] testGames = {"Monopoly", "Clue", "Sorry", "Life"};
-        listNames.getItems().addAll(testGames);
+        listGames.getItems().addAll(testGames);
 
     }
 }
