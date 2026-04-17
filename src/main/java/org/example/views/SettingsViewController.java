@@ -25,13 +25,13 @@ public class SettingsViewController
 
         sizeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             Session.getInstance().setTextSize(newValue.intValue());
-            Session.getInstance().applyTextSize(sizeSlider.getScene().getRoot());
+            Session.getInstance().applyGlobalSettings(sizeSlider.getScene());
 
             Stage settingsStage = (Stage) sizeSlider.getScene().getWindow();
             Stage mainStage = (Stage) settingsStage.getOwner();
             if (mainStage != null && mainStage.getScene() != null)
             {
-                Session.getInstance().applyTextSize(mainStage.getScene().getRoot());
+                Session.getInstance().applyGlobalSettings(mainStage.getScene());
             }
         });
     }
@@ -48,7 +48,7 @@ public class SettingsViewController
         Session.getInstance().setContrast(isEnabled);
 
         //Apply the updated Session theme to the Settings window
-        Session.getInstance().applyTheme(highContrastBox.getScene());
+        Session.getInstance().applyGlobalSettings(highContrastBox.getScene());
 
         //Apply the updated Session theme to the Main window underneath it
         Stage settingsStage = (Stage) highContrastBox.getScene().getWindow();
@@ -56,7 +56,7 @@ public class SettingsViewController
         
         if (mainStage != null && mainStage.getScene() != null) 
         {
-            Session.getInstance().applyTheme(mainStage.getScene());
+            Session.getInstance().applyGlobalSettings(mainStage.getScene());
         }
     }
 
