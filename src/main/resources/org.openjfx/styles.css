@@ -29,3 +29,48 @@
     -fx-text-fill: #FFFFFF;
     -fx-cursor: hand;
 }
+
+/* --------------------------------------
+   STANDARD GAME CARDS
+--------------------------------------- */
+/* The outer box of the game card */
+.game-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0; /* Very light gray border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Placeholder image square (until the real images load) */
+.game-image-placeholder {
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: #D1D1D1;
+    -fx-border-width: 1px;
+}
+
+/* Game Title */
+.game-card-title {
+    -fx-text-fill: #222222; /* Dark gray */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Favorite Button */
+.fav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E63946; /* Red heart */
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-padding: 0 5 0 5;
+    -fx-cursor: hand;
+}
+
+/* A soft gray circle behind the heart when hovered over */
+.fav-button:hover,
+.fav-button:focused {
+    -fx-background-color: #F0F0F0; 
+    -fx-background-radius: 20px;
+}

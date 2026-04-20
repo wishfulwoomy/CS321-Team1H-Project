@@ -79,3 +79,44 @@
     -fx-border-color: #FFFFFF;
 }
 
+/* --------------------------------------
+   Game Cards
+--------------------------------------- */
+/* The outer box of the game card */
+.root .game-card {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-background-color: #111111;
+}
+
+/* The placeholder for the game image */
+.root .game-image-placeholder {
+    -fx-background-color: #333333;
+    -fx-border-color: #FFFF00;
+    -fx-border-width: 1px;
+}
+
+/* The Game Title */
+.root .game-card-title {
+    -fx-text-fill: #FFFF00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* The Favorite Button */
+.root .fav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-padding: 0 5 0 5;
+    -fx-cursor: hand;
+}
+
+.root .fav-button:hover,
+.root .fav-button:focused {
+    -fx-background-color: #555555;
+    -fx-background-radius: 20px;
+}
