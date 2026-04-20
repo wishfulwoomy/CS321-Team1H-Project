@@ -3,7 +3,7 @@
 }
 
 /* --------------------------------------
-   Standard Navigation Banner 
+   STANDARD NAVIGATION BANNER 
 --------------------------------------- */
 .menu-banner {
     -fx-background-color: #F4F4F4; 
@@ -28,6 +28,13 @@
     -fx-background-color: #0058D0; 
     -fx-text-fill: #FFFFFF;
     -fx-cursor: hand;
+}
+
+/* How the SELECTED navigation button looks! */
+.active-menu-button {
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent #0058D0 transparent;
+    -fx-border-width: 0 0 3 0; /* A modern blue underline instead of a gray box */
 }
 
 /* --------------------------------------
@@ -73,4 +80,35 @@
 .fav-button:focused {
     -fx-background-color: #F0F0F0; 
     -fx-background-radius: 20px;
+}
+
+/* --------------------------------------
+   LOGIN SCREEN ENHANCEMENTS
+--------------------------------------- */
+/* 1. The Background Gradient */
+#login-background {
+    /* A nice, modern diagonal gradient from dark blue to soft teal */
+    -fx-background-color: linear-gradient(to bottom right, #1a2a6c, #11998e);
+}
+
+/* 2. The Login Card (The white box holding the text fields) */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15px; 
+    -fx-padding: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 5); 
+}
+
+/* 3. The Blue Login Button */
+#login-button {
+    -fx-background-color: #0078D7; 
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 20px;
+    -fx-cursor: hand; 
+}
+
+#login-button:hover {
+    -fx-background-color: #005A9E; 
 }

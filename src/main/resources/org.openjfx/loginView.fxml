@@ -1,78 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
-   <center>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-         prefHeight="279.0" prefWidth="344.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
+   <content>
+      
+      <BorderPane id="login-background">
+         
+         <center>
+            <VBox alignment="CENTER" maxWidth="450.0" spacing="20.0" styleClass="login-card" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="40.0" top="40.0" /> 
+               </BorderPane.margin>
                <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <Label alignment="CENTER" prefHeight="85.0" prefWidth="294.0" text="APP NAME">
+                  
+                  <Label alignment="CENTER" text="APP NAME" wrapText="true">
                      <font>
                         <Font size="32.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
                   </Label>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  
+                  <TextField fx:id="usernameField" maxWidth="300.0" promptText="Username" accessibleText="Username" accessibleRoleDescription="Text Input" />
+                  
+                  <PasswordField fx:id="passwordField" maxWidth="300.0" promptText="Password" accessibleText="Password" accessibleRoleDescription="Secure Text Input" />
+                  
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="No account?" wrapText="true" />
+                        <Hyperlink text="Sign up" wrapText="true" />
+                        <Label text="or" wrapText="true" />
+                        <Hyperlink fx:id="loginAsGuest" onAction="#guestLogin" text="Log in as a guest" wrapText="true" />
+                     </children>
+                  </HBox>
+                  
+                  <Button id="login-button" mnemonicParsing="false" onAction="#handleLogin" prefHeight="35.0" prefWidth="200.0" text="Log In" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  
                </children>
-            </HBox>
-            <Region prefHeight="200.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <TextField fx:id="usernameField"
-                     prefWidth="250.0"
-                     promptText="Username"
-                     accessibleText="Username"
-                     accessibleRoleDescription="Text Input" />
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-            <Region prefHeight="200.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <PasswordField fx:id="passwordField"
-                     prefWidth="250.0"
-                     promptText="Password"
-                     accessibleText="Password"
-                     accessibleRoleDescription="Secure Text Input" />
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-            <Region prefHeight="200.0" prefWidth="200.0" />
-            <HBox prefHeight="32.0" prefWidth="226.0">
-               <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <Label prefHeight="24.0" prefWidth="220.0" text="No account?" />
-                  <Hyperlink prefHeight="15.0" prefWidth="200.0" text="Sign up" />
-                  <Label prefHeight="24.0" prefWidth="165.0" text="or" />
-                  <Hyperlink fx:id="loginAsGuest" onAction="#guestLogin" prefWidth="250.0"
-                     text="Log in as a guest" />
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-            <Region prefHeight="200.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" onAction="#handleLogin" 
-                     prefHeight="25.0" prefWidth="150.0"
-                     text="Log In" />
-                  <Region prefHeight="200.0" />
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
-   <top>
-      <Button mnemonicParsing="false" prefWidth="100.0" text="Settings" onAction="#openSettings"
-         BorderPane.alignment="CENTER" />
-   </top>
-</BorderPane>
+            </VBox>
+         </center>
+         
+         <top>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Settings" onAction="#openSettings" BorderPane.alignment="CENTER" wrapText="true">
+               <BorderPane.margin>
+                  <Insets top="15.0" />
+               </BorderPane.margin>
+            </Button>
+         </top>
+         
+      </BorderPane>
+      
+   </content>
+</ScrollPane>
