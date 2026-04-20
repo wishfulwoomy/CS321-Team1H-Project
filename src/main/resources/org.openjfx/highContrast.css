@@ -120,3 +120,36 @@
     -fx-background-color: #555555;
     -fx-background-radius: 20px;
 }
+/* --------------------------------------
+   LOGIN SCREEN HIGH CONTRAST OVERRIDES
+--------------------------------------- */
+
+/* 1. Kill the gradient and make the background solid black */
+#login-background {
+    -fx-background-color: #000000;
+}
+
+/* 2. Turn the white card black, add a sharp white border, and remove the shadow */
+.login-card {
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px; 
+    -fx-effect: none; /* Drop shadows look muddy in high contrast */
+}
+
+/* 3. Turn the blue button into a high-visibility yellow-on-black button */
+#login-button {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFF00; /* Yellow is an industry standard for high contrast readability */
+    -fx-border-color: #FFFF00;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+/* 4. Invert the button colors when the user hovers over it */
+#login-button:hover,
+#login-button:focused {
+    -fx-background-color: #FFFF00;
+    -fx-text-fill: #000000;
+}
