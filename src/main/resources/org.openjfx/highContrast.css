@@ -30,3 +30,52 @@
     -fx-text-fill: #00FFFF;
     /* Cyan */
 }
+
+/* --------------------------------------
+   Accessibility navigation banner
+--------------------------------------- */
+.root .menu-banner {
+    -fx-background-color: #000000;
+    -fx-padding: 0 5 0 5;
+    -fx-spacing: 2;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0 0 1 0;
+}
+
+.root .menu-banner-button {
+    -fx-background-color: transparent; 
+    -fx-text-fill: #FFFF00;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 6 12 6 12;
+}
+
+.root .menu-banner-button:hover,
+.root .menu-banner-button:focused {
+    -fx-background-color: #FFFF00;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+
+/* Change color when the Filter button is pressed down */
+.root .toggle-button:selected {
+    -fx-background-color: #FFFF00;
+    -fx-text-fill: #000000;
+}
+
+.root .scroll-pane,
+.root .scroll-pane .viewport,
+.root .scroll-pane .content {
+    -fx-background-color: #000000;
+    -fx-background: #000000; /* This specifically targets the internal JavaFX viewport color */
+}
+
+.root .scroll-bar:vertical,
+.root .scroll-bar:horizontal,
+.root .scroll-bar .thumb {
+    -fx-background-color: #333333;
+    -fx-border-color: #FFFFFF;
+}
+

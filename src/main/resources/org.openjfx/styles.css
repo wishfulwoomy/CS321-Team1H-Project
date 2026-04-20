@@ -1,3 +1,31 @@
 .label {
     -fx-text-fill: black;
 }
+
+/* --------------------------------------
+   Standard Navigation Banner 
+--------------------------------------- */
+.menu-banner {
+    -fx-background-color: #F4F4F4; 
+    -fx-padding: 0 5 0 5;
+    -fx-spacing: 2;
+    -fx-border-color: #D1D1D1;
+    -fx-border-width: 0 0 1 0; 
+}
+
+.menu-banner-button {
+    -fx-background-color: transparent; 
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px; /* Standard OS menu font size */
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 4 10 4 10;
+}
+
+.menu-banner-button:hover,
+.menu-banner-button:focused {
+    -fx-background-color: #0058D0; 
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+}

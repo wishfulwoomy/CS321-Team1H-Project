@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.MainView">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.MainView">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="Games" />
-            <Menu mnemonicParsing="false" text="Lists" />
-            <Menu mnemonicParsing="false" text="Settings">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="User">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Log out" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <ButtonBar fx:id="filterBar" managed="false" prefHeight="40.0" prefWidth="519.0" visible="false">
+      <HBox alignment="CENTER_LEFT" styleClass="menu-banner" VBox.vgrow="NEVER">
+         <children>
+            <Button mnemonicParsing="false" styleClass="menu-banner-button" text="Games" />
+            <Button mnemonicParsing="false" styleClass="menu-banner-button" text="Lists" />
+            <Button mnemonicParsing="false" styleClass="menu-banner-button" text="Settings" />
+            <Button mnemonicParsing="false" styleClass="menu-banner-button" text="Log Out" />
+         </children>
+      </HBox>
+      <ButtonBar fx:id="filterBar" managed="false" prefHeight="40.0" prefWidth="519.0"
+         visible="false">
          <buttons>
             <SplitMenuButton mnemonicParsing="false" text="Player Amt.">
                <items>
@@ -59,18 +54,25 @@
          <top>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <TextField accessibleText="Search" prefHeight="25.0" prefWidth="519.0" promptText="Search..." />
-                  <ToggleButton fx:id="toggleFilters" mnemonicParsing="false" onAction="#openFilters" prefHeight="25.0" prefWidth="67.0" text="Filters" />
+                  <TextField accessibleText="Search Games" accessibleRoleDescription="Search Field"
+                     prefHeight="25.0" prefWidth="519.0" promptText="Search..." />
+                  <ToggleButton fx:id="toggleFilters" accessibleText="Toggle Filters Menu"
+                     accessibleRoleDescription="Toggle Button" mnemonicParsing="false"
+                     onAction="#openFilters" prefHeight="25.0" prefWidth="67.0" text="Filters" />
                </children>
             </HBox>
          </top>
-         <right>
-            <VBox BorderPane.alignment="CENTER">
-               <children>
-                  <ScrollBar accessibleText="Scroll" orientation="VERTICAL" prefWidth="15.0" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
-         </right>
+         <center>
+            <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </center>
       </BorderPane>
    </children>
 </VBox>
