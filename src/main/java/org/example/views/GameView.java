@@ -8,11 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.java.org.example.model.Game;
+import main.java.org.example.model.Session;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,22 +40,22 @@ public class GameView
     @FXML
     private Button buttonLeaveReview;
 
-    // the game itself
-    private Game game;
-
     @FXML
     //@Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        System.out.println("gameview trying to initialize");  // debug statement, delete later
+        // receiving current game from MainView using Session
+        Session currentSession = Session.getInstance();
+        Game g = currentSession.getCurrentGame();
+        System.out.println("gameview loaded" + g.getTitle()); // debug statement, delete later
 
-        labelGameTitle.setText(game.getTitle());
-        // imageGamePicture.setImage(game.); HAVE GAME CLASS RETURN IMAGE
-        textDescription.setText(game.getDescription());
+        // now we can load game info
+        labelGameTitle.setText(g.getTitle());
+        Image img = new Image(g.getImageUrl());
+        imageGamePicture.setImage(img); //HAVE GAME CLASS RETURN IMAGE
+        textDescription.setText(g.getDescription());
         // textReview.setText(game.) MAKE THIS A LOOP TO LOAD ALL REVIEWS
-    }
-
-    public void setGame(Game game) { // WORK ON LATER
-        this.game = game;
     }
 
     @FXML

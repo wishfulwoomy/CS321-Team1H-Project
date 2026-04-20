@@ -18,6 +18,11 @@ public class Session {
     private int textSize;
     private boolean loggedIn;
     private ArrayList<Wishlist> currentWishlists;
+    /**
+     * Private variable to hold the currently selected game.
+     * Used to pass info from MainView to GameView.
+     */
+    private Game currentGame;
 
     /**
      * Private constructor prevents other classes from making duplicate sessions.
@@ -78,6 +83,10 @@ public class Session {
         loggedIn = false;
         currentUser = null;
     }
+
+    public void setCurrentGame(Game g) { this.currentGame = g; }
+
+    public Game getCurrentGame() { return this.currentGame; }
 
     /**
      * Applies the high contrast CSS to a given scene.
