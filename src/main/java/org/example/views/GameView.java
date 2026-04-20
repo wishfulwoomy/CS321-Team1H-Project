@@ -2,6 +2,7 @@ package main.java.org.example.views;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,8 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameView 
-{
+public class GameView implements Initializable {
     // UI elements that display game info
     @FXML
     private ImageView imageGamePicture;
@@ -41,7 +41,7 @@ public class GameView
     private Button buttonLeaveReview;
 
     @FXML
-    //@Override
+    @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         System.out.println("gameview trying to initialize");  // debug statement, delete later
