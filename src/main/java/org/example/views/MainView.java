@@ -162,6 +162,7 @@ public class MainView implements Initializable {
         System.out.println("mainview set game as " + game.getTitle());  // debug statement, delete later
         // end new section
         stage.getScene().setRoot(root);
+Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
     }
 }
