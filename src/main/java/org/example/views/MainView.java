@@ -90,7 +90,6 @@ public class MainView implements Initializable {
         imageView.setFitHeight(120);
         imageView.setPreserveRatio(true);
 
-        // Load the image from the URL!
         if (game.getImageUrl() != null && !game.getImageUrl().isEmpty()) {
             Image img = new Image(game.getImageUrl(), true);
             imageView.setImage(img);
@@ -106,22 +105,20 @@ public class MainView implements Initializable {
         Label titleLabel = new Label(game.getTitle());
         titleLabel.getStyleClass().add("game-card-title");
         titleLabel.setWrapText(true);
-        titleLabel.setMaxWidth(100); // Keeps long titles from stretching the card
+        titleLabel.setMaxWidth(100); 
 
         Button favButton = new Button("♥");
         favButton.getStyleClass().add("fav-button");
         favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
         favButton.setOnAction(e -> {
             System.out.println("Favorited: " + game.getTitle());
-            // Wishlist logic goes here
         });
 
-        // new button to open the GameView
         Button openGameButton = new Button(">");
-        favButton.getStyleClass().add("open-game-button");
-        favButton.setAccessibleText("Open " + game.getTitle());
-        favButton.setOnAction(e -> {
-            System.out.println("clicked on " + game.getTitle());  // debug statement, delete later
+        openGameButton.getStyleClass().add("open-game-button");
+        openGameButton.setAccessibleText("Open " + game.getTitle());
+        openGameButton.setOnAction(e -> {
+            System.out.println("clicked on " + game.getTitle());
             try {
                 openGameView(game, e);
             } catch (IOException ex) {
@@ -144,9 +141,46 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    private void openWishlistView(ActionEvent action) throws IOException {
-        Stage stage = (Stage) ((Node) action.getSource()).getScene().getWindow();
+    private void navToGames(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
+        stage.getScene().setRoot(root);
+        Session.getInstance().applyGlobalSettings(stage.getScene());
+        stage.show();
+    }
+
+    @FXML
+    private void navToLists(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/wishlistView.fxml"));
+        stage.getScene().setRoot(root);
+        Session.getInstance().applyGlobalSettings(stage.getScene());
+        stage.show();
+    }
+
+    @FXML
+    private void openSettings(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
+        
+        Stage settingsStage = new Stage();
+        settingsStage.initOwner(((Node)event.getSource()).getScene().getWindow());
+        settingsStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        settingsStage.setTitle("Settings");
+
+        javafx.scene.Scene scene = new javafx.scene.Scene(root, 300, 250);
+        
+        settingsStage.setScene(scene);
+        Session.getInstance().applyGlobalSettings(scene); 
+        
+        settingsStage.showAndWait();
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        Session.getInstance().logOut(); 
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/loginView.fxml"));
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
@@ -156,13 +190,14 @@ public class MainView implements Initializable {
     private void openGameView(Game game, ActionEvent action) throws IOException {
         Stage stage = (Stage)((Node)action.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
-        // new section for passing game to GameView using Session
+        
         Session currentSession = Session.getInstance();
         currentSession.setCurrentGame(game);
-        System.out.println("mainview set game as " + game.getTitle());  // debug statement, delete later
-        // end new section
+        System.out.println("mainview set game as " + game.getTitle()); 
+        
         stage.getScene().setRoot(root);
-Session.getInstance().applyGlobalSettings(stage.getScene());
+        Session.getInstance().applyGlobalSettings(stage.getScene());
+        
         stage.show();
     }
 }
