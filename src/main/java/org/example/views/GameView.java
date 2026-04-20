@@ -1,5 +1,6 @@
 package main.java.org.example.views;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,9 +33,13 @@ public class GameView implements Initializable {
     @FXML
     private Text textDescription;
     @FXML
-    private Text textReview;
+    private Text textPlayerAmount;
+    @FXML
+    private Text textPlaytime;
 
     // UI controls
+    @FXML
+    private Button buttonBack;
     @FXML
     private Button buttonAddToList;
     @FXML
@@ -53,13 +58,14 @@ public class GameView implements Initializable {
         // now we can load game info
         labelGameTitle.setText(g.getTitle());
         Image img = new Image(g.getImageUrl());
-        imageGamePicture.setImage(img); //HAVE GAME CLASS RETURN IMAGE
+        imageGamePicture.setImage(img);
+        // textAverageRating.setText(toString(g.getAvgRating());
         textDescription.setText(g.getDescription());
         // textReview.setText(game.) MAKE THIS A LOOP TO LOAD ALL REVIEWS
     }
 
     @FXML
-    private void handleBackToMainMenu(MouseEvent event) throws IOException
+    private void handleBackToMainMenu(ActionEvent event) throws IOException
     {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
