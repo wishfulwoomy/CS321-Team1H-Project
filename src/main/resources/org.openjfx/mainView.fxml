@@ -68,7 +68,7 @@
             </HBox>
          </top>
          <center>
-            <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="mainScrollPane" fitToWidth="true" BorderPane.alignment="CENTER">
                <content>
                   <GridPane fx:id="gameGrid" alignment="CENTER" hgap="20.0" vgap="20.0">
                      <columnConstraints>

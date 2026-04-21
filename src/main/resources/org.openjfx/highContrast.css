@@ -105,14 +105,20 @@
     -fx-font-size: 14px;
 }
 
-/* The Favorite Button */
+/* Favorite Button */
 .root .fav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #FF0000;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
     -fx-border-color: transparent;
     -fx-padding: 0 5 0 5;
     -fx-cursor: hand;
+}
+
+.root .fav-button:selected {
+    -fx-text-fill: #FF0000;
+    -fx-background-color: #FFFF00;
+    -fx-background-radius: 20px;
 }
 
 .root .fav-button:hover,
@@ -120,6 +126,7 @@
     -fx-background-color: #555555;
     -fx-background-radius: 20px;
 }
+
 /* --------------------------------------
    LOGIN SCREEN HIGH CONTRAST OVERRIDES
 --------------------------------------- */

@@ -36,6 +36,8 @@ public class MainView implements Initializable {
     private ButtonBar filterBar;
     @FXML
     private javafx.scene.layout.GridPane gameGrid;
+    @FXML
+    private javafx.scene.control.ScrollPane mainScrollPane;
 
     @FXML
     @Override
@@ -92,18 +94,19 @@ public class MainView implements Initializable {
      * Builds the visual UI node for a single Game, complete with its downloaded
      * image.
      */
-private VBox createGameCard(Game game) {
+    private VBox createGameCard(Game game) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
         card.getStyleClass().add("game-card");
         card.setStyle("-fx-cursor: hand;");
-        
-        card.setMaxWidth(300); 
+        card.setMaxWidth(300);
+
+        card.setCache(true);
+        card.setCacheHint(javafx.scene.CacheHint.SPEED);
 
         ImageView imageView = new ImageView();
-        imageView.setPreserveRatio(true); 
-        
-        imageView.setFitHeight(200); 
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(200);
 
         if (game.getImageUrl() != null && !game.getImageUrl().isEmpty()) {
             Image img = new Image(game.getImageUrl(), true);
@@ -111,12 +114,33 @@ private VBox createGameCard(Game game) {
         } else {
             imageView.getStyleClass().add("game-image-placeholder");
         }
-        imageView.setAccessibleText("Cover art for " + game.getTitle());
 
         VBox imageContainer = new VBox(imageView);
         imageContainer.setAlignment(Pos.CENTER);
         imageContainer.setMinHeight(210);
         imageContainer.setMaxHeight(210);
+
+        imageContainer.setFocusTraversable(true);
+        imageContainer.setAccessibleRole(javafx.scene.AccessibleRole.BUTTON);
+        imageContainer.setAccessibleText("Open details for " + game.getTitle());
+
+        imageContainer.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+            if (isFocused) {
+                autoScrollToNode(card);
+            }
+        });
+
+        imageContainer.setOnKeyPressed(e -> {
+            if (e.getCode() == javafx.scene.input.KeyCode.ENTER || e.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                System.out.println("Opening Game View via Keyboard for: " + game.getTitle());
+                try {
+                    openGameView(game, e);
+                } catch (IOException ex) {
+                    System.out.println("Error opening game view: " + ex.getMessage());
+                }
+                e.consume();
+            }
+        });
 
         HBox textRow = new HBox(10);
         textRow.setAlignment(Pos.CENTER);
@@ -124,18 +148,30 @@ private VBox createGameCard(Game game) {
         Label titleLabel = new Label(game.getTitle());
         titleLabel.getStyleClass().add("game-card-title");
         titleLabel.setWrapText(true);
-        titleLabel.setMaxWidth(200); 
+        titleLabel.setMaxWidth(200);
 
-        Button favButton = new Button("♥");
+        javafx.scene.control.ToggleButton favButton = new javafx.scene.control.ToggleButton("♥");
         favButton.getStyleClass().add("fav-button");
         favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
+
+        favButton.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+            if (isFocused) {
+                autoScrollToNode(card);
+            }
+        });
+
         favButton.setOnAction(e -> {
-            System.out.println("Favorited: " + game.getTitle());
-            e.consume(); 
+            if (favButton.isSelected()) {
+                System.out.println("Favorited: " + game.getTitle());
+                favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+            } else {
+                System.out.println("Unfavorited: " + game.getTitle());
+                favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
+            }
+            e.consume();
         });
 
         textRow.getChildren().addAll(titleLabel, favButton);
-        
         card.getChildren().addAll(imageContainer, textRow);
 
         card.setOnMouseClicked(e -> {
@@ -216,4 +252,29 @@ private VBox createGameCard(Game game) {
         Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
     }
+
+    /**
+     * Calculates a node's position in the grid and forces the ScrollPane to center
+     * on it.
+     */
+    private void autoScrollToNode(Node card) {
+        javafx.application.Platform.runLater(() -> {
+            double nodeY = card.getBoundsInParent().getMinY();
+            double nodeHeight = card.getBoundsInParent().getHeight();
+            double gridHeight = gameGrid.getBoundsInLocal().getHeight();
+            double viewportHeight = mainScrollPane.getViewportBounds().getHeight();
+
+            double maxScroll = gridHeight - viewportHeight;
+
+            if (maxScroll > 0) {
+                double desiredY = nodeY - (viewportHeight / 2) + (nodeHeight / 2);
+                double scrollValue = desiredY / maxScroll;
+
+                scrollValue = Math.max(0.0, Math.min(1.0, scrollValue));
+
+                mainScrollPane.setVvalue(scrollValue);
+            }
+        });
+    }
+
 }

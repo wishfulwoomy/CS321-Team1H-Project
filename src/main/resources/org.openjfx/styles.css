@@ -68,14 +68,17 @@
 /* Favorite Button */
 .fav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #E63946; /* Red heart */
+    -fx-text-fill: #CCCCCC;
     -fx-font-size: 16px;
     -fx-border-color: transparent;
     -fx-padding: 0 5 0 5;
     -fx-cursor: hand;
 }
 
-/* A soft gray circle behind the heart when hovered over */
+.fav-button:selected {
+    -fx-text-fill: #E63946; /* Pops to red when selected */
+}
+
 .fav-button:hover,
 .fav-button:focused {
     -fx-background-color: #F0F0F0; 
