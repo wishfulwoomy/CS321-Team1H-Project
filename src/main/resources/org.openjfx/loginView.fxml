@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" onKeyPressed="#handleLogin" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" onKeyPressed="#handleLogin2" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.LoginView">
    <content>
       
       <BorderPane id="login-background">
@@ -25,6 +25,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
+                  <Label fx:id="invalidLabel" text="Invalid username or password" visible="false" />
                   
                   <TextField fx:id="usernameField" accessibleRoleDescription="Text Input" accessibleText="Username" maxWidth="300.0" promptText="Username" />
                   

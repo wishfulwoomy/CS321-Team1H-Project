@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
@@ -19,6 +20,8 @@ import main.java.org.example.model.Session;
 public class LoginView {
     @FXML
     private Hyperlink loginAsGuest;
+    @FXML
+    private Label invalidLabel;
     @FXML
     private javafx.scene.control.TextField usernameField;
     @FXML
@@ -69,14 +72,15 @@ public class LoginView {
         {
             //Provide terminal feedback and reset the form
             System.out.println("Login Failed: Incorrect username or password.");
-            
+
+            invalidLabel.setVisible(true);
             passwordField.clear();
             usernameField.requestFocus();
         }
     }
 
     @FXML
-    private void handleLogin(KeyEvent event) throws IOException
+    private void handleLogin2(KeyEvent event) throws IOException
     {
         if (event.getCode() == KeyCode.ENTER) {
             String enteredUsername = usernameField.getText();
@@ -116,6 +120,7 @@ public class LoginView {
                 //Provide terminal feedback and reset the form
                 System.out.println("Login Failed: Incorrect username or password.");
 
+                invalidLabel.setVisible(true);
                 passwordField.clear();
                 usernameField.requestFocus();
             }
