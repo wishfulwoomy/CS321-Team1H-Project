@@ -35,7 +35,7 @@ public class MainView implements Initializable {
     @FXML
     private ButtonBar filterBar;
     @FXML
-    private TilePane gameGrid;
+    private javafx.scene.layout.GridPane gameGrid;
 
     @FXML
     @Override
@@ -70,9 +70,21 @@ public class MainView implements Initializable {
     private void loadGamesIntoGrid(List<Game> games) {
         gameGrid.getChildren().clear();
 
+        int col = 0;
+        int row = 0;
+
         for (Game game : games) {
             VBox card = createGameCard(game);
-            gameGrid.getChildren().add(card);
+
+            // Add to the grid at the specific column and row
+            gameGrid.add(card, col, row);
+
+            // Move to the next column
+            col++;
+            if (col == 3) {
+                col = 0;
+                row++;
+            }
         }
     }
 
@@ -80,15 +92,18 @@ public class MainView implements Initializable {
      * Builds the visual UI node for a single Game, complete with its downloaded
      * image.
      */
-    private VBox createGameCard(Game game) {
+private VBox createGameCard(Game game) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
         card.getStyleClass().add("game-card");
+        card.setStyle("-fx-cursor: hand;");
+        
+        card.setMaxWidth(300); 
 
         ImageView imageView = new ImageView();
-        imageView.setFitWidth(120);
-        imageView.setFitHeight(120);
-        imageView.setPreserveRatio(true);
+        imageView.setPreserveRatio(true); 
+        
+        imageView.setFitHeight(200); 
 
         if (game.getImageUrl() != null && !game.getImageUrl().isEmpty()) {
             Image img = new Image(game.getImageUrl(), true);
@@ -96,8 +111,12 @@ public class MainView implements Initializable {
         } else {
             imageView.getStyleClass().add("game-image-placeholder");
         }
-
         imageView.setAccessibleText("Cover art for " + game.getTitle());
+
+        VBox imageContainer = new VBox(imageView);
+        imageContainer.setAlignment(Pos.CENTER);
+        imageContainer.setMinHeight(210);
+        imageContainer.setMaxHeight(210);
 
         HBox textRow = new HBox(10);
         textRow.setAlignment(Pos.CENTER);
@@ -105,29 +124,28 @@ public class MainView implements Initializable {
         Label titleLabel = new Label(game.getTitle());
         titleLabel.getStyleClass().add("game-card-title");
         titleLabel.setWrapText(true);
-        titleLabel.setMaxWidth(100); 
+        titleLabel.setMaxWidth(200); 
 
         Button favButton = new Button("♥");
         favButton.getStyleClass().add("fav-button");
         favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
         favButton.setOnAction(e -> {
             System.out.println("Favorited: " + game.getTitle());
+            e.consume(); 
         });
 
-        Button openGameButton = new Button(">");
-        openGameButton.getStyleClass().add("open-game-button");
-        openGameButton.setAccessibleText("Open " + game.getTitle());
-        openGameButton.setOnAction(e -> {
-            System.out.println("clicked on " + game.getTitle());
+        textRow.getChildren().addAll(titleLabel, favButton);
+        
+        card.getChildren().addAll(imageContainer, textRow);
+
+        card.setOnMouseClicked(e -> {
+            System.out.println("Opening Game View for: " + game.getTitle());
             try {
                 openGameView(game, e);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                System.out.println("Error opening game view: " + ex.getMessage());
             }
         });
-
-        textRow.getChildren().addAll(titleLabel, favButton, openGameButton);
-        card.getChildren().addAll(imageView, textRow);
 
         return card;
     }
@@ -161,23 +179,23 @@ public class MainView implements Initializable {
     @FXML
     private void openSettings(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
-        
+
         Stage settingsStage = new Stage();
-        settingsStage.initOwner(((Node)event.getSource()).getScene().getWindow());
+        settingsStage.initOwner(((Node) event.getSource()).getScene().getWindow());
         settingsStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         settingsStage.setTitle("Settings");
 
         javafx.scene.Scene scene = new javafx.scene.Scene(root, 300, 250);
-        
+
         settingsStage.setScene(scene);
-        Session.getInstance().applyGlobalSettings(scene); 
-        
+        Session.getInstance().applyGlobalSettings(scene);
+
         settingsStage.showAndWait();
     }
 
     @FXML
     private void logOut(ActionEvent event) throws IOException {
-        Session.getInstance().logOut(); 
+        Session.getInstance().logOut();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/loginView.fxml"));
@@ -187,13 +205,13 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    private void openGameView(Game game, ActionEvent action) throws IOException {
+    private void openGameView(Game game, javafx.event.Event action) throws IOException {
+        Stage stage = (Stage) ((Node) action.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
+
         Session currentSession = Session.getInstance();
         currentSession.setCurrentGame(game);
-        System.out.println("mainview set game as " + game.getTitle());
 
-        Stage stage = (Stage)((Node)action.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
