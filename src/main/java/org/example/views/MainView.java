@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -14,12 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -27,11 +26,14 @@ import javafx.stage.Stage;
 
 import main.java.org.example.model.Game;
 import main.java.org.example.model.GameParser;
+import main.java.org.example.model.GameSearch;
 import main.java.org.example.model.Session;
 
 public class MainView implements Initializable {
     @FXML
     private ToggleButton toggleFilters;
+    @FXML
+    private TextField searchBar;
     @FXML
     private ButtonBar filterBar;
     @FXML
@@ -187,6 +189,14 @@ public class MainView implements Initializable {
     }
 
     @FXML
+    private void searchGames(KeyEvent event) {
+        // get parsed games from GameParser, cast to an ArrayList, search using GameSearch
+        GameSearch.searchGames((ArrayList<Game>) GameParser.getGamesList(), searchBar.getText());
+        // load games
+        loadGamesIntoGrid(GameSearch.getSearchResults());
+    }
+
+    @FXML
     public void openFilters(ActionEvent event) {
         boolean isSelected = toggleFilters.isSelected();
         filterBar.setVisible(isSelected);
@@ -243,11 +253,9 @@ public class MainView implements Initializable {
     @FXML
     private void openGameView(Game game, javafx.event.Event action) throws IOException {
         Stage stage = (Stage) ((Node) action.getSource()).getScene().getWindow();
+        Session currentSession = Session.getInstance(); // calls singleton session instance
+        currentSession.setCurrentGame(game); // sets current game to pass to GameView
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
-
-        Session currentSession = Session.getInstance();
-        currentSession.setCurrentGame(game);
-
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
