@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GameParser 
 {
-
+    private static List<Game> fullGamesList;
     /**
      * Parses an XML file containing board game data into a List of main.java.org.example.model.Game objects.
      * @param inputStream The input stream of the XML file
@@ -116,6 +116,14 @@ public class GameParser
             e.printStackTrace();
         }
 
+        fullGamesList = gamesList;
         return gamesList;
     }
+
+    /**
+     * Getter function to return the parsed list of games
+     * [separate from parseGames(), so we don't need to parse again].
+     * @return The full list of games.
+     */
+    public static List<Game> getGamesList() { return fullGamesList; }
 }

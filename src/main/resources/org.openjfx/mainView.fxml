@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="main.java.org.example.views.MainView">
+<VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.MainView">
    <children>
       <HBox alignment="CENTER_LEFT" styleClass="menu-banner" VBox.vgrow="NEVER">
          <children>
-            <Button mnemonicParsing="false" onAction="#navToGames"
-               styleClass="menu-banner-button, active-menu-button" text="Games" wrapText="true" />
-            <Button mnemonicParsing="false" onAction="#navToLists" styleClass="menu-banner-button"
-               text="Lists" wrapText="true" />
-            <Button mnemonicParsing="false" onAction="#openSettings" styleClass="menu-banner-button"
-               text="Settings" wrapText="true" />
-            <Button mnemonicParsing="false" onAction="#logOut" styleClass="menu-banner-button"
-               text="Log Out" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#navToGames" styleClass="menu-banner-button, active-menu-button" text="Games" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#navToLists" styleClass="menu-banner-button" text="Lists" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#openSettings" styleClass="menu-banner-button" text="Settings" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#logOut" styleClass="menu-banner-button" text="Log Out" wrapText="true" />
          </children>
       </HBox>
 
@@ -59,11 +65,8 @@
          <top>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <TextField accessibleText="Search Games" accessibleRoleDescription="Search Field"
-                     promptText="Search..." HBox.hgrow="ALWAYS" />
-                  <ToggleButton fx:id="toggleFilters" accessibleText="Toggle Filters Menu"
-                     accessibleRoleDescription="Toggle Button" mnemonicParsing="false"
-                     onAction="#openFilters" text="Filters" wrapText="true" />
+                  <TextField fx:id="searchBar" accessibleRoleDescription="Search Field" accessibleText="Search Games" onKeyPressed="#searchGames" promptText="Search..." HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="toggleFilters" accessibleRoleDescription="Toggle Button" accessibleText="Toggle Filters Menu" mnemonicParsing="false" onAction="#openFilters" text="Filters" wrapText="true" />
                </children>
             </HBox>
          </top>
