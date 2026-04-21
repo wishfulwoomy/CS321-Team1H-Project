@@ -188,16 +188,14 @@ public class MainView implements Initializable {
 
     @FXML
     private void openGameView(Game game, ActionEvent action) throws IOException {
-        Stage stage = (Stage)((Node)action.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
-        
         Session currentSession = Session.getInstance();
         currentSession.setCurrentGame(game);
-        System.out.println("mainview set game as " + game.getTitle()); 
-        
+        System.out.println("mainview set game as " + game.getTitle());
+
+        Stage stage = (Stage)((Node)action.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
-        
         stage.show();
     }
 }

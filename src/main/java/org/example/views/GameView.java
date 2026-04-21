@@ -1,7 +1,9 @@
 package main.java.org.example.views;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,8 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameView 
-{
+public class GameView implements Initializable {
     // UI elements that display game info
     @FXML
     private ImageView imageGamePicture;
@@ -32,16 +33,20 @@ public class GameView
     @FXML
     private Text textDescription;
     @FXML
-    private Text textReview;
+    private Text textPlayerAmount;
+    @FXML
+    private Text textPlaytime;
 
     // UI controls
+    @FXML
+    private Button buttonBack;
     @FXML
     private Button buttonAddToList;
     @FXML
     private Button buttonLeaveReview;
 
     @FXML
-    //@Override
+    @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         System.out.println("gameview trying to initialize");  // debug statement, delete later
@@ -53,13 +58,14 @@ public class GameView
         // now we can load game info
         labelGameTitle.setText(g.getTitle());
         Image img = new Image(g.getImageUrl());
-        imageGamePicture.setImage(img); //HAVE GAME CLASS RETURN IMAGE
+        imageGamePicture.setImage(img);
+        // textAverageRating.setText(toString(g.getAvgRating());
         textDescription.setText(g.getDescription());
         // textReview.setText(game.) MAKE THIS A LOOP TO LOAD ALL REVIEWS
     }
 
     @FXML
-    private void handleBackToMainMenu(MouseEvent event) throws IOException
+    private void handleBackToMainMenu(ActionEvent event) throws IOException
     {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
