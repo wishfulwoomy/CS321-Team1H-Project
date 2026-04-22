@@ -16,12 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -32,6 +27,7 @@ import javafx.stage.Stage;
 
 import main.java.org.example.model.Game;
 import main.java.org.example.model.GameParser;
+import main.java.org.example.model.GameSearch;
 import main.java.org.example.model.Session;
 import main.java.org.example.model.Wishlist;
 
@@ -40,6 +36,8 @@ public class MainView implements Initializable {
     private ToggleButton toggleFilters;
     @FXML
     private ButtonBar filterBar;
+    @FXML
+    private TextField searchBar;
     @FXML
     private javafx.scene.layout.GridPane gameGrid;
     @FXML
@@ -309,11 +307,9 @@ public class MainView implements Initializable {
     @FXML
     private void openGameView(Game game, javafx.event.Event action) throws IOException {
         Stage stage = (Stage) ((Node) action.getSource()).getScene().getWindow();
+        Session currentSession = Session.getInstance(); // calls singleton session instance
+        currentSession.setCurrentGame(game); // sets current game to pass to GameView
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
-
-        Session currentSession = Session.getInstance();
-        currentSession.setCurrentGame(game);
-
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
         stage.show();
@@ -321,9 +317,10 @@ public class MainView implements Initializable {
 
     @FXML
     private void searchGames(KeyEvent event) {
-        if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
-            System.out.println("Search triggered via Enter key!");
-        }
+        // get parsed games from GameParser, cast to an ArrayList, search using GameSearch
+        GameSearch.searchGames((ArrayList<Game>) GameParser.getGamesList(), searchBar.getText());
+        // load games
+        loadGamesIntoGrid(GameSearch.getSearchResults());
     }
 
     private void autoScrollToNode(Node card) {
