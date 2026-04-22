@@ -29,38 +29,33 @@ public class LoginView {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        // Put anything not done in scene builder here
     }
 
-@FXML
+    @FXML
     private void handleLogin(ActionEvent event) throws IOException 
     {
         String enteredUsername = usernameField.getText();
         String enteredPassword = passwordField.getText();
 
-        //Initialize parser and load the test users
         main.java.org.example.model.UserParser parser = new main.java.org.example.model.UserParser();
         parser.loadUsers("src/main/resources/SampleUser.xml"); 
 
         boolean loginSuccessful = false;
 
-        //Check credentials against the parsed list
-        for (main.java.org.example.model.User user : parser.getUserList()) 
-        {
-            if (user.getName().equals(enteredUsername) && user.getPassword().equals(enteredPassword)) 
+        if (parser.getUserList() != null && !parser.getUserList().isEmpty()) {
+            for (main.java.org.example.model.User user : parser.getUserList()) 
             {
-                //Store the user in the global session
-                Session.getInstance().logIn(user);
-                loginSuccessful = true;
-                break;
+                if (user.getName().equals(enteredUsername) && user.getPassword().equals(enteredPassword)) 
+                {
+                    Session.getInstance().logIn(user);
+                    loginSuccessful = true;
+                    break;
+                }
             }
         }
 
         if (loginSuccessful) 
         {
-            System.out.println("Login Successful for: " + enteredUsername);
-            
-            // Transition to the main screen
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
             stage.getScene().setRoot(root);
@@ -70,9 +65,6 @@ public class LoginView {
         } 
         else 
         {
-            //Provide terminal feedback and reset the form
-            System.out.println("Login Failed: Incorrect username or password.");
-
             invalidLabel.setVisible(true);
             passwordField.clear();
             usernameField.requestFocus();
@@ -86,29 +78,25 @@ public class LoginView {
             String enteredUsername = usernameField.getText();
             String enteredPassword = passwordField.getText();
 
-            //Initialize parser and load the test users
             main.java.org.example.model.UserParser parser = new main.java.org.example.model.UserParser();
             parser.loadUsers("src/main/resources/SampleUser.xml");
 
             boolean loginSuccessful = false;
 
-            //Check credentials against the parsed list
-            for (main.java.org.example.model.User user : parser.getUserList())
-            {
-                if (user.getName().equals(enteredUsername) && user.getPassword().equals(enteredPassword))
+            if (parser.getUserList() != null && !parser.getUserList().isEmpty()) {
+                for (main.java.org.example.model.User user : parser.getUserList())
                 {
-                    //Store the user in the global session
-                    Session.getInstance().logIn(user);
-                    loginSuccessful = true;
-                    break;
+                    if (user.getName().equals(enteredUsername) && user.getPassword().equals(enteredPassword))
+                    {
+                        Session.getInstance().logIn(user);
+                        loginSuccessful = true;
+                        break;
+                    }
                 }
             }
 
             if (loginSuccessful)
             {
-                System.out.println("Login Successful for: " + enteredUsername);
-
-                // Transition to the main screen
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
                 stage.getScene().setRoot(root);
@@ -117,9 +105,6 @@ public class LoginView {
                 stage.show();
             }
             else {
-                //Provide terminal feedback and reset the form
-                System.out.println("Login Failed: Incorrect username or password.");
-
                 invalidLabel.setVisible(true);
                 passwordField.clear();
                 usernameField.requestFocus();
@@ -157,5 +142,4 @@ public class LoginView {
         Session.getInstance().applyGlobalSettings(scene);
         settingsStage.showAndWait();
     }
-
 }

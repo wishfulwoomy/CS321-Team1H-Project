@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -16,10 +18,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -28,6 +32,7 @@ import javafx.stage.Stage;
 import main.java.org.example.model.Game;
 import main.java.org.example.model.GameParser;
 import main.java.org.example.model.Session;
+import main.java.org.example.model.Wishlist;
 
 public class MainView implements Initializable {
     @FXML
@@ -42,14 +47,10 @@ public class MainView implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Path to XML boardgame database
         String dbPath = "src/main/resources/bgg90Games.xml";
 
         try {
-            // Convert file path into InputStream for parser
             InputStream inputStream = new FileInputStream(dbPath);
-
-            // Call GameParser class!
             List<Game> parsedGames = GameParser.parseGames(inputStream);
 
             if (parsedGames.isEmpty()) {
@@ -66,9 +67,6 @@ public class MainView implements Initializable {
         }
     }
 
-    /**
-     * Loops through a list of Game objects and adds them to the FXML TilePane.
-     */
     private void loadGamesIntoGrid(List<Game> games) {
         gameGrid.getChildren().clear();
 
@@ -78,10 +76,8 @@ public class MainView implements Initializable {
         for (Game game : games) {
             VBox card = createGameCard(game);
 
-            // Add to the grid at the specific column and row
             gameGrid.add(card, col, row);
 
-            // Move to the next column
             col++;
             if (col == 3) {
                 col = 0;
@@ -90,10 +86,6 @@ public class MainView implements Initializable {
         }
     }
 
-    /**
-     * Builds the visual UI node for a single Game, complete with its downloaded
-     * image.
-     */
     private VBox createGameCard(Game game) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
@@ -152,7 +144,21 @@ public class MainView implements Initializable {
 
         javafx.scene.control.ToggleButton favButton = new javafx.scene.control.ToggleButton("♥");
         favButton.getStyleClass().add("fav-button");
-        favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
+        
+        boolean isFavorited = false;
+        for (Wishlist w : Session.getInstance().getWishlists()) {
+            if (w.getGames().stream().anyMatch(g -> g.getTitle().equals(game.getTitle()))) {
+                isFavorited = true;
+                break;
+            }
+        }
+        favButton.setSelected(isFavorited);
+
+        if (isFavorited) {
+            favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+        } else {
+            favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
+        }
 
         favButton.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
             if (isFocused) {
@@ -162,10 +168,36 @@ public class MainView implements Initializable {
 
         favButton.setOnAction(e -> {
             if (favButton.isSelected()) {
-                System.out.println("Favorited: " + game.getTitle());
-                favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+                List<Wishlist> allLists = Session.getInstance().getWishlists();
+                List<String> listNames = new ArrayList<>();
+                for (Wishlist w : allLists) {
+                    listNames.add(w.getName());
+                }
+
+                ChoiceDialog<String> dialog = new ChoiceDialog<>(listNames.get(0), listNames);
+                dialog.setTitle("Add to Wishlist");
+                dialog.setHeaderText("Add " + game.getTitle() + " to a wishlist:");
+                dialog.setContentText("Select list:");
+
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    Wishlist chosenList = Session.getInstance().getWishlistByName(result.get());
+                    
+                    boolean alreadyInList = chosenList.getGames().stream().anyMatch(g -> g.getTitle().equals(game.getTitle()));
+                    
+                    if (!alreadyInList) {
+                        chosenList.add(game);
+                        System.out.println("Added " + game.getTitle() + " to " + result.get());
+                    }
+                    favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+                } else {
+                    favButton.setSelected(false);
+                }
             } else {
                 System.out.println("Unfavorited: " + game.getTitle());
+                for (Wishlist w : Session.getInstance().getWishlists()) {
+                    w.getGames().removeIf(g -> g.getTitle().equals(game.getTitle()));
+                }
                 favButton.setAccessibleText("Add " + game.getTitle() + " to favorites");
             }
             e.consume();
@@ -253,10 +285,13 @@ public class MainView implements Initializable {
         stage.show();
     }
 
-    /**
-     * Calculates a node's position in the grid and forces the ScrollPane to center
-     * on it.
-     */
+    @FXML
+    private void searchGames(KeyEvent event) {
+        if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+            System.out.println("Search triggered via Enter key!");
+        }
+    }
+
     private void autoScrollToNode(Node card) {
         javafx.application.Platform.runLater(() -> {
             double nodeY = card.getBoundsInParent().getMinY();
@@ -276,5 +311,4 @@ public class MainView implements Initializable {
             }
         });
     }
-
 }
