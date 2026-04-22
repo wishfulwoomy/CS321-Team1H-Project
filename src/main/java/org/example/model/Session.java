@@ -33,8 +33,10 @@ public class Session {
         loggedIn = false;
         textSize = 12;
         highContrast = false;
-        currentWishlists = new ArrayList<>();
-        currentWishlists.add(new Wishlist("Favorites"));
+        
+        currentWishlists = loadFromXML();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::saveToXML));
     }
 
     public static Session getInstance() 
@@ -69,7 +71,6 @@ public class Session {
     {
         currentUser = user;
         loggedIn = true;
-        currentWishlists = loadFromXML();
     }
 
     public void logOut() 
@@ -77,8 +78,6 @@ public class Session {
         saveToXML();
         loggedIn = false;
         currentUser = null;
-        currentWishlists = new ArrayList<>();
-        currentWishlists.add(new Wishlist("Favorites"));
     }
 
     public void setCurrentGame(Game g) { this.currentGame = g; }
@@ -139,7 +138,8 @@ public class Session {
 
             for (Wishlist w : currentWishlists) {
                 Element listElement = doc.createElement("Wishlist");
-                listElement.setAttribute("name", w.getName());
+                String wName = w.getName() != null ? w.getName() : "Unnamed List";
+                listElement.setAttribute("name", wName);
                 rootElement.appendChild(listElement);
 
                 for (Game g : w.getGames()) {
