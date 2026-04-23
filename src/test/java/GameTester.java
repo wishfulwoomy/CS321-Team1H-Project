@@ -8,8 +8,8 @@ public class GameTester
     public static void main(String[] args)
     {
         Game game1 = new Game("Catan", 3, 4, 90);
-        Review review1 = new Review("Catan", "user1", 5, "Great game!");
-        Review review2 = new Review("Catan", "user2", 4, "Fun but can be long.");
+        Review review1 = new Review("Catan", "alice", "user1", 5, "Great game!");
+        Review review2 = new Review("Catan", "bob", "user2", 4, "Fun but can be long.");
 
         game1.setGameID("game123");
         game1.setDescription("A popular board game where players collect resources and build settlements.");
@@ -26,8 +26,9 @@ public class GameTester
 
         System.out.println("\nReviews:");
         for (Review review : game1.getReviews()) {
-            System.out.println("- GameID: " + review.getGameID() + 
-                               ", Author: " + review.getAuthorID() + 
+            System.out.println("- GameID: " + review.getGameID() +
+                               ", Username: " + review.getAuthor() +
+                               ", AuthorID: " + review.getAuthorID() +
                                ", Rating: " + review.getRating() + 
                                ", Date: " + review.getDatePosted() + 
                                ", Comment: " + review.getComment());

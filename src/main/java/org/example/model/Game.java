@@ -36,7 +36,11 @@ public class Game
         this.playTimeMinutes = time;
         this.avgRating = 0.0;
         this.reviews = new ArrayList<Review>();
-    }
+
+        // testing block, delete later
+         Review myReview = new Review("game", "username", "author", 5, "This game is really cool :)");
+        addReview(myReview);
+     }
 
     /** * Overloaded constructor for the Game class
      * @param t The title of the game

@@ -5,18 +5,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.GameView">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.GameView">
    <children>
       <HBox VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="buttonBack" mnemonicParsing="false" onAction="#handleBackToMainMenu"
-               prefHeight="25.0" prefWidth="63.0" text="&lt; Back" />
+            <Button fx:id="buttonBack" mnemonicParsing="false" onAction="#handleBackToMainMenu" prefHeight="25.0" prefWidth="63.0" text="&lt; Back" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -29,8 +30,7 @@
                <children>
                   <HBox spacing="25.0">
                      <children>
-                        <ImageView fx:id="imageGamePicture" fitHeight="350.0" fitWidth="350.0"
-                           pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageGamePicture" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </HBox.margin>
@@ -46,49 +46,51 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Text fx:id="textAverageRating" strokeType="OUTSIDE" strokeWidth="0.0"
-                                 style="-fx-font-size: 16px;" text="Rating: Unrated" />
-                              <Button fx:id="buttonAddToList" mnemonicParsing="false"
-                                 text="Add to list" />
+                              <Text fx:id="textAverageRating" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Rating: Unrated" />
+                              <Button fx:id="buttonAddToList" mnemonicParsing="false" text="Add to list" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-
-                  <VBox spacing="10.0">
-                     <children>
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;"
-                           text="Description: " />
-                        <Text fx:id="textDescription" strokeType="OUTSIDE" strokeWidth="0.0"
-                           text="desc here" />
-
-                        <HBox spacing="5.0">
-                           <Label style="-fx-font-weight: bold;" text="Player amount: " />
-                           <Text fx:id="textPlayerAmount" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="player amt here" />
-                        </HBox>
-
-                        <HBox spacing="5.0">
-                           <Label style="-fx-font-weight: bold;" text="Duration:" />
-                           <Text fx:id="textPlaytime" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="length here" />
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Description: " />
+                              <Text fx:id="textDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="desc here" />
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Player amount:" />
+                              <Text fx:id="textPlayerAmount" strokeType="OUTSIDE" strokeWidth="0.0" text="player count here" />
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Average playtime:" />
+                              <Text fx:id="textPlaytime" strokeType="OUTSIDE" strokeWidth="0.0" text="playtime here" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
 
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Reviews:" />
-                        <Button fx:id="buttonLeaveReview" mnemonicParsing="false"
-                           text="Leave review" />
+                        <Button fx:id="buttonLeaveReview" mnemonicParsing="false" onAction="#leaveReview" text="Leave review" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
+                  <ScrollPane fx:id="reviewsScrollPane" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <GridPane fx:id="reviewsGrid" gridLinesVisible="true">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
          </content>

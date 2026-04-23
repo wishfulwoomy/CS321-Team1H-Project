@@ -14,18 +14,21 @@ public class Review
     private int rating;
     private String comment;
     private Date datePosted;
+    private String author;
 
-    /** Constructor for the review class
-     * @param author the ID of the review's author
+    /** Constructor for the review class. The constructor will also set the datePosted
+     * to the current date and time.
+     * @param game the game to which the review belongs
+     * @param author the author of the review's author
+     * @param authorID the ID of the review's author
      * @param rate the rating given to the game
      * @param com the comment provided by the reviewer
-     * @param game the game to which the review belongs
-     * The constructor will also set the datePosted to the current date and time.
      */
-    public Review(String game, String author, int rate, String com)
+    public Review(String game, String author, String authorID, int rate, String com)
     {
         this.gameID = game;
-        this.authorID = author;
+        this.author = author;
+        this.authorID = authorID;
         this.rating = rate;
         this.comment = com;
         this.datePosted = new Date(); // set the date
@@ -89,4 +92,9 @@ public class Review
     {
         return this.gameID;
     }
+
+    /** gets the author that left the review
+     * @return String with the author's username
+     */
+    public String getAuthor() { return this.author; }
 }
