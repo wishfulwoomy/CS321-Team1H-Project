@@ -43,7 +43,7 @@
 }
 
 .root .menu-banner-button {
-    -fx-background-color: transparent; 
+    -fx-background-color: transparent;
     -fx-text-fill: #FFFF00;
     -fx-font-weight: bold;
     -fx-border-color: transparent;
@@ -69,7 +69,8 @@
 .root .scroll-pane .viewport,
 .root .scroll-pane .content {
     -fx-background-color: #000000;
-    -fx-background: #000000; /* This specifically targets the internal JavaFX viewport color */
+    -fx-background: #000000;
+    /* This specifically targets the internal JavaFX viewport color */
 }
 
 .root .scroll-bar:vertical,
@@ -141,14 +142,16 @@
     -fx-background-color: #000000;
     -fx-border-color: #FFFFFF;
     -fx-border-width: 2px;
-    -fx-border-radius: 15px; 
-    -fx-effect: none; /* Drop shadows look muddy in high contrast */
+    -fx-border-radius: 15px;
+    -fx-effect: none;
+    /* Drop shadows look muddy in high contrast */
 }
 
 /* 3. Turn the blue button into a high-visibility yellow-on-black button */
 #login-button {
     -fx-background-color: #000000;
-    -fx-text-fill: #FFFF00; /* Yellow is an industry standard for high contrast readability */
+    -fx-text-fill: #FFFF00;
+    /* Yellow is an industry standard for high contrast readability */
     -fx-border-color: #FFFF00;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
@@ -198,7 +201,7 @@
     -fx-border-width: 2px;
 }
 
-.root .combo-box > .list-cell {
+.root .combo-box>.list-cell {
     -fx-text-fill: #FFFF00;
     -fx-font-weight: bold;
 }
@@ -206,7 +209,7 @@
 .root .combo-box .arrow-button {
     -fx-background-color: #000000;
     -fx-border-color: #FFFFFF;
-    -fx-border-width: 0 0 0 2px; 
+    -fx-border-width: 0 0 0 2px;
 }
 
 .root .combo-box .arrow {
@@ -231,4 +234,12 @@
     -fx-background-color: #FFFF00;
     -fx-text-fill: #000000;
     -fx-cursor: hand;
+}
+
+/* --------------------------------------
+   TEXT SHAPE STYLING 
+--------------------------------------- */
+.root Text {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 14px;
 }
