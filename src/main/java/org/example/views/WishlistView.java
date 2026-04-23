@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -47,7 +49,8 @@ public class WishlistView implements Initializable {
 
     private void loadGamesForList(String listName) {
         listGames.getItems().clear();
-        if (listName == null) return;
+        if (listName == null)
+            return;
 
         Wishlist selectedList = Session.getInstance().getWishlistByName(listName);
         if (selectedList != null) {
@@ -60,7 +63,7 @@ public class WishlistView implements Initializable {
     private void handleGameDoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             String selectedGameTitle = listGames.getSelectionModel().getSelectedItem();
-            
+
             if (selectedGameTitle != null) {
                 Game selectedGame = null;
                 for (Wishlist w : Session.getInstance().getWishlists()) {
@@ -70,16 +73,17 @@ public class WishlistView implements Initializable {
                             break;
                         }
                     }
-                    if (selectedGame != null) break;
+                    if (selectedGame != null)
+                        break;
                 }
 
                 if (selectedGame != null) {
                     try {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/gameView.fxml"));
-                        
+
                         Session.getInstance().setCurrentGame(selectedGame);
-                        
+
                         stage.getScene().setRoot(root);
                         Session.getInstance().applyGlobalSettings(stage.getScene());
                         stage.show();
@@ -94,33 +98,73 @@ public class WishlistView implements Initializable {
 
     @FXML
     private void handleCreateList(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog("My New List");
-        dialog.setTitle("Create Wishlist");
-        dialog.setHeaderText("Create a new Wishlist");
-        dialog.setContentText("Please enter the name of your new list:");
+        Stage dialogStage = new Stage();
+        dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        dialogStage.setTitle("Create Wishlist");
 
-        Optional<String> result = dialog.showAndWait();
+        VBox layout = new VBox(15);
+        layout.setAlignment(javafx.geometry.Pos.CENTER);
+        layout.setPadding(new javafx.geometry.Insets(20));
 
-        result.ifPresent(name -> {
-            Wishlist newList = new Wishlist(name);
-            Session.getInstance().getWishlists().add(newList);
-            listNames.getItems().add(name);
+        Label headerLabel = new Label("Create a new Wishlist:");
+        headerLabel.setFocusTraversable(true);
+
+        javafx.scene.control.TextField nameField = new javafx.scene.control.TextField();
+        nameField.setPromptText("My New List");
+        nameField.setAccessibleText("Enter the name of your new wishlist");
+
+        HBox buttonBox = new HBox(15);
+        buttonBox.setAlignment(javafx.geometry.Pos.CENTER);
+
+        Button createButton = new Button("Create");
+        createButton.setDefaultButton(true);
+
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setCancelButton(true);
+        createButton.setOnAction(e -> {
+            String newListName = nameField.getText().trim();
+            if (!newListName.isEmpty()) {
+                if (Session.getInstance().getWishlistByName(newListName) == null) {
+                    Wishlist newList = new Wishlist(newListName);
+                    Session.getInstance().getWishlists().add(newList);
+                    listNames.getItems().add(newListName);
+                    System.out.println("Created new list: " + newListName);
+                } else {
+                    System.out.println("A list with that name already exists!");
+                }
+            }
+            dialogStage.close();
         });
+
+        cancelButton.setOnAction(e -> dialogStage.close());
+
+        buttonBox.getChildren().addAll(createButton, cancelButton);
+        layout.getChildren().addAll(headerLabel, nameField, buttonBox);
+
+        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 300, 150);
+        dialogStage.setScene(scene);
+
+        Session.getInstance().applyGlobalSettings(scene);
+
+        javafx.application.Platform.runLater(nameField::requestFocus);
+
+        dialogStage.showAndWait();
     }
 
     @FXML
     private void handleDeleteList(ActionEvent event) {
         String selectedListName = listNames.getSelectionModel().getSelectedItem();
-        
+
         if (selectedListName != null) {
             if (selectedListName.equals("Favorites")) {
                 System.out.println("Cannot delete the default Favorites list.");
                 return;
             }
-            
+
             Wishlist listToRemove = Session.getInstance().getWishlistByName(selectedListName);
             Session.getInstance().getWishlists().remove(listToRemove);
-            
+
             listNames.getItems().remove(selectedListName);
             listGames.getItems().clear();
         }
@@ -130,10 +174,10 @@ public class WishlistView implements Initializable {
     private void handleRemoveGame(ActionEvent event) {
         String selectedListName = listNames.getSelectionModel().getSelectedItem();
         String selectedGameTitle = listGames.getSelectionModel().getSelectedItem();
-        
+
         if (selectedListName != null && selectedGameTitle != null) {
             Wishlist activeList = Session.getInstance().getWishlistByName(selectedListName);
-            
+
             Game gameToRemove = null;
             for (Game g : activeList.getGames()) {
                 if (g.getTitle().equals(selectedGameTitle)) {
@@ -144,7 +188,7 @@ public class WishlistView implements Initializable {
             if (gameToRemove != null) {
                 activeList.remove(gameToRemove);
             }
-            
+
             listGames.getItems().remove(selectedGameTitle);
         }
     }
@@ -165,7 +209,7 @@ public class WishlistView implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
 
         Stage settingsStage = new Stage();
-        settingsStage.initOwner(((Node)event.getSource()).getScene().getWindow());
+        settingsStage.initOwner(((Node) event.getSource()).getScene().getWindow());
         settingsStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         settingsStage.setTitle("Settings");
 
