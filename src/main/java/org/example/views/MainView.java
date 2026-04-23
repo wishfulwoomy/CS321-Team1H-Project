@@ -35,7 +35,7 @@ public class MainView implements Initializable {
     @FXML
     private ToggleButton toggleFilters;
     @FXML
-    private ButtonBar filterBar;
+    private HBox filterBar;
     @FXML
     private TextField searchBar;
     @FXML
