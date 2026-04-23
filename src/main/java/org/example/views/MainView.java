@@ -166,6 +166,15 @@ public class MainView implements Initializable {
         });
 
         favButton.setOnAction(e -> {
+            // --- SECURITY CHECK: Block Guests from Favoriting! ---
+            if (!Session.getInstance().isLoggedIn()) {
+                showGuestAlert("You must be logged in to save games to a wishlist!");
+                favButton.setSelected(false);
+                e.consume();
+                return;
+            }
+            // -----------------------------------------------------
+
             if (favButton.isSelected()) {
                 showCustomWishlistDialog(game, favButton);
             } else {
@@ -212,6 +221,13 @@ public class MainView implements Initializable {
 
     @FXML
     private void navToLists(ActionEvent event) throws IOException {
+        // --- SECURITY CHECK: Block Guests from Viewing Lists! ---
+        if (!Session.getInstance().isLoggedIn()) {
+            showGuestAlert("You must be logged in to view wishlists!");
+            return;
+        }
+        // --------------------------------------------------------
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/wishlistView.fxml"));
         stage.getScene().setRoot(root);
@@ -403,4 +419,11 @@ public class MainView implements Initializable {
         dialogStage.showAndWait();
     }
 
+    private void showGuestAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Guest Mode");
+        alert.setHeaderText("Feature Unavailable");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

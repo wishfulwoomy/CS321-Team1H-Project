@@ -34,9 +34,16 @@ public class Session {
         textSize = 12;
         highContrast = false;
         
-        currentWishlists = loadFromXML();
+        // Guests start with a clean slate
+        currentWishlists = new ArrayList<>();
+        currentWishlists.add(new Wishlist("Favorites"));
 
-        Runtime.getRuntime().addShutdownHook(new Thread(this::saveToXML));
+        // Only save on shutdown if an actual user is logged in
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (loggedIn) {
+                saveToXML();
+            }
+        }));
     }
 
     public static Session getInstance() 
@@ -45,6 +52,11 @@ public class Session {
             instance = new Session();
         }
         return instance;
+    }
+
+    public boolean isLoggedIn() 
+    {
+        return loggedIn;
     }
 
     public int getTextSize() 
@@ -71,13 +83,23 @@ public class Session {
     {
         currentUser = user;
         loggedIn = true;
+        // Load the XML data only when someone logs in
+        currentWishlists = loadFromXML();
     }
 
     public void logOut() 
     {
-        saveToXML();
+        // Save before wiping memory if they were a real user
+        if (loggedIn) {
+            saveToXML();
+        }
+        
         loggedIn = false;
         currentUser = null;
+        
+        // Reset back to the clean slate for the next person/guest
+        currentWishlists = new ArrayList<>();
+        currentWishlists.add(new Wishlist("Favorites"));
     }
 
     public void setCurrentGame(Game g) { this.currentGame = g; }
