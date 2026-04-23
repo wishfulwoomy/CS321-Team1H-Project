@@ -19,7 +19,6 @@ public class UserSearch {
      * @param pass The password being searched for
      * @return The user
      */
-    
     public User searchUser (String username, String pass)
     {
         for (User user : userList)

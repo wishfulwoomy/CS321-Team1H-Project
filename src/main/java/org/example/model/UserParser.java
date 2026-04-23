@@ -91,7 +91,7 @@ public class UserParser {
     }
 
     /**
-     * Helper method to safely extract text content from an XML tag.
+     * Helper method to extract text content from an XML tag.
      */
     private String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
@@ -105,7 +105,7 @@ public class UserParser {
     }
 
     /**
-     * Returns the populated list of users to be searched
+     * Returns the list of users to be searched
      * @return the user list
      */
     public ArrayList<User> getUserList() {

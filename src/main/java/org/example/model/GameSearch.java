@@ -37,6 +37,13 @@ public class GameSearch {
         return game.contains(query);
     }
 
+    /**
+     *
+     * @param game
+     * @param min
+     * @param max
+     * @return
+     */
     public boolean matchPlayers(Game game, int min, int max) {
         if (min >= game.getMinPlayers()) {
             return (max <= game.getMaxPlayers());
@@ -44,6 +51,13 @@ public class GameSearch {
         return false;
     }
 
+    /**
+     *
+     * @param game
+     * @param min
+     * @param max
+     * @return
+     */
     public boolean matchPlaytime(Game game, int min, int max) {
         if (game.getPlayTimeMinutes() >= min) {
             return (game.getPlayTimeMinutes() <= max);
@@ -51,6 +65,13 @@ public class GameSearch {
         return false;
     }
 
+    /**
+     *
+     * @param game
+     * @param min
+     * @param max
+     * @return
+     */
     public boolean matchRating(Game game, float min, float max) {
         if (game.getAvgRating() >= min) {
             return (game.getAvgRating() <= max);
@@ -58,5 +79,9 @@ public class GameSearch {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<Game> getSearchResults() { return SearchResults; }
 }

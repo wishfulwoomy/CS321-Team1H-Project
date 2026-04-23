@@ -51,7 +51,7 @@ public class GameParser {
                         title = nameElement.getAttribute("value");
                     }
 
-                    // 3. Extract Min Players
+                    // Get min player number
                     int minPlayers = 0;
                     NodeList minList = element.getElementsByTagName("minplayers");
                     if (minList.getLength() > 0) {
@@ -62,7 +62,7 @@ public class GameParser {
                         }
                     }
 
-                    // 4. Extract Max Players
+                    // Get max player number
                     int maxPlayers = 0;
                     NodeList maxList = element.getElementsByTagName("maxplayers");
                     if (maxList.getLength() > 0) {
@@ -73,7 +73,7 @@ public class GameParser {
                         }
                     }
 
-                    // 5. Extract Play Time
+                    // Gte play time
                     int playTime = 0;
                     NodeList timeList = element.getElementsByTagName("playingtime");
                     if (timeList.getLength() > 0) {
@@ -84,7 +84,7 @@ public class GameParser {
                         }
                     }
 
-                    // 5.5 Extract Image URL
+                    // Get image url
                     String imageURL = "";
                     NodeList imageList = element.getElementsByTagName("image");
                     if (imageList.getLength() > 0) {

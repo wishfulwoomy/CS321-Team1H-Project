@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Game 
 {
-    /** Attributes of a game */
     private String imageURL;
     private String gameID;
     private String title;
@@ -25,8 +24,8 @@ public class Game
 
      /** Constructor for the Game class
       * @param t The title of the game
-      * @param min The minimum players needed.
-      * @param max The maximum players allowed.
+      * @param min The minimum players needed
+      * @param max The maximum players allowed
       * @param time How long the game could take
       */
      public Game(String t, int min, int max, int time)
@@ -171,11 +170,19 @@ public class Game
         this.description = desc;
     }
 
+    /**
+     * Gets the url of the associated game's image
+     * @return url of the image
+     */
     public String getImageUrl()
     {
         return this.imageURL;
     }
 
+    /**
+     * Sets the url for the game's image
+     * @param url the image's url
+     */
     public void setImageUrl(String url)
     {
         this.imageURL = url;

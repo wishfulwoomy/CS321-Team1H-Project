@@ -28,6 +28,9 @@ public class Session {
     private Game currentGame;
     private final String FILE_PATH = "src/main/resources/userWishlists.xml";
 
+    /**
+     * Class constructor that initializes default settings and a logged-out state
+     */
     private Session() 
     {
         loggedIn = false;
@@ -46,6 +49,11 @@ public class Session {
         }));
     }
 
+    /**
+     * Return the instance of the current session
+     * If there is no instance, create one
+     * @return the current instance
+     */
     public static Session getInstance() 
     {
         if (instance == null) {
@@ -54,31 +62,55 @@ public class Session {
         return instance;
     }
 
+    /**
+     * Returns true or false depending on if the user is logged in
+     * @return True if the user is logged in, false if not
+     */
     public boolean isLoggedIn() 
     {
         return loggedIn;
     }
 
+    /**
+     * Returns the current text size
+     * @return the number size of the text
+     */
     public int getTextSize() 
     {
         return textSize;
     }
 
+    /**
+     * Returns true or false depending on whether the user has activated high contrast settings
+     * @return true if high contrast is active, false if not
+     */
     public boolean getContrast() 
     {
         return highContrast;
     }
 
+    /**
+     * Change and set the text size
+     * @param textSize The new size of the text
+     */
     public void setTextSize(int textSize) 
     {
         this.textSize = textSize;
     }
 
+    /**
+     * Change the high contrast settings to on or off
+     * @param highContrast boolean value of the high contrast settings
+     */
     public void setContrast(boolean highContrast) 
     {
         this.highContrast = highContrast;
     }
 
+    /**
+     * Allow the user to log into their account
+     * @param user The current user attempting to log in
+     */
     public void logIn(User user) 
     {
         currentUser = user;
@@ -87,6 +119,9 @@ public class Session {
         currentWishlists = loadFromXML();
     }
 
+    /**
+     * Allow the user to log out by saving their data before resetting the session attributes
+     */
     public void logOut() 
     {
         // Save before wiping memory if they were a real user
@@ -102,14 +137,31 @@ public class Session {
         currentWishlists.add(new Wishlist("Favorites"));
     }
 
+    /**
+     * Sets currentGame to the game the user has selected
+     * @param g the selected game
+     */
     public void setCurrentGame(Game g) { this.currentGame = g; }
 
+    /**
+     * Return the game the user has selected
+     * @return the selected game
+     */
     public Game getCurrentGame() { return this.currentGame; }
 
+    /**
+     * Returns the current user's wishlists
+     * @return the user's wishlists
+     */
     public ArrayList<Wishlist> getWishlists() {
         return currentWishlists;
     }
 
+    /**
+     * Find the wishlist with the chosen name and return it
+     * @param name The name of the desired wishlist
+     * @return The wishlist that matches the given name
+     */
     public Wishlist getWishlistByName(String name) {
         for (Wishlist w : currentWishlists) {
             if (w.getName().equals(name)) {
@@ -119,6 +171,10 @@ public class Session {
         return null;
     }
 
+    /**
+     *
+     * @param scene
+     */
     public void applyTheme(Scene scene) 
     {
         if (scene == null || scene.getRoot() == null) {
@@ -136,6 +192,10 @@ public class Session {
         }
     }
 
+    /**
+     * Apply the text size to the screen
+     * @param scene the current window
+     */
     public void applyTextSize(Scene scene) {
         if (scene == null || scene.getRoot() == null) {
             return;
@@ -143,6 +203,10 @@ public class Session {
         scene.getRoot().setStyle("-fx-font-size: " + textSize + "px;");
     }
 
+    /**
+     *
+     * @param scene
+     */
     public void applyGlobalSettings(Scene scene)
     {
         applyTheme(scene);
