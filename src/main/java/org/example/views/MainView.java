@@ -243,7 +243,8 @@ public class MainView implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/loginView.fxml"));
         stage.getScene().setRoot(root);
-        Session.getInstance().applyGlobalSettings(stage.getScene());
+
+        //User settings are not applied once logged out
         stage.show();
     }
 
