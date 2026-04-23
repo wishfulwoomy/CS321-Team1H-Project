@@ -50,16 +50,31 @@ public class GameView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Session currentSession = Session.getInstance();
-        Game g = currentSession.getCurrentGame();
+        Game g = currentSession.getCurrentGame(); // gets the selected game from session
 
-        labelGameTitle.setText(g.getTitle());
+        labelGameTitle.setText(g.getTitle()); // sets title
         
-        if (g.getImageUrl() != null && !g.getImageUrl().isEmpty()) {
+        if (g.getImageUrl() != null && !g.getImageUrl().isEmpty()) { // sets image if one is given
             Image img = new Image(g.getImageUrl());
             imageGamePicture.setImage(img);
         }
-        
+
+        // setting description text
         textDescription.setText(g.getDescription());
+        System.out.println(g.getDescription());
+        // setting amt of players text
+        String minPlayers = Integer.toString(g.getMinPlayers());
+        String maxPlayers = Integer.toString(g.getMaxPlayers());
+        if (minPlayers.equals(maxPlayers)) {
+            textPlayerAmount.setText(minPlayers);
+        } else {
+            String playersString = minPlayers + " - " + maxPlayers;
+            textPlayerAmount.setText(playersString);
+        }
+        // setting duration of playtime
+        String playtimeString = Integer.toString(g.getPlayTimeMinutes());
+        textPlaytime.setText(playtimeString + "minutes");
+
 
         buttonAddToList.setOnAction(e -> {
             List<Wishlist> allLists = Session.getInstance().getWishlists();
