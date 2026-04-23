@@ -143,7 +143,7 @@ public class MainView implements Initializable {
 
         javafx.scene.control.ToggleButton favButton = new javafx.scene.control.ToggleButton("♥");
         favButton.getStyleClass().add("fav-button");
-        
+
         boolean isFavorited = false;
         for (Wishlist w : Session.getInstance().getWishlists()) {
             if (w.getGames().stream().anyMatch(g -> g.getTitle().equals(game.getTitle()))) {
@@ -167,64 +167,7 @@ public class MainView implements Initializable {
 
         favButton.setOnAction(e -> {
             if (favButton.isSelected()) {
-                List<Wishlist> allLists = Session.getInstance().getWishlists();
-                List<String> listNames = new ArrayList<>();
-                for (Wishlist w : allLists) {
-                    listNames.add(w.getName());
-                }
-                
-                String createNewOption = "➕ Create New List...";
-                listNames.add(createNewOption);
-
-                ChoiceDialog<String> dialog = new ChoiceDialog<>(listNames.get(0), listNames);
-                dialog.setTitle("Add to Wishlist");
-                dialog.setHeaderText("Add " + game.getTitle() + " to a wishlist:");
-                dialog.setContentText("Select list:");
-
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()) {
-                    String selection = result.get();
-                    
-                    if (selection.equals(createNewOption)) {
-                        TextInputDialog createDialog = new TextInputDialog("My New List");
-                        createDialog.setTitle("Create Wishlist");
-                        createDialog.setHeaderText("Create a new Wishlist");
-                        createDialog.setContentText("Please enter a name for your new list:");
-
-                        Optional<String> createResult = createDialog.showAndWait();
-                        if (createResult.isPresent() && !createResult.get().trim().isEmpty()) {
-                            String newListName = createResult.get().trim();
-                            
-                            Wishlist existingList = Session.getInstance().getWishlistByName(newListName);
-                            if (existingList == null) {
-                                Wishlist newList = new Wishlist(newListName);
-                                newList.add(game);
-                                Session.getInstance().getWishlists().add(newList);
-                                System.out.println("Created list '" + newListName + "' and added " + game.getTitle());
-                            } else {
-                                boolean alreadyInList = existingList.getGames().stream().anyMatch(g -> g.getTitle().equals(game.getTitle()));
-                                if (!alreadyInList) {
-                                    existingList.add(game);
-                                    System.out.println("Added " + game.getTitle() + " to existing list " + newListName);
-                                }
-                            }
-                            favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
-                        } else {
-                            favButton.setSelected(false);
-                        }
-                    } else {
-                        Wishlist chosenList = Session.getInstance().getWishlistByName(selection);
-                        boolean alreadyInList = chosenList.getGames().stream().anyMatch(g -> g.getTitle().equals(game.getTitle()));
-                        
-                        if (!alreadyInList) {
-                            chosenList.add(game);
-                            System.out.println("Added " + game.getTitle() + " to " + selection);
-                        }
-                        favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
-                    }
-                } else {
-                    favButton.setSelected(false);
-                }
+                showCustomWishlistDialog(game, favButton);
             } else {
                 System.out.println("Unfavorited: " + game.getTitle());
                 for (Wishlist w : Session.getInstance().getWishlists()) {
@@ -329,7 +272,8 @@ public class MainView implements Initializable {
      */
     @FXML
     private void searchGames(KeyEvent event) {
-        // get parsed games from GameParser, cast to an ArrayList, search using GameSearch
+        // get parsed games from GameParser, cast to an ArrayList, search using
+        // GameSearch
         GameSearch.searchGames((ArrayList<Game>) GameParser.getGamesList(), searchBar.getText());
         // load games
         loadGamesIntoGrid(GameSearch.getSearchResults());
@@ -354,4 +298,108 @@ public class MainView implements Initializable {
             }
         });
     }
+
+        private void showCustomWishlistDialog(Game game, javafx.scene.control.ToggleButton favButton) {
+        Stage dialogStage = new Stage();
+        dialogStage.initOwner(mainScrollPane.getScene().getWindow());
+        dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        dialogStage.setTitle("Wishlist Menu");
+
+        VBox layout = new VBox(15);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new javafx.geometry.Insets(20));
+
+        Label headerLabel = new Label("Add " + game.getTitle() + " to a list:");
+        headerLabel.setWrapText(true);
+        headerLabel.setFocusTraversable(true);
+
+        List<String> listNames = new ArrayList<>();
+        for (Wishlist w : Session.getInstance().getWishlists()) {
+            listNames.add(w.getName());
+        }
+        String createNewOption = "➕ Create New List...";
+        listNames.add(createNewOption);
+
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(listNames);
+        comboBox.setValue(listNames.get(0));
+        comboBox.setAccessibleText("Select a wishlist to add your game to");
+
+        TextField newListNameField = new TextField();
+        newListNameField.setPromptText("Enter new list name...");
+        newListNameField.setAccessibleText("Type the name of your new wishlist");
+        
+        newListNameField.setVisible(false);
+        newListNameField.setManaged(false);
+
+        comboBox.setOnAction(e -> {
+            boolean isNew = comboBox.getValue().equals(createNewOption);
+            newListNameField.setVisible(isNew);
+            newListNameField.setManaged(isNew);
+            if (isNew) {
+                javafx.application.Platform.runLater(newListNameField::requestFocus); 
+            }
+        });
+
+        HBox buttonBox = new HBox(15);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        Button saveButton = new Button("Save");
+        saveButton.setDefaultButton(true);
+        
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setCancelButton(true);
+
+        saveButton.setOnAction(e -> {
+            String selection = comboBox.getValue();
+            
+            if (selection.equals(createNewOption)) {
+                String newListName = newListNameField.getText().trim();
+                if (!newListName.isEmpty()) {
+                    Wishlist existingList = Session.getInstance().getWishlistByName(newListName);
+                    if (existingList == null) {
+                        Wishlist newList = new Wishlist(newListName);
+                        newList.add(game);
+                        Session.getInstance().getWishlists().add(newList);
+                    } else {
+                        if (existingList.getGames().stream().noneMatch(g -> g.getTitle().equals(game.getTitle()))) {
+                            existingList.add(game);
+                        }
+                    }
+                    favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+                    favButton.setSelected(true);
+                } else {
+                    favButton.setSelected(false);
+                }
+            } else {
+                Wishlist chosenList = Session.getInstance().getWishlistByName(selection);
+                if (chosenList.getGames().stream().noneMatch(g -> g.getTitle().equals(game.getTitle()))) {
+                    chosenList.add(game);
+                }
+                favButton.setAccessibleText("Remove " + game.getTitle() + " from favorites");
+                favButton.setSelected(true);
+            }
+            dialogStage.close();
+        });
+
+        cancelButton.setOnAction(e -> {
+            favButton.setSelected(false);
+            dialogStage.close();
+        });
+
+        dialogStage.setOnCloseRequest(e -> favButton.setSelected(false));
+
+        buttonBox.getChildren().addAll(saveButton, cancelButton);
+        layout.getChildren().addAll(headerLabel, comboBox, newListNameField, buttonBox);
+
+        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 350, 250);
+        dialogStage.setScene(scene);
+        
+        Session.getInstance().applyGlobalSettings(scene);
+
+        javafx.application.Platform.runLater(comboBox::requestFocus);
+
+        dialogStage.showAndWait();
+    }
+
 }
