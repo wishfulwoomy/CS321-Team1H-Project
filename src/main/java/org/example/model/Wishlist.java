@@ -72,6 +72,10 @@ public class Wishlist
         return games.isEmpty();
     }
 
+    /**
+     * This method returns the list of games in the wishlist
+     * @return All the games in the wishlist
+     */
     public ArrayList<Game>getGames()
     {
         return games;

@@ -41,10 +41,10 @@ public class GameParser
                 {
                     Element element = (Element) node;
 
-                    // 1. Extract the ID 
+                    // Get game ID
                     String gameId = element.getAttribute("id");
 
-                    // 2. Extract the Title 
+                    // Get game title
                     String title = "Unknown Title";
                     NodeList nameList = element.getElementsByTagName("name");
                     if (nameList.getLength() > 0) 
@@ -53,7 +53,7 @@ public class GameParser
                         title = nameElement.getAttribute("value");
                     }
 
-                    // 3. Extract Min Players
+                    // Get min player number
                     int minPlayers = 0;
                     NodeList minList = element.getElementsByTagName("minplayers");
                     if (minList.getLength() > 0) 
@@ -66,7 +66,7 @@ public class GameParser
                         }
                     }
 
-                    // 4. Extract Max Players
+                    // Get max player number
                     int maxPlayers = 0;
                     NodeList maxList = element.getElementsByTagName("maxplayers");
                     if (maxList.getLength() > 0) 
@@ -79,7 +79,7 @@ public class GameParser
                         }
                     }
 
-                    // 5. Extract Play Time
+                    // Gte play time
                     int playTime = 0;
                     NodeList timeList = element.getElementsByTagName("playingtime");
                     if (timeList.getLength() > 0) 
@@ -92,7 +92,7 @@ public class GameParser
                         }
                     }
 
-                    // 5.5 Extract Image URL
+                    // Get image url
                     String imageURL = "";
                     NodeList imageList = element.getElementsByTagName("image");
                     if (imageList.getLength() > 0)
@@ -101,7 +101,7 @@ public class GameParser
                         imageURL = imageElement.getTextContent();
                     }
 
-                    // 6. Create the main.java.org.example.model.Game object using the real data!
+                    // Create game object using the data
                     Game game = new Game(title, minPlayers, maxPlayers, playTime);
 
                     game.setImageUrl(imageURL);
@@ -122,7 +122,6 @@ public class GameParser
 
     /**
      * Getter function to return the parsed list of games
-     * [separate from parseGames(), so we don't need to parse again].
      * @return The full list of games.
      */
     public static List<Game> getGamesList() { return fullGamesList; }
