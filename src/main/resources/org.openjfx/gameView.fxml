@@ -10,85 +10,88 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.01" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.GameView">
-  <children>
-      <HBox prefHeight="40.0" prefWidth="200.0">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.org.example.views.GameView">
+   <children>
+      <HBox VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="buttonBack" mnemonicParsing="false" onAction="#handleBackToMainMenu" prefHeight="25.0" prefWidth="63.0" text="&lt; Back" />
+            <Button fx:id="buttonBack" mnemonicParsing="false" onAction="#handleBackToMainMenu"
+               prefHeight="25.0" prefWidth="63.0" text="&lt; Back" />
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
          <padding>
-            <Insets bottom="5.0" left="5.0" top="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <ScrollPane fitToHeight="true" prefViewportHeight="400.0">
+
+      <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
          <content>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox spacing="15.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox spacing="25.0">
                      <children>
-                        <ImageView fx:id="imageGamePicture" fitHeight="144.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageGamePicture" fitHeight="350.0" fitWidth="350.0"
+                           pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets left="5.0" top="5.0" />
+                              <Insets left="10.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+
+                        <VBox alignment="CENTER_LEFT" spacing="15.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="labelGameTitle" prefHeight="25.0" prefWidth="169.0" text="Game name">
+                              <Label fx:id="labelGameTitle" text="Game name" wrapText="true">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="32.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="5.0" top="5.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Text fx:id="textAverageRating" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <Button fx:id="buttonAddToList" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Add to list">
-                                 <VBox.margin>
-                                    <Insets left="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <HBox disable="true" prefHeight="49.0" prefWidth="241.0" visible="false">
-                                 <children>
-                                    <Button fx:id="buttonOneStar" mnemonicParsing="false" text="1" />
-                                    <Button fx:id="buttonTwoStars" mnemonicParsing="false" text="2" />
-                                    <Button fx:id="buttonThreeStars" mnemonicParsing="false" text="3" />
-                                    <Button fx:id="buttonFourStars" mnemonicParsing="false" text="4" />
-                                    <Button fx:id="buttonFiveStars" mnemonicParsing="false" text="5" />
-                                 </children>
-                              </HBox>
+                              <Text fx:id="textAverageRating" strokeType="OUTSIDE" strokeWidth="0.0"
+                                 style="-fx-font-size: 16px;" text="Rating: Unrated" />
+                              <Button fx:id="buttonAddToList" mnemonicParsing="false"
+                                 text="Add to list" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox prefWidth="100.0">
+
+                  <VBox spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description: " />
-                        <Text fx:id="textDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="desc here" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player amount: " />
-                        <Text fx:id="textPlayerAmount" layoutX="15.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player amt here" />
-                        <Text layoutX="15.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
-                        <Text fx:id="textPlaytime" layoutX="15.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="length here" />
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;"
+                           text="Description: " />
+                        <Text fx:id="textDescription" strokeType="OUTSIDE" strokeWidth="0.0"
+                           text="desc here" />
+
+                        <HBox spacing="5.0">
+                           <Label style="-fx-font-weight: bold;" text="Player amount: " />
+                           <Text fx:id="textPlayerAmount" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="player amt here" />
+                        </HBox>
+
+                        <HBox spacing="5.0">
+                           <Label style="-fx-font-weight: bold;" text="Duration:" />
+                           <Text fx:id="textPlaytime" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="length here" />
+                        </HBox>
                      </children>
                      <padding>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <Label text="Reviews:" />
-                        <Button fx:id="buttonLeaveReview" mnemonicParsing="false" text="Leave review" />
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Reviews:" />
+                        <Button fx:id="buttonLeaveReview" mnemonicParsing="false"
+                           text="Leave review" />
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
          </content>
       </ScrollPane>
-  </children>
+   </children>
 </VBox>

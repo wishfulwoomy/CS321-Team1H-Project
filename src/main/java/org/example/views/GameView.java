@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GameView implements Initializable {
-    
+
     @FXML
     private ImageView imageGamePicture;
     @FXML
@@ -53,16 +53,21 @@ public class GameView implements Initializable {
         Game g = currentSession.getCurrentGame(); // gets the selected game from session
 
         labelGameTitle.setText(g.getTitle()); // sets title
-        
-        if (g.getImageUrl() != null && !g.getImageUrl().isEmpty()) { // sets image if one is given
-            Image img = new Image(g.getImageUrl());
+
+        if (g.getImageUrl() != null && !g.getImageUrl().isEmpty()) {
+            Image img = new Image(g.getImageUrl(), true);
             imageGamePicture.setImage(img);
         }
 
-        // setting description text
         textDescription.setText(g.getDescription());
         System.out.println(g.getDescription());
-        // setting amt of players text
+
+        textDescription.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                textDescription.wrappingWidthProperty().bind(newScene.widthProperty().subtract(60));
+            }
+        });
+
         String minPlayers = Integer.toString(g.getMinPlayers());
         String maxPlayers = Integer.toString(g.getMaxPlayers());
         if (minPlayers.equals(maxPlayers)) {
@@ -71,14 +76,15 @@ public class GameView implements Initializable {
             String playersString = minPlayers + " - " + maxPlayers;
             textPlayerAmount.setText(playersString);
         }
+
         // setting duration of playtime
         String playtimeString = Integer.toString(g.getPlayTimeMinutes());
-        textPlaytime.setText(playtimeString + "minutes");
-
+        // Added a space before 'minutes' so it reads correctly
+        textPlaytime.setText(playtimeString + " minutes");
 
         buttonAddToList.setOnAction(e -> {
             List<Wishlist> allLists = Session.getInstance().getWishlists();
-            
+
             if (allLists.isEmpty()) {
                 System.out.println("No wishlists exist! Please create one first.");
                 return;
@@ -107,7 +113,7 @@ public class GameView implements Initializable {
 
     @FXML
     private void handleBackToMainMenu(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/mainView.fxml"));
         stage.getScene().setRoot(root);
         Session.getInstance().applyGlobalSettings(stage.getScene());
