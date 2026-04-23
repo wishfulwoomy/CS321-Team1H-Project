@@ -247,6 +247,13 @@ public class MainView implements Initializable {
         stage.show();
     }
 
+    /**
+     * When a card is clicked, switches scene from MainView to GameView.
+     * @param game The game to be opened. Gets saved as the current game to Session.
+     * @param action The action triggering the function. Takes a general javafx Event,
+     *               so GameView can open via mouse click or the enter key.
+     * @throws IOException Throws exception if the fxml file fails to load.
+     */
     @FXML
     private void openGameView(Game game, javafx.event.Event action) throws IOException {
         Stage stage = (Stage) ((Node) action.getSource()).getScene().getWindow();
@@ -258,6 +265,11 @@ public class MainView implements Initializable {
         stage.show();
     }
 
+    /**
+     * Function to search all games in database and display to screen.
+     * @param event The event triggering the search. Currently, the search runs
+     *              immediately as you type into the search bar.
+     */
     @FXML
     private void searchGames(KeyEvent event) {
         // get parsed games from GameParser, cast to an ArrayList, search using
