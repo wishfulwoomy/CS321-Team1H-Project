@@ -1,4 +1,6 @@
-package main.java.org.example.model; /** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
+package main.java.org.example.model;
+
+/** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
  * @version 1.0
  * @since 03/23/2026 
  * This class is designed to store game reviews*/
@@ -29,11 +31,9 @@ public class Review
         this.datePosted = new Date(); // set the date
     }
 
-    /** A method to edit the review
+    /** A method to edit the review, updating the rating and comment of the review.
      * @param newRating the new rating to be set
      * @param newComment the new comment to be set
-     * This method will update the rating and comment of the review.
-     * @return void
      */
     public void editReview(int newRating, String newComment)
     {

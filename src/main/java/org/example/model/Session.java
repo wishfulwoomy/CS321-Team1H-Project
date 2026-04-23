@@ -172,8 +172,8 @@ public class Session {
     }
 
     /**
-     *
-     * @param scene
+     * Applies the current .css theme whenever a new scene loads; either default or high-contrast mode.
+     * @param scene The scene to apply the theme to.
      */
     public void applyTheme(Scene scene) 
     {
@@ -204,8 +204,8 @@ public class Session {
     }
 
     /**
-     *
-     * @param scene
+     * Apply the current settings [both .css theme and text size] whenever a new scene loads.
+     * @param scene The scene to apply the theme to.
      */
     public void applyGlobalSettings(Scene scene)
     {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameSearch {
+    /**
+     * ArrayList to hold the current search results-- this is all games that meet the current criteria.
+     */
     private static List<Game> SearchResults = new ArrayList<Game>();
 
     /**
@@ -38,11 +41,11 @@ public class GameSearch {
     }
 
     /**
-     *
-     * @param game
-     * @param min
-     * @param max
-     * @return
+     * Function to check if the game falls within the specified player range.
+     * @param game The game to check against the range.
+     * @param min The minimum desired amount of players.
+     * @param max The maximum desired amount of players.
+     * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
     public boolean matchPlayers(Game game, int min, int max) {
         if (min >= game.getMinPlayers()) {
@@ -52,11 +55,11 @@ public class GameSearch {
     }
 
     /**
-     *
-     * @param game
-     * @param min
-     * @param max
-     * @return
+     * Function to check if the game falls within the specified playtime range.
+     * @param game The game to check against the range.
+     * @param min The minimum desired playtime.
+     * @param max The maximum desired playtime.
+     * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
     public boolean matchPlaytime(Game game, int min, int max) {
         if (game.getPlayTimeMinutes() >= min) {
@@ -66,11 +69,11 @@ public class GameSearch {
     }
 
     /**
-     *
-     * @param game
-     * @param min
-     * @param max
-     * @return
+     * Function to check if the game matches a certain range of ratings, using a game's average rating.
+     * @param game The game to check against the range.
+     * @param min The minimum desired rating.
+     * @param max The maximum desired rating.
+     * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
     public boolean matchRating(Game game, float min, float max) {
         if (game.getAvgRating() >= min) {
@@ -80,8 +83,8 @@ public class GameSearch {
     }
 
     /**
-     *
-     * @return
+     * Getter function to return the list of search results.
+     * @return A List of games matching the current search criteria.
      */
     public static List<Game> getSearchResults() { return SearchResults; }
 }

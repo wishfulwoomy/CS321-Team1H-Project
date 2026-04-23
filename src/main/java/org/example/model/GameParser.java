@@ -73,7 +73,7 @@ public class GameParser {
                         }
                     }
 
-                    // Gte play time
+                    // Get play time
                     int playTime = 0;
                     NodeList timeList = element.getElementsByTagName("playingtime");
                     if (timeList.getLength() > 0) {
@@ -104,7 +104,7 @@ public class GameParser {
                         }
                     }
 
-                    // 6. Create the main.java.org.example.model.Game object using the real data!
+                    // 6. Create the Game object with the data
                     Game game = new Game(title, minPlayers, maxPlayers, playTime);
 
                     game.setImageUrl(imageURL);
