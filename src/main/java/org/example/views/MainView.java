@@ -25,6 +25,9 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import main.java.org.example.model.Game;
 import main.java.org.example.model.GameParser;
 import main.java.org.example.model.GameSearch;
@@ -42,6 +45,7 @@ public class MainView implements Initializable {
     private javafx.scene.layout.GridPane gameGrid;
     @FXML
     private javafx.scene.control.ScrollPane mainScrollPane;
+    private Map<String, Image> imageCache = new HashMap<>();
 
     @FXML
     @Override
@@ -100,7 +104,14 @@ public class MainView implements Initializable {
         imageView.setFitHeight(200);
 
         if (game.getImageUrl() != null && !game.getImageUrl().isEmpty()) {
-            Image img = new Image(game.getImageUrl(), true);
+            // --- THE FIX: Check the cache before downloading! ---
+            Image img = imageCache.get(game.getImageUrl());
+
+            if (img == null) {
+                img = new Image(game.getImageUrl(), true);
+                imageCache.put(game.getImageUrl(), img);
+            }
+
             imageView.setImage(img);
         } else {
             imageView.getStyleClass().add("game-image-placeholder");
@@ -260,14 +271,17 @@ public class MainView implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/loginView.fxml"));
         stage.getScene().setRoot(root);
 
-        //User settings are not applied once logged out
+        // User settings are not applied once logged out
         stage.show();
     }
 
     /**
      * When a card is clicked, switches scene from MainView to GameView.
-     * @param game The game to be opened. Gets saved as the current game to Session.
-     * @param action The action triggering the function. Takes a general javafx Event,
+     * 
+     * @param game   The game to be opened. Gets saved as the current game to
+     *               Session.
+     * @param action The action triggering the function. Takes a general javafx
+     *               Event,
      *               so GameView can open via mouse click or the enter key.
      * @throws IOException Throws exception if the fxml file fails to load.
      */
@@ -284,6 +298,7 @@ public class MainView implements Initializable {
 
     /**
      * Function to search all games in database and display to screen.
+     * 
      * @param event The event triggering the search. Currently, the search runs
      *              immediately as you type into the search bar.
      */
@@ -316,7 +331,7 @@ public class MainView implements Initializable {
         });
     }
 
-        private void showCustomWishlistDialog(Game game, javafx.scene.control.ToggleButton favButton) {
+    private void showCustomWishlistDialog(Game game, javafx.scene.control.ToggleButton favButton) {
         Stage dialogStage = new Stage();
         dialogStage.initOwner(mainScrollPane.getScene().getWindow());
         dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
@@ -345,7 +360,7 @@ public class MainView implements Initializable {
         TextField newListNameField = new TextField();
         newListNameField.setPromptText("Enter new list name...");
         newListNameField.setAccessibleText("Type the name of your new wishlist");
-        
+
         newListNameField.setVisible(false);
         newListNameField.setManaged(false);
 
@@ -354,7 +369,7 @@ public class MainView implements Initializable {
             newListNameField.setVisible(isNew);
             newListNameField.setManaged(isNew);
             if (isNew) {
-                javafx.application.Platform.runLater(newListNameField::requestFocus); 
+                javafx.application.Platform.runLater(newListNameField::requestFocus);
             }
         });
 
@@ -363,13 +378,13 @@ public class MainView implements Initializable {
 
         Button saveButton = new Button("Save");
         saveButton.setDefaultButton(true);
-        
+
         Button cancelButton = new Button("Cancel");
         cancelButton.setCancelButton(true);
 
         saveButton.setOnAction(e -> {
             String selection = comboBox.getValue();
-            
+
             if (selection.equals(createNewOption)) {
                 String newListName = newListNameField.getText().trim();
                 if (!newListName.isEmpty()) {
@@ -411,7 +426,7 @@ public class MainView implements Initializable {
 
         javafx.scene.Scene scene = new javafx.scene.Scene(layout, 350, 250);
         dialogStage.setScene(scene);
-        
+
         Session.getInstance().applyGlobalSettings(scene);
 
         javafx.application.Platform.runLater(comboBox::requestFocus);
