@@ -11,6 +11,7 @@ public class GameSearch {
 
     /**
      * Function to search through the full game catalog and return results matching the user's search criteria.
+     * 
      * @param games The full list of games to search through. NOTE: will likely be replaced with games list from GameParse.
      * @param query The text query, taken from user input and used to search GameCollection.
      * @return A filtered list of games.
@@ -29,6 +30,7 @@ public class GameSearch {
 
     /**
      * Function to check if a certain game matches a user-given search query.
+     * 
      * @param g The game to check against the query.
      * @param q A String search query
      * @return A boolean true/false. True if the game matches the query, false otherwise.
@@ -42,6 +44,7 @@ public class GameSearch {
 
     /**
      * Function to check if the game falls within the specified player range.
+     * 
      * @param game The game to check against the range.
      * @param min The minimum desired amount of players.
      * @param max The maximum desired amount of players.
@@ -56,6 +59,7 @@ public class GameSearch {
 
     /**
      * Function to check if the game falls within the specified playtime range.
+     * 
      * @param game The game to check against the range.
      * @param min The minimum desired playtime.
      * @param max The maximum desired playtime.
@@ -70,6 +74,7 @@ public class GameSearch {
 
     /**
      * Function to check if the game matches a certain range of ratings, using a game's average rating.
+     * 
      * @param game The game to check against the range.
      * @param min The minimum desired rating.
      * @param max The maximum desired rating.
@@ -84,6 +89,7 @@ public class GameSearch {
 
     /**
      * Getter function to return the list of search results.
+     * 
      * @return A List of games matching the current search criteria.
      */
     public static List<Game> getSearchResults() { return SearchResults; }

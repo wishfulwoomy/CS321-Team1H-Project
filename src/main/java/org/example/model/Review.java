@@ -1,100 +1,125 @@
 package main.java.org.example.model;
 
-/** @author Asia Dezenberg, Zachary Glasgow, Jaxyn Kirian, Emma Planson, Eve Wall
- * @version 1.0
- * @since 03/23/2026 
- * This class is designed to store game reviews*/
 import java.util.Date;
-public class Review 
-{
-    /** Attributes of a review */
+
+/**
+ * Represents a user's review of a specific board game.
+ * Stores the rating, written comment, author details, and the timestamp
+ * of when the review was originally posted or last edited.
+ */
+public class Review {
+    // Database Identifiers
     private String reviewID;
-    private String authorID;
     private String gameID;
+    private String authorID;
+
+    // Review Content
+    private String author;
     private int rating;
     private String comment;
     private Date datePosted;
-    private String author;
 
-    /** Constructor for the review class. The constructor will also set the datePosted
-     * to the current date and time.
-     * @param game the game to which the review belongs
-     * @param author the author of the review's author
-     * @param authorID the ID of the review's author
-     * @param rate the rating given to the game
-     * @param com the comment provided by the reviewer
+    /**
+     * Primary constructor for the Review class.
+     * Initializes the review with user-provided data and automatically
+     * stamps it with the current date and time.
+     *
+     * @param game     The unique ID of the game being reviewed.
+     * @param author   The display username of the person writing the review.
+     * @param authorID The unique database ID of the author.
+     * @param rate     The numerical rating given to the game (e.g., 1-5).
+     * @param com      The written comment or feedback provided by the user.
      */
-    public Review(String game, String author, String authorID, int rate, String com)
-    {
+    public Review(String game, String author, String authorID, int rate, String com) {
+        // Link the review to the correct game and user
         this.gameID = game;
         this.author = author;
         this.authorID = authorID;
+
+        // Store the actual review content
         this.rating = rate;
         this.comment = com;
-        this.datePosted = new Date(); // set the date
-    }
 
-    /** A method to edit the review, updating the rating and comment of the review.
-     * @param newRating the new rating to be set
-     * @param newComment the new comment to be set
-     */
-    public void editReview(int newRating, String newComment)
-    {
-        this.rating = newRating;
-        this.comment = newComment;
+        // Automatically capture the exact moment the review is created
         this.datePosted = new Date();
     }
 
-    /** gets the review ID
-     * @return the review ID
+    /**
+     * Updates an existing review with a new rating and comment.
+     * Automatically updates the timestamp to reflect when the edit occurred.
+     *
+     * @param newRating  The updated numerical rating.
+     * @param newComment The updated written comment.
      */
-    public String getReviewID()
-    {
+    public void editReview(int newRating, String newComment) {
+        // Overwrite the old content with the new values
+        this.rating = newRating;
+        this.comment = newComment;
+
+        // Refresh the timestamp so the system knows it was recently modified
+        this.datePosted = new Date();
+    }
+
+    /**
+     * Retrieves the unique database ID of the review.
+     * 
+     * @return The review ID string.
+     */
+    public String getReviewID() {
         return this.reviewID;
     }
 
-    /** gets the author's ID
-     * @return the author's ID
+    /**
+     * Retrieves the unique database ID of the user who wrote the review.
+     * 
+     * @return The author's ID string.
      */
-    public String getAuthorID()
-    {
+    public String getAuthorID() {
         return this.authorID;
     }
 
-    /** gets the game rating
-     * @return the rating
+    /**
+     * Retrieves the numerical rating given to the game.
+     * 
+     * @return The integer rating.
      */
-    public int getRating()
-    {
+    public int getRating() {
         return this.rating;
     }
 
-    /** gets the comment
-     * @return String with the comment.
+    /**
+     * Retrieves the written feedback provided by the user.
+     * 
+     * @return The comment string.
      */
-    public String getComment()
-    {
+    public String getComment() {
         return this.comment;
     }
 
-    /** gets the date posted
-     * @return date 
+    /**
+     * Retrieves the exact date and time the review was posted or last edited.
+     * 
+     * @return A Date object representing the timestamp.
      */
-    public Date getDatePosted()
-    {
+    public Date getDatePosted() {
         return this.datePosted;
     }
 
-    /** gets the game ID
-     * @return String with the game ID
+    /**
+     * Retrieves the unique database ID of the game this review belongs to.
+     * 
+     * @return The game ID string.
      */
-    public String getGameID()
-    {
+    public String getGameID() {
         return this.gameID;
     }
 
-    /** gets the author that left the review
-     * @return String with the author's username
+    /**
+     * Retrieves the display username of the person who wrote the review.
+     * 
+     * @return The author's username string.
      */
-    public String getAuthor() { return this.author; }
+    public String getAuthor() {
+        return this.author;
+    }
 }

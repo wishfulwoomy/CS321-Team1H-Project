@@ -3,42 +3,54 @@ package main.java.org.example.model;
 import java.util.ArrayList;
 
 /**
- * This class stores a personal game database for the main.java.org.example.model.User
+ * Represents a custom collection of board games created by a User.
+ * Allows users to categorize, track, and manage games they are interested in
+ * saving for later viewing.
  */
 public class Wishlist 
 {
+    // Core Wishlist Data
     private String name;
     private ArrayList<Game> games = new ArrayList<Game>();
 
     /**
-     * This method creates a wishlist. Requires a wishlist name
+     * Primary constructor for the Wishlist class.
+     * Initializes an empty wishlist with the designated display name.
+     *
+     * @param name The desired string name for the wishlist
      */
     public Wishlist(String name) 
     {
+        // Assign the provided name to this list
         this.name = name;
     }
 
     /**
-     * This method adds a game to the wishlist
-     * @param newGame The game to be added
+     * Appends a new game to the end of this wishlist.
+     *
+     * @param newGame The Game object to be added to the collection.
      */
     public void add(Game newGame) 
     {
+        // Add the specified game into the tracking array
         games.add(newGame);
     }
 
     /**
-     * This method removes the game from the wishlist
-     * @param removeGame The game to be removed
+     * Removes a specific game from the wishlist if it currently exists inside it.
+     *
+     * @param removeGame The Game object to be removed from the collection.
      */
     public void remove(Game removeGame) 
     {
+        // Purge the specified game from the tracking array
         games.remove(removeGame);
     }
 
     /**
-     * This method returns how many games are in the wishlist
-     * @return The size of the wishlist in int form
+     * Retrieves the total number of games currently stored inside this wishlist.
+     *
+     * @return The size of the wishlist as an integer.
      */
     public int getSize() 
     {
@@ -46,8 +58,9 @@ public class Wishlist
     }
 
     /**
-     * This method returns the name of the wishlist
-     * @return The name of the wishlist in String form
+     * Retrieves the display name of the wishlist.
+     *
+     * @return The string name of the wishlist.
      */
     public String getName() 
     {
@@ -55,8 +68,9 @@ public class Wishlist
     }
 
     /**
-     * This method changes the name of the wishlist
-     * @param newName The name the wishlist should be changed to
+     * Updates the display name of the wishlist.
+     *
+     * @param newName The new string name to be assigned to the wishlist.
      */
     public void setName(String newName) 
     {
@@ -64,19 +78,22 @@ public class Wishlist
     }
 
     /**
-     * This method checks whether there are games in the wishlist
-     * @return true if the wishlist is empty
+     * Checks whether the wishlist is currently empty.
+     *
+     * @return True if the wishlist contains zero games, false otherwise.
      */
     public boolean isEmpty() 
     {
+        // Evaluate if the tracking array has any contents
         return games.isEmpty();
     }
 
     /**
-     * This method returns the list of games in the wishlist
-     * @return All the games in the wishlist
+     * Retrieves the underlying collection of games stored in this wishlist.
+     *
+     * @return An ArrayList containing all the Game objects currently in the list.
      */
-    public ArrayList<Game>getGames()
+    public ArrayList<Game> getGames()
     {
         return games;
     }
