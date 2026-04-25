@@ -47,6 +47,16 @@ public class MainView implements Initializable {
     private javafx.scene.control.ScrollPane mainScrollPane;
     private Map<String, Image> imageCache = new HashMap<>();
 
+    /**
+     * Loads the game data from the .xml and displays the games to the window
+     * @param url
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param rb
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,6 +80,10 @@ public class MainView implements Initializable {
         }
     }
 
+    /**
+     * Creates UI cards for each game and formats them into a 3-column grid
+     * @param games
+     */
     private void loadGamesIntoGrid(List<Game> games) {
         gameGrid.getChildren().clear();
 
@@ -89,6 +103,12 @@ public class MainView implements Initializable {
         }
     }
 
+    /**
+     * Creates a card for each game
+     * Displays the image, name, and a functioning favorites button
+     * @param game
+     * @return
+     */
     private VBox createGameCard(Game game) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
@@ -213,6 +233,10 @@ public class MainView implements Initializable {
         return card;
     }
 
+    /**
+     * Toggles the filter options
+     * @param event User clicks the "Filters" button
+     */
     @FXML
     public void openFilters(ActionEvent event) {
         boolean isSelected = toggleFilters.isSelected();
@@ -221,6 +245,11 @@ public class MainView implements Initializable {
         System.out.println("Filters Menu " + (isSelected ? "Expanded" : "Collapsed"));
     }
 
+    /**
+     * Reloads to MainView
+     * @param event User clicks "Games" method
+     * @throws IOException
+     */
     @FXML
     private void navToGames(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -230,6 +259,12 @@ public class MainView implements Initializable {
         stage.show();
     }
 
+    /**
+     * Allows logged-in user to navigate to WishlistView
+     * Denies access if the user is logged in as a guest
+     * @param event User clicks "Wishlists" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void navToLists(ActionEvent event) throws IOException {
         // --- SECURITY CHECK: Block Guests from Viewing Lists! ---
@@ -246,6 +281,11 @@ public class MainView implements Initializable {
         stage.show();
     }
 
+    /**
+     * Allows user to access settings by clicking the "Settings" button
+     * @param event User clicks "Settings" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void openSettings(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
@@ -263,6 +303,11 @@ public class MainView implements Initializable {
         settingsStage.showAndWait();
     }
 
+    /**
+     * Clears the session and sends the user back to LoginView
+     * @param event User clicks "Log Out" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         Session.getInstance().logOut();
@@ -311,6 +356,10 @@ public class MainView implements Initializable {
         loadGamesIntoGrid(GameSearch.getSearchResults());
     }
 
+    /**
+     * Keeps the scroll focused when using the keyboard
+     * @param card The card the screen reader is focused on
+     */
     private void autoScrollToNode(Node card) {
         javafx.application.Platform.runLater(() -> {
             double nodeY = card.getBoundsInParent().getMinY();
@@ -331,6 +380,11 @@ public class MainView implements Initializable {
         });
     }
 
+    /**
+     * Allows user to add a chosen game to an existing list or create a new list they can name
+     * @param game The selected game
+     * @param favButton The favorite button
+     */
     private void showCustomWishlistDialog(Game game, javafx.scene.control.ToggleButton favButton) {
         Stage dialogStage = new Stage();
         dialogStage.initOwner(mainScrollPane.getScene().getWindow());
@@ -434,6 +488,10 @@ public class MainView implements Initializable {
         dialogStage.showAndWait();
     }
 
+    /**
+     * Shows a warning message if a user logged in as a guest attempts to access wishlists
+     * @param message Warning message to guest
+     */
     private void showGuestAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Guest Mode");

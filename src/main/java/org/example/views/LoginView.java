@@ -27,10 +27,22 @@ public class LoginView {
     @FXML
     private javafx.scene.control.PasswordField passwordField;
 
+    /**
+     * Empty constructor method
+     * @param url
+     * @param rb
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     * Checks for correct credentials after the user enters their username and password and attempts to log in.
+     * If their user/pass matches a user in the .xml file, it moves to MainView.
+     * If the user/pass is incorrect, the user stays in LoginView.
+     * @param event Login button is clicked
+     * @throws IOException Credentials are incorrect
+     */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException 
     {
@@ -71,6 +83,11 @@ public class LoginView {
         }
     }
 
+    /**
+     * Handles login if ENTER key is pressed
+     * @param event User presses ENTER key on their keyboard
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void handleLogin2(KeyEvent event) throws IOException
     {
@@ -112,6 +129,11 @@ public class LoginView {
         }
     }
 
+    /**
+     * Allows user to log in as guest, skipping authentication
+     * @param event User clicks "Log in as guest"
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void guestLogin(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -121,6 +143,11 @@ public class LoginView {
         stage.show();
     }
 
+    /**
+     * Allows user to access settings by clicking the "Settings" button
+     * @param event User clicks "Settings" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void openSettings(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));

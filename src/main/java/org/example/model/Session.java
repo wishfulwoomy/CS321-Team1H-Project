@@ -213,6 +213,9 @@ public class Session {
         applyTextSize(scene);
     }
 
+    /**
+     * Saves any changes the user made in a session to the .xml file
+     */
     private void saveToXML() {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -249,6 +252,10 @@ public class Session {
         }
     }
 
+    /**
+     * Loads the saved user data from the .xml file
+     * @return
+     */
     private ArrayList<Wishlist> loadFromXML() {
         ArrayList<Wishlist> loadedLists = new ArrayList<>();
         File xmlFile = new File(FILE_PATH);

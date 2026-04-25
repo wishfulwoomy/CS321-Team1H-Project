@@ -15,6 +15,10 @@ public class SettingsViewController
     @FXML
     private javafx.scene.control.Slider sizeSlider;
 
+    /**
+     * Formats the settings box
+     * Initializes a slider for text size and a checkbox for high contrast mode
+     */
     @FXML
     public void initialize() 
     {
@@ -36,6 +40,10 @@ public class SettingsViewController
         });
     }
 
+    /**
+     * Allows the user to toggle high contrast, affecting the entire application
+     * @param event User checks "Toggle high contrast" checkbox
+     */
     @FXML
     private void toggleHighContrast(ActionEvent event) 
     {
@@ -60,6 +68,10 @@ public class SettingsViewController
         }
     }
 
+    /**
+     * Allows user to close the settings window
+     * @param event User clicks "Close settings" button
+     */
     @FXML
     private void closeSettings(ActionEvent event) 
     {

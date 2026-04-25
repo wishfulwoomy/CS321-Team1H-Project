@@ -34,6 +34,16 @@ public class WishlistView implements Initializable {
     @FXML
     public Label selectWishlist;
 
+    /**
+     * Initializes the wishlist view for the wishlist names and the titles of the games in the selected wishlist
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for (Wishlist w : Session.getInstance().getWishlists()) {
@@ -47,6 +57,10 @@ public class WishlistView implements Initializable {
         listGames.setOnMouseClicked(this::handleGameDoubleClick);
     }
 
+    /**
+     * Loads the titles of all the games in a wishlist in the ListView
+     * @param listName
+     */
     private void loadGamesForList(String listName) {
         listGames.getItems().clear();
         if (listName == null)
@@ -60,6 +74,10 @@ public class WishlistView implements Initializable {
         }
     }
 
+    /**
+     * Allows the user to enter the GameView for a game if double-clicked
+     * @param event User double-clicks a game title
+     */
     private void handleGameDoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             String selectedGameTitle = listGames.getSelectionModel().getSelectedItem();
@@ -96,6 +114,10 @@ public class WishlistView implements Initializable {
         }
     }
 
+    /**
+     * Allows the user to create and name a new wishlist that will display on the list of wishlists
+     * @param event User clicks "Create Wishlist" button
+     */
     @FXML
     private void handleCreateList(ActionEvent event) {
         Stage dialogStage = new Stage();
@@ -152,6 +174,11 @@ public class WishlistView implements Initializable {
         dialogStage.showAndWait();
     }
 
+    /**
+     * Allows the user to delete the wishlist they have selected
+     * Prevents a user from deleting the Favorites list
+     * @param event User clicks "Delete Wishlist" while having a list selected
+     */
     @FXML
     private void handleDeleteList(ActionEvent event) {
         String selectedListName = listNames.getSelectionModel().getSelectedItem();
@@ -170,6 +197,10 @@ public class WishlistView implements Initializable {
         }
     }
 
+    /**
+     * Allows the user to remove a selected game inside a wishlist
+     * @param event User clicks "Remove game" while having a game selected
+     */
     @FXML
     private void handleRemoveGame(ActionEvent event) {
         String selectedListName = listNames.getSelectionModel().getSelectedItem();
@@ -193,6 +224,11 @@ public class WishlistView implements Initializable {
         }
     }
 
+    /**
+     * Allows the user to log out of their account
+     * @param event User clicks "Log Out" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         Session.getInstance().logOut();
@@ -204,6 +240,10 @@ public class WishlistView implements Initializable {
         stage.show();
     }
 
+    /**
+     * Allows user to close the settings window
+     * @param event User clicks "Close settings" button
+     */
     @FXML
     private void openSettings(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org.openjfx/settingsView.fxml"));
@@ -221,6 +261,11 @@ public class WishlistView implements Initializable {
         settingsStage.showAndWait();
     }
 
+    /**
+     * Allows the user to go back to MainView
+     * @param event User clicks "Back" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void handleBackToMainMenu(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -55,6 +55,17 @@ public class GameView implements Initializable {
     @FXML
     private Button buttonLeaveReview;
 
+    /**
+     * Loads all the selected game's data
+     * Formats the game's description and player count
+     * @param url
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param rb
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,6 +120,10 @@ public class GameView implements Initializable {
         });
     }
 
+    /**
+     * Fills in the review section with player reviews
+     * @param reviews A user's written review
+     */
     private void loadReviews(List<Review> reviews) {
         reviewsGrid.getChildren().clear();
         int row = 0;
@@ -119,6 +134,11 @@ public class GameView implements Initializable {
         }
     }
 
+    /**
+     * Formats how a player review will fit into the reviews section
+     * @param r Player review
+     * @return Returns the formatted review
+     */
     private VBox createReviewCard(Review r) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER_LEFT);
@@ -138,6 +158,11 @@ public class GameView implements Initializable {
         return card;
     }
 
+    /**
+     * Allows the user to enter the MainView from the GameView
+     * @param event User clicks "Back" button
+     * @throws IOException Input/Output exception
+     */
     @FXML
     private void handleBackToMainMenu(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -147,6 +172,10 @@ public class GameView implements Initializable {
         stage.show();
     }
 
+    /**
+     * Allows user to write a review for the selected game
+     * @param event User clicks "Leave review" button
+     */
     @FXML
     private void leaveReview(ActionEvent event) {
         Stage dialogStage = new Stage();
