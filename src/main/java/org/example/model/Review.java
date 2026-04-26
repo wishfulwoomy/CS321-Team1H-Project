@@ -10,8 +10,9 @@ import java.util.Date;
 public class Review {
     // Database Identifiers
     private String reviewID;
+    private String game;
     private String gameID;
-    private String authorID;
+    private int authorID;
 
     // Review Content
     private String author;
@@ -24,15 +25,17 @@ public class Review {
      * Initializes the review with user-provided data and automatically
      * stamps it with the current date and time.
      *
-     * @param game     The unique ID of the game being reviewed.
+     * @param game The title of the game
+     * @param gameID The unique ID of the game being reviewed.
      * @param author   The display username of the person writing the review.
      * @param authorID The unique database ID of the author.
      * @param rate     The numerical rating given to the game (e.g., 1-5).
      * @param com      The written comment or feedback provided by the user.
      */
-    public Review(String game, String author, String authorID, int rate, String com) {
+    public Review(String game, String gameID, String author, int authorID, int rate, String com) {
         // Link the review to the correct game and user
-        this.gameID = game;
+        this.game = game;
+        this.gameID = gameID;
         this.author = author;
         this.authorID = authorID;
 
@@ -62,7 +65,7 @@ public class Review {
 
     /**
      * Retrieves the unique database ID of the review.
-     * 
+     *
      * @return The review ID string.
      */
     public String getReviewID() {
@@ -71,16 +74,17 @@ public class Review {
 
     /**
      * Retrieves the unique database ID of the user who wrote the review.
-     * 
+     *
      * @return The author's ID string.
      */
-    public String getAuthorID() {
+    public int getAuthorID()
+    {
         return this.authorID;
     }
 
     /**
      * Retrieves the numerical rating given to the game.
-     * 
+     *
      * @return The integer rating.
      */
     public int getRating() {
@@ -89,7 +93,7 @@ public class Review {
 
     /**
      * Retrieves the written feedback provided by the user.
-     * 
+     *
      * @return The comment string.
      */
     public String getComment() {
@@ -98,7 +102,7 @@ public class Review {
 
     /**
      * Retrieves the exact date and time the review was posted or last edited.
-     * 
+     *
      * @return A Date object representing the timestamp.
      */
     public Date getDatePosted() {
@@ -107,7 +111,7 @@ public class Review {
 
     /**
      * Retrieves the unique database ID of the game this review belongs to.
-     * 
+     *
      * @return The game ID string.
      */
     public String getGameID() {
@@ -116,7 +120,7 @@ public class Review {
 
     /**
      * Retrieves the display username of the person who wrote the review.
-     * 
+     *
      * @return The author's username string.
      */
     public String getAuthor() {

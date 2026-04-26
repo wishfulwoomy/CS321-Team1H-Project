@@ -72,6 +72,15 @@ public class Session {
     }
 
     /**
+     * Getter to return the currently logged-in user
+     * @return The current User.
+     */
+    public User getUser()
+    {
+        return currentUser;
+    }
+
+    /**
      * Returns the current text size
      * @return the number size of the text
      */

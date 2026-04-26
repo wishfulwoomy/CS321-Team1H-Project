@@ -46,11 +46,7 @@ public class Game {
         // reviews
         this.avgRating = 0.0;
         this.reviews = new ArrayList<Review>();
-
-        // Injects a dummy review to test UI rendering
-        Review myReview = new Review("game", "username", "author", 5, "This game is really cool :)");
-        addReview(myReview);
-    }
+     }
 
     /**
      * Overloaded fallback constructor for the Game class.
@@ -126,7 +122,7 @@ public class Game {
 
     /**
      * Retrieves the database ID of the game.
-     * 
+     *
      * @return The unique game ID string.
      */
     public String getGameID() {
@@ -135,7 +131,7 @@ public class Game {
 
     /**
      * Retrieves the title of the game.
-     * 
+     *
      * @return The game title.
      */
     public String getTitle() {
@@ -144,7 +140,7 @@ public class Game {
 
     /**
      * Retrieves the text description of the game.
-     * 
+     *
      * @return The description paragraph.
      */
     public String getDescription() {
@@ -153,7 +149,7 @@ public class Game {
 
     /**
      * Retrieves the minimum number of players required to play.
-     * 
+     *
      * @return The minimum player count.
      */
     public int getMinPlayers() {
@@ -162,7 +158,7 @@ public class Game {
 
     /**
      * Retrieves the maximum number of players allowed.
-     * 
+     *
      * @return The maximum player count.
      */
     public int getMaxPlayers() {
@@ -171,7 +167,7 @@ public class Game {
 
     /**
      * Retrieves the estimated time it takes to play the game.
-     * 
+     *
      * @return The playtime in minutes.
      */
     public int getPlayTimeMinutes() {
@@ -180,7 +176,7 @@ public class Game {
 
     /**
      * Retrieves the current mathematical average rating of the game.
-     * 
+     *
      * @return The average rating out of 5.
      */
     public double getAvgRating() {
@@ -189,7 +185,7 @@ public class Game {
 
     /**
      * Retrieves a read-only list of all user reviews associated with the game.
-     * 
+     *
      * @return An unmodifiable list of Review objects.
      */
     public List<Review> getReviews() {
@@ -201,7 +197,7 @@ public class Game {
 
     /**
      * Sets the unique database ID for the game.
-     * 
+     *
      * @param id The game ID string to be assigned.
      */
     public void setGameID(String id) {
@@ -210,7 +206,7 @@ public class Game {
 
     /**
      * Sets the text description for the game.
-     * 
+     *
      * @param desc The description paragraph to be assigned.
      */
     public void setDescription(String desc) {
@@ -219,7 +215,7 @@ public class Game {
 
     /**
      * Retrieves the web URL pointing to the game's cover art image.
-     * 
+     *
      * @return The image URL string.
      */
     public String getImageUrl() {
@@ -228,7 +224,7 @@ public class Game {
 
     /**
      * Sets the web URL pointing to the game's cover art image.
-     * 
+     *
      * @param url The image URL string to be assigned.
      */
     public void setImageUrl(String url) {
