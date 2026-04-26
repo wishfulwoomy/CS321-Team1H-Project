@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import main.java.org.example.model.Game;
 import main.java.org.example.model.Review;
 import main.java.org.example.model.Session;
@@ -168,21 +169,22 @@ public class GameView implements Initializable {
         card.setAlignment(Pos.CENTER_LEFT);
         card.getStyleClass().add("review-card");
         card.setStyle("-fx-cursor: hand;");
-        card.setMaxWidth(300);
+        card.setPadding(new Insets(10,10,10,10));
 
         // Enable caching for smoother scrolling performance
         card.setCache(true);
         card.setCacheHint(javafx.scene.CacheHint.SPEED);
 
         // Extract and format review data into Text nodes
-        String ratingString = String.valueOf(r.getRating());
-        Text ratingText = new Text(ratingString);
-        Text usernameText = new Text(r.getAuthor());
-        Text dateText = new Text(r.getDatePosted().toString());
+        int rating = r.getRating();
+        String ratingHeaderString = r.getRating() + "/5 - " +
+                r.getAuthor() + " - " +
+                r.getDatePosted().toString();
+        Label ratingHeader = new Label(ratingHeaderString);
         Text commentText = new Text(r.getComment());
 
         // Assemble the card components
-        card.getChildren().addAll(ratingText, usernameText, dateText, commentText);
+        card.getChildren().addAll(ratingHeader, commentText);
         return card;
     }
 
@@ -210,6 +212,12 @@ public class GameView implements Initializable {
      */
     @FXML
     private void leaveReview(ActionEvent event) {
+        // Verify user privileges before allowing them to leave a review
+        if (!Session.getInstance().isLoggedIn()) {
+            showGuestAlert("You must be logged in to leave reviews!");
+            return;
+        }
+
         Stage dialogStage = new Stage();
         // Tie the dialog to the current window
         dialogStage.initOwner(buttonLeaveReview.getScene().getWindow());
@@ -222,25 +230,32 @@ public class GameView implements Initializable {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new javafx.geometry.Insets(20));
 
-        // sets up label at top
+        // Set up label at top
         Label headerLabel = new Label("Choose a rating:");
         headerLabel.setWrapText(true);
         headerLabel.setFocusTraversable(true);
 
-        // sets up drop-down menu to pick a rating 1-5
-        List<String> listRatings = new ArrayList<>(Arrays.asList("1 star",
-                "2 stars", "3 stars", "4 stars", "5 stars"));
+        // Set up drop-down menu to pick a rating 1-5
+        List<Pair<Integer, String>> listRatings = new ArrayList<>();
+        listRatings.add(new Pair<>(1, "1 star"));
+        listRatings.add(new Pair<>(2, "2 stars"));
+        listRatings.add(new Pair<>(3, "3 stars"));
+        listRatings.add(new Pair<>(4, "4 stars"));
+        listRatings.add(new Pair<>(5, "5 stars"));
+
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(listRatings);
-        comboBox.setValue(listRatings.get(0));
+        for (int i=0; i<5; i++) {
+            comboBox.getItems().addAll(listRatings.get(i).getValue());
+        }
+        comboBox.setValue(listRatings.get(0).getValue());
         comboBox.setAccessibleText("Pick a rating from one to five");
 
-        // sets up comment field
+        // Set up comment field
         TextArea reviewCommentArea = new TextArea();
         reviewCommentArea.setPromptText("Leave a comment...");
         reviewCommentArea.setAccessibleText("Leave a comment");
 
-        // sets up HBox and fills with save/cancel buttons
+        // Set up HBox and fills with save/cancel buttons
         HBox buttonBox = new HBox(15);
         buttonBox.setAlignment(Pos.CENTER);
 
@@ -250,37 +265,46 @@ public class GameView implements Initializable {
         Button cancelButton = new Button("Cancel");
         cancelButton.setCancelButton(true);
 
-        // now to add functionality. save button will create new review and save to Game
+        // Now adding functionality. Save button will create new review and save to Game
 
-        /* UNFINISHED IMPLEMENTATION --------------------
         saveButton.setOnAction(e -> {
-            // grab rating and comment
-            String selection = comboBox.getValue();
-            if(selection.equals("1 star")) FINISH LATER
+            // Grab rating and comment from the user input
+            String selection = comboBox.getValue(); // User selection
+            int rating = 0;
+            for (Pair<Integer, String> p : listRatings) { // Compares selection with list of pairs
+                if (selection.equals(p.getValue())) { // If selection matches value of a pair,
+                    rating = (int) p.getKey(); // Sets rating as the key of the pair
+                    break;
+                }
+            }
+            String comment = reviewCommentArea.getText();
 
-            // set up other variables to create review with
+            // Set up other variables to create review with
             String gameTitle = Session.getInstance().getCurrentGame().getTitle();
             String gameID = Session.getInstance().getCurrentGame().getGameID();
             String author = Session.getInstance().getUser().getName();
             int authorID = Session.getInstance().getUser().getID();
 
-            // make the review and add it to game
+            // Make the review and add it to game
             Review newReview = new Review(gameTitle, gameID, author,
                     authorID, rating, comment);
             Session.getInstance().getCurrentGame().addReview(newReview);
-        });
-         */
 
-        // cancel button simply closes window
+            // Close dialog box and refresh reviews
+            dialogStage.close();
+            loadReviews(Session.getInstance().getCurrentGame().getReviews());
+        }); // End Save button logic
+
+        // Cancel button simply closes window
         cancelButton.setOnAction(e -> {
             dialogStage.close();
         });
 
-        // add the above elements to the actual layout
+        // Add the above elements to the actual layout
         buttonBox.getChildren().addAll(saveButton, cancelButton);
         layout.getChildren().addAll(headerLabel, comboBox, reviewCommentArea, buttonBox);
 
-        // show the dialog box
+        // Show the dialog box
         javafx.scene.Scene scene = new javafx.scene.Scene(layout, 350, 250);
         dialogStage.setScene(scene);
         Session.getInstance().applyGlobalSettings(scene);
@@ -406,5 +430,19 @@ public class GameView implements Initializable {
         javafx.application.Platform.runLater(comboBox::requestFocus);
 
         dialogStage.showAndWait();
+    }
+
+    /**
+     * Displays a warning alert to users operating in Guest Mode when they
+     * attempt to access restricted features.
+     *
+     * @param message The specific warning message to display in the alert.
+     */
+    private void showGuestAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Guest Mode");
+        alert.setHeaderText("Feature Unavailable");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
