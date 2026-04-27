@@ -22,15 +22,18 @@ public class GameParser {
     // Stores a static cache of the parsed games so the application doesn't have
     // to re-read the massive XML file every time it needs the master list.
     private static List<Game> fullGamesList;
+    private static List<Review> fullReviewsList;
 
     /**
      * Parses an XML file containing board game data into a List of Game objects.
      * 
      * @param inputStream The input stream of the XML database file.
+     * @param revInputStream The input stream for the Review database file.
      * @return A fully populated list of Game objects extracted from the XML.
      */
     public static List<Game> parseGames(InputStream inputStream, InputStream revInputStream) {
         List<Game> gamesList = new ArrayList<>();
+        List<Review> reviewsList = new ArrayList<>();
 
         try {
             // Set up the DOM parser factory and builder
@@ -169,6 +172,7 @@ public class GameParser {
 
                     // Create review and add to the right game
                     Review review = new Review(gameTitle, gameID, author, authorID, rating, comment);
+                    reviewsList.add(review);
                     for (Game g : gamesList) {
                         if (g.getGameID() == review.getGameID()) {
                             g.addReview(review);
@@ -184,6 +188,7 @@ public class GameParser {
 
         // Cache the parsed list in memory for instant retrieval later
         fullGamesList = gamesList;
+        fullReviewsList = reviewsList;
         return gamesList;
     }
 
@@ -196,5 +201,15 @@ public class GameParser {
      */
     public static List<Game> getGamesList() {
         return fullGamesList;
+    }
+
+    /**
+     * Retrieves the statically cached list of all reviews.
+     * Session uses this to save reviews to the XML file so that
+     * reviews that were already made are not lost upon closing program.
+     * @return The list of all Review objects.
+     */
+    public static List<Review> getReviewsList() {
+        return fullReviewsList;
     }
 }

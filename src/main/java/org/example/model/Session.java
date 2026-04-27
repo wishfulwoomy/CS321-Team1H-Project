@@ -257,7 +257,7 @@ public class Session {
 
                 for (Game g : w.getGames()) {
                     Element gameElement = doc.createElement("Game");
-                    gameElement.setAttribute("title", g.getTitle()); 
+                    gameElement.setAttribute("title", g.getTitle());
                     listElement.appendChild(gameElement);
                 }
             }
@@ -272,47 +272,52 @@ public class Session {
             System.out.println("Wishlists successfully saved to XML!");
 
             // Saving Reviews to XML file
-            Document reviewDoc = docBuilder.newDocument(); // New document in memory
+            if (!currentReviews.isEmpty() && GameParser.getReviewsList() != null) { // If we actually have reviews to save,
 
-            Element reviewRootElement = reviewDoc.createElement("ReviewData");
-            reviewDoc.appendChild(reviewRootElement);
+                GameParser.getReviewsList().addAll(currentReviews);
 
-            for (Review r : currentReviews) {
-                Element revElement = reviewDoc.createElement("Review");
-                reviewRootElement.appendChild(revElement);
-                // Set up review info
-                Element gameTitle = reviewDoc.createElement("Game");
-                gameTitle.appendChild(reviewDoc.createTextNode(r.getGameTitle()));
-                Element gameID = reviewDoc.createElement("GameID");
-                gameID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getGameID())));
-                Element author = reviewDoc.createElement("Author");
-                author.appendChild(reviewDoc.createTextNode(r.getAuthor()));
-                Element authorID = reviewDoc.createElement("AuthorID");
-                authorID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getAuthorID())));
-                Element rating = reviewDoc.createElement("Rating");
-                rating.appendChild(reviewDoc.createTextNode(Integer.toString(r.getRating())));
-                Element comment = reviewDoc.createElement("Comment");
-                comment.appendChild(reviewDoc.createTextNode(r.getComment()));
-                // Append review info to the review element
-                revElement.appendChild(gameTitle);
-                revElement.appendChild(gameID);
-                revElement.appendChild(author);
-                revElement.appendChild(authorID);
-                revElement.appendChild(rating);
-                revElement.appendChild(comment);
+                Document reviewDoc = docBuilder.newDocument(); // New document in memory
+
+                Element reviewRootElement = reviewDoc.createElement("ReviewData");
+                reviewDoc.appendChild(reviewRootElement);
+
+                for (Review r : GameParser.getReviewsList()) {
+                    Element revElement = reviewDoc.createElement("Review");
+                    reviewRootElement.appendChild(revElement);
+                    // Set up review info
+                    Element gameTitle = reviewDoc.createElement("Game");
+                    gameTitle.appendChild(reviewDoc.createTextNode(r.getGameTitle()));
+                    Element gameID = reviewDoc.createElement("GameID");
+                    gameID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getGameID())));
+                    Element author = reviewDoc.createElement("Author");
+                    author.appendChild(reviewDoc.createTextNode(r.getAuthor()));
+                    Element authorID = reviewDoc.createElement("AuthorID");
+                    authorID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getAuthorID())));
+                    Element rating = reviewDoc.createElement("Rating");
+                    rating.appendChild(reviewDoc.createTextNode(Integer.toString(r.getRating())));
+                    Element comment = reviewDoc.createElement("Comment");
+                    comment.appendChild(reviewDoc.createTextNode(r.getComment()));
+                    // Append review info to the review element
+                    revElement.appendChild(gameTitle);
+                    revElement.appendChild(gameID);
+                    revElement.appendChild(author);
+                    revElement.appendChild(authorID);
+                    revElement.appendChild(rating);
+                    revElement.appendChild(comment);
+                }
+
+                // Writing reviews to review XML
+                DOMSource reviewSource = new DOMSource(reviewDoc);
+                StreamResult reviewResult = new StreamResult(new File(REVIEWS_FILE_PATH));
+
+                transformer.transform(reviewSource, reviewResult);
+                System.out.println("Reviews successfully saved to XML!");
             }
-
-            // Writing reviews to review XML
-            DOMSource reviewSource = new DOMSource(reviewDoc);
-            StreamResult reviewResult = new StreamResult(new File(REVIEWS_FILE_PATH));
-
-            transformer.transform(reviewSource, reviewResult);
-            System.out.println("Reviews successfully saved to XML!");
-
         } catch (Exception e) {
             System.out.println("Error saving XML: " + e.getMessage());
         }
     }
+
 
     /**
      * Loads the saved user data from the .xml file
