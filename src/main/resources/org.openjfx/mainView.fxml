@@ -52,25 +52,54 @@
                   </HBox>
                   <HBox fx:id="filterBar" prefHeight="20.0" visible="false">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label text="Number of Players" />
+                              <Label text="Number of Players">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin></Label>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Slider blockIncrement="1.0" majorTickUnit="4.0" max="16.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                                    <Label text="Min" />
-                                    <Button mnemonicParsing="false" text="Reset" />
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="Min" />
+                                    <Slider fx:id="sliderMinPlayers" blockIncrement="1.0" majorTickUnit="4.0" max="16.0" minorTickCount="1" onMouseReleased="#filterGames" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                                  </children>
                               </HBox>
                               <HBox layoutX="10.0" layoutY="27.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Slider blockIncrement="1.0" majorTickUnit="4.0" max="16.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="16.0" />
-                                    <Label text="Max" />
-                                    <Button mnemonicParsing="false" text="Reset" />
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="Max" />
+                                    <Slider fx:id="sliderMaxPlayers" blockIncrement="1.0" majorTickUnit="4.0" max="16.0" minorTickCount="1" onMouseReleased="#filterGames" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="16.0" />
                                  </children>
                               </HBox>
                            </children>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
                         </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Amount of Playtime" />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="Min" />
+                                    <Slider fx:id="sliderMinPlaytime" blockIncrement="15.0" majorTickUnit="45.0" max="480.0" min="15.0" minorTickCount="15" onMouseReleased="#filterGames" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="27.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="Max" />
+                                    <Slider fx:id="sliderMaxPlaytime" blockIncrement="15.0" majorTickUnit="45.0" max="480.0" min="15.0" minorTickCount="15" onMouseReleased="#filterGames" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="480.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <Button fx:id="resetAll" mnemonicParsing="false" onAction="#resetFilters" text="Reset All">
+                           <HBox.margin>
+                              <Insets right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
                </children>

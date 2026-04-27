@@ -22,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -42,16 +43,29 @@ import main.java.org.example.model.Wishlist;
  * and user interactions with individual game cards such as favoriting.
  */
 public class MainView implements Initializable {
+    // UI container objects
+    @FXML
+    private javafx.scene.layout.GridPane gameGrid;
+    @FXML
+    private javafx.scene.control.ScrollPane mainScrollPane;
+
+    // UI controls
+    @FXML
+    private TextField searchBar;
     @FXML
     private ToggleButton toggleFilters;
     @FXML
     private HBox filterBar;
     @FXML
-    private TextField searchBar;
+    private Slider sliderMinPlayers;
     @FXML
-    private javafx.scene.layout.GridPane gameGrid;
+    private Slider sliderMaxPlayers;
     @FXML
-    private javafx.scene.control.ScrollPane mainScrollPane;
+    private Slider sliderMinPlaytime;
+    @FXML
+    private Slider sliderMaxPlaytime;
+    @FXML
+    private Button resetAll;
 
     // Stores downloaded images and prevents lag during searches
     private Map<String, Image> imageCache = new HashMap<>();
@@ -99,6 +113,39 @@ public class MainView implements Initializable {
         else { // if we've already parsed the games, just load existing list
             loadGamesIntoGrid(GameParser.getGamesList());
         }
+        // Initialize filter values
+        GameSearch.setMinPlayers(0);
+        GameSearch.setMaxPlayers(16);
+        GameSearch.setMinPlaytime(15);
+        GameSearch.setMaxPlaytime(480);
+        // Set up filter action listeners
+        sliderMinPlayers.valueProperty().addListener((observable, oldValue, newValue) -> {
+            GameSearch.setMinPlayers(newValue.intValue());
+            if (GameSearch.getMaxPlayers() < newValue.intValue()) { // If max is less than the new min,
+                sliderMaxPlayers.setValue((Double) newValue); // Adjust max so range still exists
+            }
+        });
+
+        sliderMaxPlayers.valueProperty().addListener((observable, oldValue, newValue) -> {
+            GameSearch.setMaxPlayers(newValue.intValue());
+            if (GameSearch.getMinPlayers() > newValue.intValue()) { // If max is less than the new min,
+                sliderMinPlayers.setValue((Double) newValue);
+            }
+        });
+
+        sliderMinPlaytime.valueProperty().addListener((observable, oldValue, newValue) -> {
+            GameSearch.setMinPlaytime(newValue.intValue());
+            if (GameSearch.getMaxPlaytime() < newValue.intValue()) { // If max is less than the new min,
+                sliderMaxPlaytime.setValue((Double) newValue); // Adjust max so range still exists
+            }
+        });
+
+        sliderMaxPlaytime.valueProperty().addListener((observable, oldValue, newValue) -> {
+            GameSearch.setMaxPlaytime(newValue.intValue());
+            if (GameSearch.getMinPlaytime() > newValue.intValue()) { // If max is less than the new min,
+                sliderMinPlaytime.setValue((Double) newValue);
+            }
+        });
     }
 
     /**
@@ -303,6 +350,25 @@ public class MainView implements Initializable {
     }
 
     /**
+     * Resets the state of all filters back to their default values.
+     * @param event The action event triggered by clicking the button to clear filters.
+     */
+    @FXML
+    private void resetFilters(ActionEvent event) {
+        // Resets slider positions
+        sliderMinPlayers.setValue(0);
+        sliderMaxPlayers.setValue(16);
+        sliderMinPlaytime.setValue(15);
+        sliderMaxPlaytime.setValue(480);
+        // Sets actual values
+        GameSearch.setMinPlayers(0);
+        GameSearch.setMaxPlayers(16);
+        GameSearch.setMinPlaytime(15);
+        GameSearch.setMaxPlaytime(480);
+        searchGames(); // Refreshes search view
+    }
+
+    /**
      * Navigates the user back to the main game grid view by reloading the FXML.
      *
      * @param event The action event triggered by clicking the Games menu bar button.
@@ -408,12 +474,28 @@ public class MainView implements Initializable {
     }
 
     /**
-     * Filters the displayed games based on the text entered in the search bar.
-     * Triggers automatically as the user types.
-     * * @param event The key event triggered by typing in the search bar.
+     * Calls searchGames automatically as the user types.
+     * @param event The key event triggered by typing in the search bar.
      */
     @FXML
     private void searchGames(KeyEvent event) {
+        searchGames();
+    }
+
+    /**
+     * Calls searchGames automatically when the user finishes moving a filter slider.
+     * @param event The mouse event triggered by releasing a slider control.
+     */
+    @FXML
+    private void filterGames(MouseEvent event) {
+        searchGames();
+    }
+
+    /**
+     * Filters the displayed games based on the current search bar text
+     * and any other applied filters.
+     */
+    private void searchGames() {
         // Pass the master list to the search utility
         GameSearch.searchGames((ArrayList<Game>) GameParser.getGamesList(), searchBar.getText());
 
