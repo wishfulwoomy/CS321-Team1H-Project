@@ -281,7 +281,7 @@ public class GameView implements Initializable {
 
             // Set up other variables to create review with
             String gameTitle = Session.getInstance().getCurrentGame().getTitle();
-            String gameID = Session.getInstance().getCurrentGame().getGameID();
+            int gameID = Session.getInstance().getCurrentGame().getGameID();
             String author = Session.getInstance().getUser().getName();
             int authorID = Session.getInstance().getUser().getID();
 

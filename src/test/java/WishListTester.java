@@ -10,7 +10,7 @@ public class WishListTester
     {
         Wishlist wishList = new Wishlist("My Wish List");
         // Test case 1: Add a game to the wish list
-        Game game1 = new Game("Catan", 3, 4, 90);
+        Game game1 = new Game("Catan", 1000, 3, 4, 90);
         wishList.add(game1);
         if (wishList.getGames().contains(game1))
         {

@@ -12,7 +12,7 @@ import java.util.List;
 public class Game {
     // Core Game Data
     private String imageURL;
-    private String gameID;
+    private int gameID;
     private String title;
     private String description;
 
@@ -31,13 +31,15 @@ public class Game {
      * review list.
      *
      * @param t    The title of the game.
+     * @param id   The game's numerical ID.
      * @param min  The minimum number of players required.
      * @param max  The maximum number of players allowed.
      * @param time The estimated playtime in minutes.
      */
-    public Game(String t, int min, int max, int time) {
+    public Game(String t, int id, int min, int max, int time) {
         // Set basic mechanical stats
         this.title = t;
+        this.gameID = id;
         this.minPlayers = min;
         this.maxPlayers = max;
         this.playTimeMinutes = time;
@@ -58,7 +60,7 @@ public class Game {
     public Game(String t) {
         // Hands the title off to the main constructor while passing 0 for the missing
         // stats
-        this(t, 0, 0, 0);
+        this(t, 0, 0, 0, 0);
     }
 
     /**
@@ -123,9 +125,9 @@ public class Game {
     /**
      * Retrieves the database ID of the game.
      *
-     * @return The unique game ID string.
+     * @return The unique numerical game ID.
      */
-    public String getGameID() {
+    public int getGameID() {
         return this.gameID;
     }
 
@@ -198,9 +200,9 @@ public class Game {
     /**
      * Sets the unique database ID for the game.
      *
-     * @param id The game ID string to be assigned.
+     * @param id The numerical game ID to be assigned.
      */
-    public void setGameID(String id) {
+    public void setGameID(int id) {
         this.gameID = id;
     }
 

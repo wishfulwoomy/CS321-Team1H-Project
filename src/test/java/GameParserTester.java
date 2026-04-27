@@ -37,6 +37,7 @@ public class GameParserTester
             for (Game game : parsedGames) 
             {
                 System.out.println("Title: " + game.getTitle());
+                System.out.println("Game ID: " + game.getGameID());
                 System.out.println("Min Players: " + game.getMinPlayers());
                 System.out.println("Max Players: " + game.getMaxPlayers());
                 System.out.println("Play Time: " + game.getPlayTimeMinutes() + " mins");

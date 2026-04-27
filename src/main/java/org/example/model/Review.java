@@ -11,7 +11,7 @@ public class Review {
     // Database Identifiers
     private String reviewID;
     private String game;
-    private String gameID;
+    private int gameID;
     private int authorID;
 
     // Review Content
@@ -32,7 +32,7 @@ public class Review {
      * @param rate     The numerical rating given to the game (e.g., 1-5).
      * @param com      The written comment or feedback provided by the user.
      */
-    public Review(String game, String gameID, String author, int authorID, int rate, String com) {
+    public Review(String game, int gameID, String author, int authorID, int rate, String com) {
         // Link the review to the correct game and user
         this.game = game;
         this.gameID = gameID;
@@ -114,7 +114,7 @@ public class Review {
      *
      * @return The game ID string.
      */
-    public String getGameID() {
+    public int getGameID() {
         return this.gameID;
     }
 

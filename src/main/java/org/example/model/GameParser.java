@@ -58,7 +58,7 @@ public class GameParser {
                     // EXTRACT GAME DATA
 
                     // Extract the primary game ID (stored as an attribute on the <item> tag itself)
-                    String gameId = element.getAttribute("id");
+                    int gameID = Integer.parseInt(element.getAttribute("id"));
 
                     // Extract the Title
                     String title = "Unknown Title";
@@ -130,12 +130,12 @@ public class GameParser {
                     // CONSTRUCT THE GAME OBJECT
 
                     // Create the base game using the required constructor arguments
-                    Game game = new Game(title, minPlayers, maxPlayers, playTime);
+                    Game game = new Game(title, gameID, minPlayers, maxPlayers, playTime);
 
                     // Inject the supplemental data using setters
                     game.setImageUrl(imageURL);
                     game.setDescription(description);
-                    game.setGameID(gameId);
+                    game.setGameID(gameID);
 
                     // Add the fully constructed game to our running list
                     gamesList.add(game);

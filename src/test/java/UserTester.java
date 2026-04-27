@@ -27,9 +27,9 @@ public class UserTester {
         System.out.println("Password: " + user1.getPassword());
 
 
-        Game game1 = new Game("Monopoly", 2, 8, 80);
-        Game game2 = new Game("Uno", 2, 10, 120);
-        Game game3 = new Game("Battleship", 2, 2, 60);
+        Game game1 = new Game("Monopoly", 1000, 2, 8, 80);
+        Game game2 = new Game("Uno", 1001, 2, 10, 120);
+        Game game3 = new Game("Battleship", 1002, 2, 2, 60);
         Wishlist wlist1 = user1.createWishlist("Games with Friends");
         wlist1.add(game1);
         wlist1.add(game2);
@@ -43,8 +43,8 @@ public class UserTester {
             System.out.println("Error! Wishlist not added");
         }
 
-        Game game4 = new Game("Checkers", 2, 2, 80);
-        Game game5 = new Game("Chess", 2, 2, 120);
+        Game game4 = new Game("Checkers", 1003, 2, 2, 80);
+        Game game5 = new Game("Chess", 1004, 2, 2, 120);
         Wishlist wlist2 = user1.createWishlist("Strategy Games");
         wlist2.add(game4);
         wlist2.add(game5);

@@ -25,8 +25,10 @@ public class Session {
     private int textSize;
     private boolean loggedIn;
     private ArrayList<Wishlist> currentWishlists;
+    private ArrayList<Review> currentReviews;
     private Game currentGame;
     private final String FILE_PATH = "src/main/resources/userWishlists.xml";
+    private final String REVIEWS_FILE_PATH = "src/main/resources/gameReviews.xml";
 
     /**
      * Class constructor that initializes default settings and a logged-out state
@@ -40,6 +42,7 @@ public class Session {
         // Guests start with a clean slate
         currentWishlists = new ArrayList<>();
         currentWishlists.add(new Wishlist("Favorites"));
+        currentReviews = new ArrayList<>();
 
         // Only save on shutdown if an actual user is logged in
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -144,6 +147,7 @@ public class Session {
         // Reset back to the clean slate for the next person/guest
         currentWishlists = new ArrayList<>();
         currentWishlists.add(new Wishlist("Favorites"));
+        currentReviews = new ArrayList<>();
     }
 
     /**
@@ -227,9 +231,12 @@ public class Session {
      */
     private void saveToXML() {
         try {
+            // Create DocumentBuilder for both Wishlists and Reviews
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
+
+            // Saving Wishlists to XML file
+            Document doc = docBuilder.newDocument(); // New document in memory
 
             Element rootElement = doc.createElement("UserData");
             doc.appendChild(rootElement);
@@ -255,6 +262,17 @@ public class Session {
 
             transformer.transform(source, result);
             System.out.println("Wishlists successfully saved to XML!");
+
+            // Saving Reviews to XML file
+            Document reviewDoc = docBuilder.newDocument(); // New document in memory
+
+            Element reviewRootElement = doc.createElement("ReviewData");
+            doc.appendChild(reviewRootElement);
+
+            for (Review r : currentReviews) {
+
+            }
+
 
         } catch (Exception e) {
             System.out.println("Error saving XML: " + e.getMessage());

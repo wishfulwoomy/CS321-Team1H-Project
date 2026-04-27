@@ -10,9 +10,9 @@ public class GameSearchTester
     public static void main(String[] args)
     {
         ArrayList<Game> games = new ArrayList<>();
-        games.add(new Game("Catan", 3, 4, 90));
-        games.add(new Game("Pandemic", 2, 4, 60));
-        games.add(new Game("Ticket to Ride", 2, 5, 45));
+        games.add(new Game("Catan", 1000, 3, 4, 90));
+        games.add(new Game("Pandemic", 1001, 2, 4, 60));
+        games.add(new Game("Ticket to Ride", 1002, 2, 5, 45));
         GameSearch gameSearch = new GameSearch();
         // Test case 1: Search for an existing game
         List<Game> foundGame1 = gameSearch.searchGames(games,"Catan");

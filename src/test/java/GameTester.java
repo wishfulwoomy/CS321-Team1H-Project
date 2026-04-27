@@ -7,11 +7,11 @@ public class GameTester
 {
     public static void main(String[] args)
     {
-        Game game1 = new Game("Catan", 3, 4, 90);
-        Review review1 = new Review("Catan", "1", "user1", 123, 5, "Great game!");
-        Review review2 = new Review("Catan", "1", "user2", 456, 4, "Fun but can be long.");
+        Game game1 = new Game("Catan", 1000, 3, 4, 90);
+        Review review1 = new Review("Catan", 1000, "user1", 123, 5, "Great game!");
+        Review review2 = new Review("Catan", 1000, "user2", 456, 4, "Fun but can be long.");
 
-        game1.setGameID("game123");
+        game1.setGameID(1000);
         game1.setDescription("A popular board game where players collect resources and build settlements.");
 
         game1.addReview(review1);
