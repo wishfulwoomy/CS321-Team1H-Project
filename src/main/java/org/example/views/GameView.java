@@ -285,10 +285,11 @@ public class GameView implements Initializable {
             String author = Session.getInstance().getUser().getName();
             int authorID = Session.getInstance().getUser().getID();
 
-            // Make the review and add it to game
+            // Make the review and add it to current game and Session cache
             Review newReview = new Review(gameTitle, gameID, author,
                     authorID, rating, comment);
             Session.getInstance().getCurrentGame().addReview(newReview);
+            Session.getInstance().getReviews().add(newReview);
 
             // Close dialog box and refresh reviews
             dialogStage.close();

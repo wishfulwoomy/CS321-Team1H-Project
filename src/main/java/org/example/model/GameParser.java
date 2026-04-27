@@ -29,7 +29,7 @@ public class GameParser {
      * @param inputStream The input stream of the XML database file.
      * @return A fully populated list of Game objects extracted from the XML.
      */
-    public static List<Game> parseGames(InputStream inputStream) {
+    public static List<Game> parseGames(InputStream inputStream, InputStream revInputStream) {
         List<Game> gamesList = new ArrayList<>();
 
         try {
@@ -140,7 +140,43 @@ public class GameParser {
                     // Add the fully constructed game to our running list
                     gamesList.add(game);
                 }
-            }
+            } // End for loop
+
+            // Loading reviews from XML file. First load into Document object
+            Document revDoc = builder.parse(revInputStream);
+
+            // Normalize the XML structure to prevent weird text-node formatting issues
+            revDoc.getDocumentElement().normalize();
+
+            // Grab every individual review entry
+            NodeList revNodeList = revDoc.getElementsByTagName("Review");
+
+            // Loop through every review in the XML file
+            for (int i = 0; i < revNodeList.getLength(); i++) {
+                Node node = revNodeList.item(i);
+
+                // Ensure the node is actually an element containing data, not just whitespace
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    // Extract the review information
+                    String gameTitle = element.getElementsByTagName("Game").item(0).getTextContent();
+                    int gameID = Integer.parseInt(element.getElementsByTagName("GameID").item(0).getTextContent());
+                    String author = element.getElementsByTagName("Author").item(0).getTextContent();
+                    int authorID = Integer.parseInt(element.getElementsByTagName("AuthorID").item(0).getTextContent());
+                    int rating = Integer.parseInt(element.getElementsByTagName("Rating").item(0).getTextContent());
+                    String comment = element.getElementsByTagName("Comment").item(0).getTextContent();
+
+                    // Create review and add to the right game
+                    Review review = new Review(gameTitle, gameID, author, authorID, rating, comment);
+                    for (Game g : gamesList) {
+                        if (g.getGameID() == review.getGameID()) {
+                            g.addReview(review);
+                            break;
+                        }
+                    } // End for loop to add review to game
+                }
+            } // End for loop to parse reviews
         } catch (Exception e) {
             System.err.println("Error parsing the XML file: " + e.getMessage());
             e.printStackTrace();

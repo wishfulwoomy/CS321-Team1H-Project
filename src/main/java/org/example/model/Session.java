@@ -171,6 +171,14 @@ public class Session {
     }
 
     /**
+     * Returns the current list of reviews added this session
+     * @return the current list of reviews
+     */
+    public ArrayList<Review> getReviews() {
+        return currentReviews;
+    }
+
+    /**
      * Find the wishlist with the chosen name and return it
      * @param name The name of the desired wishlist
      * @return The wishlist that matches the given name
@@ -266,13 +274,40 @@ public class Session {
             // Saving Reviews to XML file
             Document reviewDoc = docBuilder.newDocument(); // New document in memory
 
-            Element reviewRootElement = doc.createElement("ReviewData");
-            doc.appendChild(reviewRootElement);
+            Element reviewRootElement = reviewDoc.createElement("ReviewData");
+            reviewDoc.appendChild(reviewRootElement);
 
             for (Review r : currentReviews) {
-
+                Element revElement = reviewDoc.createElement("Review");
+                reviewRootElement.appendChild(revElement);
+                // Set up review info
+                Element gameTitle = reviewDoc.createElement("Game");
+                gameTitle.appendChild(reviewDoc.createTextNode(r.getGameTitle()));
+                Element gameID = reviewDoc.createElement("GameID");
+                gameID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getGameID())));
+                Element author = reviewDoc.createElement("Author");
+                author.appendChild(reviewDoc.createTextNode(r.getAuthor()));
+                Element authorID = reviewDoc.createElement("AuthorID");
+                authorID.appendChild(reviewDoc.createTextNode(Integer.toString(r.getAuthorID())));
+                Element rating = reviewDoc.createElement("Rating");
+                rating.appendChild(reviewDoc.createTextNode(Integer.toString(r.getRating())));
+                Element comment = reviewDoc.createElement("Comment");
+                comment.appendChild(reviewDoc.createTextNode(r.getComment()));
+                // Append review info to the review element
+                revElement.appendChild(gameTitle);
+                revElement.appendChild(gameID);
+                revElement.appendChild(author);
+                revElement.appendChild(authorID);
+                revElement.appendChild(rating);
+                revElement.appendChild(comment);
             }
 
+            // Writing reviews to review XML
+            DOMSource reviewSource = new DOMSource(reviewDoc);
+            StreamResult reviewResult = new StreamResult(new File(REVIEWS_FILE_PATH));
+
+            transformer.transform(reviewSource, reviewResult);
+            System.out.println("Reviews successfully saved to XML!");
 
         } catch (Exception e) {
             System.out.println("Error saving XML: " + e.getMessage());

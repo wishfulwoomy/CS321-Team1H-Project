@@ -110,6 +110,16 @@ public class Review {
     }
 
     /**
+     * Retrieves the title of the game that the review belongs to.
+     *
+     * @return The game title string.
+     */
+    public String getGameTitle()
+    {
+        return this.game;
+    }
+
+    /**
      * Retrieves the unique database ID of the game this review belongs to.
      *
      * @return The game ID string.

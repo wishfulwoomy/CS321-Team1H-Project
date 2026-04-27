@@ -68,15 +68,17 @@ public class MainView implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // if we haven't parsed the games already, load from xml file
+        // If we haven't parsed the games already, load from XML files
         if (GameParser.getGamesList() == null) {
             // Point to the local XML database
-            String dbPath = "src/main/resources/bgg90Games.xml";
+            String dbPath = "src/main/resources/bgg90Games.xml"; // Path to Game database
+            String revPath = "src/main/resources/gameReviews.xml"; // Path to Review database
 
             try {
-                // Open the file and hand it to the parser
+                // Open the files and hand them to the parser
                 InputStream inputStream = new FileInputStream(dbPath);
-                List<Game> parsedGames = GameParser.parseGames(inputStream);
+                InputStream revInputStream = new FileInputStream(revPath);
+                List<Game> parsedGames = GameParser.parseGames(inputStream, revInputStream);
 
                 // Verify the parser actually found data
                 if (parsedGames.isEmpty()) {
@@ -88,6 +90,7 @@ public class MainView implements Initializable {
                 }
 
                 inputStream.close();
+                revInputStream.close();
 
             } catch (Exception e) {
                 System.out.println("Error loading game database: " + e.getMessage());

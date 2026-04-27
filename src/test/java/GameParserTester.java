@@ -11,9 +11,12 @@ public class GameParserTester
     public static void main(String[] args) 
     {
         // 1. Point to the new XML file with 90 games
-        String xmlFilePath = "/bgg90Games.xml"; 
+        String xmlFilePath = "/bgg90Games.xml";
+        String revFilePath = "src/main/resources/gameReviews.xml";
         
         InputStream inputStream = GameParserTester.class.getResourceAsStream(xmlFilePath);
+        InputStream revInputStream = GameParserTester.class.getResourceAsStream(revFilePath);
+
 
         if (inputStream == null) 
         {
@@ -24,7 +27,7 @@ public class GameParserTester
 
         System.out.println("Loading and parsing " + xmlFilePath + "...\n");
 
-        List<Game> parsedGames = GameParser.parseGames(inputStream);
+        List<Game> parsedGames = GameParser.parseGames(inputStream, revInputStream);
 
         if (parsedGames.isEmpty()) 
         {
