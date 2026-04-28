@@ -50,7 +50,7 @@ public class GameSearch {
      * @param q A String search query
      * @return A boolean true/false. True if the game matches the query, false otherwise.
      */
-    public static boolean matchQuery(Game g, String q) {
+    private static boolean matchQuery(Game g, String q) {
         // clean up input. game title and query are now lowercase strings
         String game = g.getTitle().toLowerCase();
         String query = q.toLowerCase();
@@ -63,7 +63,7 @@ public class GameSearch {
      * @param game The game to check against the range.
      * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
-    public static boolean matchPlayers(Game game) {
+    private static boolean matchPlayers(Game game) {
         if (minPlayers <= game.getMaxPlayers()) {
             return (maxPlayers >= game.getMinPlayers());
         }
@@ -76,7 +76,7 @@ public class GameSearch {
      * @param game The game to check against the range.
      * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
-    public static boolean matchPlaytime(Game game) {
+    private static boolean matchPlaytime(Game game) {
         if (game.getPlayTimeMinutes() >= minPlaytime) {
             return (game.getPlayTimeMinutes() <= maxPlaytime);
         }
@@ -91,7 +91,7 @@ public class GameSearch {
      * @param max The maximum desired rating.
      * @return A boolean true/false. True if the game falls within the range, false otherwise.
      */
-    public boolean matchRating(Game game, float min, float max) {
+    private boolean matchRating(Game game, float min, float max) {
         if (game.getAvgRating() >= min) {
             return (game.getAvgRating() <= max);
         }
